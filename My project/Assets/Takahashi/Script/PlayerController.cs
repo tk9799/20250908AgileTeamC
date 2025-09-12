@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool isRightTrigger = false;//攻撃判定
     private bool isNomalAttack = false;
     private bool isGround = false;
+    private bool isDush = false;//ダッシュ判定
     private float groundCheckOffsetY = 0.2f;
     private float groundCheckRadius = 0.2f;
     private float groundCheckDistance = 0.2f;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        isDush = false;
     }
 
     // Update is called once per frame
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             // 右トリガーの値（0.0～1.0）
             float rt = Gamepad.current.rightTrigger.ReadValue();
+            float lt = Gamepad.current.leftTrigger.ReadValue();
 
             //右トリガーの入力をして離した時//処理の重複を防ぐためisNomalAttackがtrueの時
             if (Gamepad.current.rightTrigger.wasReleasedThisFrame&&isNomalAttack)
@@ -88,6 +90,17 @@ public class PlayerController : MonoBehaviour
                 isNomalAttack = true;
             }
 
+            if (lt > 0.5f&&!isDush)
+            {
+                speed = speed + 3;
+                newPos= playerTransform.position + move;
+                isDush = true;
+            }
+            else
+            {
+                isDush = false;
+            }
+
             if (Input.GetKeyDown(KeyCode.JoystickButton1))
             {
                 Debug.Log("jump");
@@ -100,7 +113,7 @@ public class PlayerController : MonoBehaviour
             // 接地判定
             //isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
         }
-        
+        Debug.Log(speed);
     }
 
     private bool isGrounded()
