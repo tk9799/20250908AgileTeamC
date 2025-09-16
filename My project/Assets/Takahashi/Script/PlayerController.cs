@@ -5,14 +5,19 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
+    [SerializeField] private float defaultSpeed = 10f;
+    [SerializeField] private float maxSpeed = 13f;//ダッシュ時のスピード
     [SerializeField] private float jump = 10f;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody playerRigidbody;
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private LayerMask groundLayer;
+    //プレイヤーから見た相対的な位置（距離・角度）を表す
+    [SerializeField] private Vector3 cameraOffset = new Vector3(0, 2, -4);
+    //[SerializeField] private Vector3 cameraPosition;
     public bool onGround = true;
     public Transform groundCheck;   // 足元の判定位置
-    Vector2 input=Vector2.zero;
     private Gamepad gamepad;
     private bool isRightTrigger = false;//攻撃判定
     private bool isNomalAttack = false;
@@ -23,6 +28,11 @@ public class PlayerController : MonoBehaviour
     private float groundCheckDistance = 0.2f;
     public float groundDistance = 0.2f;
     public float rayLength = 0.2f;
+    [SerializeField] float mouseSensitivity = 1.0f;
+    [SerializeField] private float rotationSpeed = 100f;
+    private float yaw,pitch;
+    [SerializeField] private InputActionReference _lookActionRef;
+    [SerializeField] private InputActionReference _moveActionRef;
 
 
     public void Domove(InputAction.CallbackContext context)
@@ -33,6 +43,23 @@ public class PlayerController : MonoBehaviour
         //Moveアクションの入力取得
         var inputMove = context.ReadValue<Vector2>();
         var look= context.ReadValue<Quaternion>();
+    }
+
+    private void OnEnable()
+    {
+        // InputActionを有効化
+        // これをしないと入力を受け取れないことに注意
+        _lookActionRef.action?.Enable();
+        _moveActionRef.action?.Enable();
+    }
+
+    // 無効化
+    private void OnDisable()
+    {
+        // 自身が無効化されるタイミングなどで
+        // Actionを無効化する必要がある
+        _lookActionRef.action.Disable();
+        _moveActionRef.action.Disable();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -49,11 +76,11 @@ public class PlayerController : MonoBehaviour
         if (gamepad == null) return;
 
         //入力取得（WASDや矢印キー）
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        Vector3 move = new Vector3(moveX, 0, moveY).normalized * speed * Time.deltaTime;
-        Vector3 newPos = playerTransform.position + move;
-        playerTransform.position = newPos;
+        //float moveX = Input.GetAxisRaw("Horizontal");
+        //float moveY = Input.GetAxisRaw("Vertical");
+        //Vector3 move = new Vector3(moveX, 0, moveY).normalized * speed * Time.deltaTime;
+        //Vector3 newPos = playerTransform.position + move;
+        //playerTransform.position = newPos;
 
         //if (Input.GetKeyDown(KeyCode.JoystickButton5))
         //{
@@ -69,19 +96,19 @@ public class PlayerController : MonoBehaviour
             //右トリガーの入力をして離した時//処理の重複を防ぐためisNomalAttackがtrueの時
             if (Gamepad.current.rightTrigger.wasReleasedThisFrame&&isNomalAttack)
             {
-                normalAttack();
+                normalAttack();//通常攻撃
                 Debug.Log("RT 押された: " + rt);
                 isRightTrigger = true;
             }
             //RTとRBの同時入力
             else if (Input.GetKeyUp(KeyCode.JoystickButton5) && rt > 0.5f)
             {
-                WeakSkill();
+                WeakSkill();//弱スキル
                 isNomalAttack = false;
             }
             else if (Input.GetKeyUp(KeyCode.JoystickButton4) && rt > 0.5f)
             {
-                StrongSkill();
+                StrongSkill();//強スキル
                 isNomalAttack = false;
             }
             if (rt == 0)
@@ -90,14 +117,21 @@ public class PlayerController : MonoBehaviour
                 isNomalAttack = true;
             }
 
-            if (lt > 0.5f&&!isDush)
+            if (lt > 0.5f&&!isDush)//ダッシュ
             {
-                speed = speed + 3;
-                newPos= playerTransform.position + move;
+                speed = maxSpeed;
+                //playerTransform.position = newPos;
+                if (speed > maxSpeed)
+                {
+                    speed = maxSpeed;
+                }
                 isDush = true;
+                Debug.Log(maxSpeed);
             }
             else
             {
+                speed = defaultSpeed;
+                //playerTransform.position = newPos;
                 isDush = false;
             }
 
@@ -113,7 +147,38 @@ public class PlayerController : MonoBehaviour
             // 接地判定
             //isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
         }
-        Debug.Log(speed);
+        //Debug.Log(speed);
+    }
+
+    void LateUpdate()
+    {
+        //右スティック入力を取得
+        Vector2 lookValue=_lookActionRef.action.ReadValue<Vector2>();
+
+        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
+        //pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
+
+        playerTransform.rotation = Quaternion.Euler(0f, yaw, 0f);
+
+        // プレイヤーの位置にカメラを追従
+        Quaternion rotation = Quaternion.Euler(0f, yaw, 0f);
+
+        cameraTransform.position = playerTransform.position + rotation * cameraOffset;
+        // カメラはプレイヤーの頭あたりを見る
+        cameraTransform.LookAt(playerTransform.position + Vector3.up * 1.5f);
+
+        //Vector3 forward = cameraTransform.forward;
+        // 左スティック入力で移動
+        Vector2 moveValue = _moveActionRef.action.ReadValue<Vector2>();
+        if (moveValue.sqrMagnitude > 0.01f)
+        {
+            Vector3 moveDir = (playerTransform.forward * moveValue.y + playerTransform.right * moveValue.x);
+            playerTransform.position += moveDir * speed * Time.deltaTime;
+            //playerTransform.rotation = Quaternion.LookRotation(forward);
+        }
+
+        Vector3 playerAngle = playerTransform.eulerAngles;
+        playerAngle.x = 0f;
     }
 
     private bool isGrounded()
