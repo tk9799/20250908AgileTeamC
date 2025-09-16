@@ -570,7 +570,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.58}
+  m_LocalPosition: {x: 0, y: 0.564, z: -1.594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -701,7 +701,7 @@ Transform:
   m_GameObject: {fileID: 1169618310}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0.029}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -727,11 +727,12 @@ MonoBehaviour:
   jump: 5
   playerTransform: {fileID: 1169618314}
   playerRigidbody: {fileID: 1169618316}
-  cameraTransform: {fileID: 612482549}
+  cameraTransform: {fileID: 963194228}
   playerCamera: {fileID: 963194229}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  cameraOffset: {x: 1.5, y: 2, z: -4}
   onGround: 1
   groundCheck: {fileID: 389613672}
   groundDistance: 0.2
@@ -739,6 +740,7 @@ MonoBehaviour:
   mouseSensitivity: 1
   rotationSpeed: 100
   _lookActionRef: {fileID: 3888020305733082810, guid: 3ef4e24396054a343a715695a95ea264, type: 3}
+  _moveActionRef: {fileID: -1680190386980627800, guid: 289c1b55c9541489481df5cc06664110, type: 3}
 --- !u!54 &1169618316
 Rigidbody:
   m_ObjectHideFlags: 0
