@@ -1,18 +1,24 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("ナイフの初期値")]
+    [SerializeField] public int possessionNumber = 5;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float defaultSpeed = 10f;
     [SerializeField] private float maxSpeed = 13f;//ダッシュ時のスピード
     [SerializeField] private float jump = 10f;
+    [SerializeField] private float translateSpeed = 10f;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody playerRigidbody;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private Transform translatePosition;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private GameObject knifeObject;//ナイフオブジェクト
     //プレイヤーから見た相対的な位置（距離・角度）を表す
     [SerializeField] private Vector3 cameraOffset = new Vector3(0, 2, -4);
     //[SerializeField] private Vector3 cameraPosition;
@@ -28,11 +34,15 @@ public class PlayerController : MonoBehaviour
     private float groundCheckDistance = 0.2f;
     public float groundDistance = 0.2f;
     public float rayLength = 0.2f;
+    public float distance=5f; // カメラとプレイヤー間の距離
+    private float height=2f;//カメラの高さ
     [SerializeField] float mouseSensitivity = 1.0f;
     [SerializeField] private float rotationSpeed = 100f;
     private float yaw,pitch;
     [SerializeField] private InputActionReference _lookActionRef;
     [SerializeField] private InputActionReference _moveActionRef;
+    [SerializeField] private List<GameObject> knifeObjectList = new List<GameObject>();
+    private bool isInitialGenerate = false;//初期生成する際のbool
 
 
     public void Domove(InputAction.CallbackContext context)
@@ -50,7 +60,7 @@ public class PlayerController : MonoBehaviour
         // InputActionを有効化
         // これをしないと入力を受け取れないことに注意
         _lookActionRef.action?.Enable();
-        _moveActionRef.action?.Enable();
+        _moveActionRef.action.Enable();
     }
 
     // 無効化
@@ -62,10 +72,10 @@ public class PlayerController : MonoBehaviour
         _moveActionRef.action.Disable();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         isDush = false;
+        GenerateKnife();
     }
 
     // Update is called once per frame
@@ -73,19 +83,8 @@ public class PlayerController : MonoBehaviour
     {
         // 現在接続されているGamepadを取得
         gamepad = Gamepad.current;
+        //gamepad = Gamepad.all[0];//複数接続の時に使用する
         if (gamepad == null) return;
-
-        //入力取得（WASDや矢印キー）
-        //float moveX = Input.GetAxisRaw("Horizontal");
-        //float moveY = Input.GetAxisRaw("Vertical");
-        //Vector3 move = new Vector3(moveX, 0, moveY).normalized * speed * Time.deltaTime;
-        //Vector3 newPos = playerTransform.position + move;
-        //playerTransform.position = newPos;
-
-        //if (Input.GetKeyDown(KeyCode.JoystickButton5))
-        //{
-        //    normalAttack();
-        //}
 
         if (Gamepad.current != null)
         {
@@ -144,37 +143,47 @@ public class PlayerController : MonoBehaviour
                 }
                
             }
-            // 接地判定
-            //isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
         }
-        //Debug.Log(speed);
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
+        Vector3 cameraPosition=cameraTransform.position;
         //右スティック入力を取得
         Vector2 lookValue=_lookActionRef.action.ReadValue<Vector2>();
-
+        //Debug.Log(lookValue);
         yaw += lookValue.x * rotationSpeed * Time.deltaTime;
-        //pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
+        
 
         playerTransform.rotation = Quaternion.Euler(0f, yaw, 0f);
 
         // プレイヤーの位置にカメラを追従
         Quaternion rotation = Quaternion.Euler(0f, yaw, 0f);
 
-        cameraTransform.position = playerTransform.position + rotation * cameraOffset;
-        // カメラはプレイヤーの頭あたりを見る
-        cameraTransform.LookAt(playerTransform.position + Vector3.up * 1.5f);
+        
 
-        //Vector3 forward = cameraTransform.forward;
+        Vector3 playerCenter = playerTransform.position + Vector3.up * height;//プレイヤーの中心位置を計算//追加
+        //プレイヤーの後ろに位置するカメラ位置を計算//追加
+        Vector3 targetPosition = playerCenter - playerTransform.forward * distance;
+        //カメラの位置を更新//追加
+        Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, targetPosition, speed * Time.deltaTime);
+        cameraTransform.position = smoothedPosition;//追加
+
+        //cameraTransform.position = playerTransform.position + rotation * cameraOffset;
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, speed * Time.deltaTime);
+        // カメラはプレイヤーの頭あたりを見る
+        cameraTransform.LookAt(playerTransform.position);
+        cameraPosition.z -= 3;
+
         // 左スティック入力で移動
         Vector2 moveValue = _moveActionRef.action.ReadValue<Vector2>();
+        //Debug.Log("moveValue: " + moveValue);
         if (moveValue.sqrMagnitude > 0.01f)
         {
             Vector3 moveDir = (playerTransform.forward * moveValue.y + playerTransform.right * moveValue.x);
             playerTransform.position += moveDir * speed * Time.deltaTime;
-            //playerTransform.rotation = Quaternion.LookRotation(forward);
+            Vector3 targetPosition2 = playerRigidbody.position + moveDir * speed * Time.deltaTime;
+            playerRigidbody.MovePosition(targetPosition2);
         }
 
         Vector3 playerAngle = playerTransform.eulerAngles;
@@ -183,9 +192,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
-        //RaycastHit hit = Physics.CheckSphere(playerTransform.position, groundDistance, groundLayer);
         return Physics.Raycast(playerTransform.position, Vector3.down, rayLength, groundLayer);
-        //return hit.collider != null;
     }
 
     private void OnDrawGizmosSelected()
@@ -195,10 +202,34 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(playerTransform.position, playerTransform.position + Vector3.down * rayLength);
     }
 
+    private void GenerateKnife()//初期設定したナイフの数だけ生成する
+    {
+        if (!isInitialGenerate)
+        {
+            for (int i = 0; i <= possessionNumber-1; i++)
+            {
+                //Instantiate(knifeObject, playerTransform.position, Quaternion.identity);
+                knifeObjectList.Add(knifeObject);
+            }
+            isInitialGenerate = true;
+        }
+    }
 
     public void normalAttack()
     {
         Debug.Log("通常攻撃！");
+        if (knifeObjectList.Count > 0)
+        {
+            //Instantiate(knifeObject, playerTransform.position, Quaternion.identity);
+            GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
+            Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
+            if(rigidbody != null)
+            {
+                rigidbody.AddForce(playerTransform.forward * translateSpeed, ForceMode.Impulse);
+            }
+            //knifeObject.transform.Translate(playerTransform.forward * translateSpeed * Time.deltaTime);
+
+        }
     }
 
     public void WeakSkill()
