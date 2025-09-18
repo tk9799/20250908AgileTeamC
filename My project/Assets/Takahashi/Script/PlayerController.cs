@@ -86,6 +86,18 @@ public class PlayerController : MonoBehaviour
         //gamepad = Gamepad.all[0];//複数接続の時に使用する
         if (gamepad == null) return;
 
+        //左スティックで移動
+        Vector2 moveValue = _moveActionRef.action.ReadValue<Vector2>();
+
+        if (moveValue.sqrMagnitude > 0.01f)
+        {
+            // 「カメラの前方向」を基準に移動
+            Vector3 moveDir = (playerTransform.forward * moveValue.y + playerTransform.right * moveValue.x);
+
+            Vector3 targetPos = playerRigidbody.position + moveDir * speed * Time.deltaTime;
+            playerRigidbody.MovePosition(targetPos);
+        }
+
         if (Gamepad.current != null)
         {
             // 右トリガーの値（0.0～1.0）
@@ -134,6 +146,7 @@ public class PlayerController : MonoBehaviour
                 isDush = false;
             }
 
+            //ジャンプ処理
             if (Input.GetKeyDown(KeyCode.JoystickButton1))
             {
                 Debug.Log("jump");
@@ -141,60 +154,44 @@ public class PlayerController : MonoBehaviour
                 {
                     playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
                 }
-               
             }
         }
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
-        Vector3 cameraPosition=cameraTransform.position;
-        //右スティック入力を取得
-        Vector2 lookValue=_lookActionRef.action.ReadValue<Vector2>();
-        //Debug.Log(lookValue);
-        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
-        
+        // 右スティック入力を取得
+        Vector2 lookValue = _lookActionRef.action.ReadValue<Vector2>();
 
+        // Y軸回転だけ反映（左右回転）
+        yaw += lookValue.x * rotationSpeed * Time.deltaTime;//左右回転を計算
+
+        // プレイヤーを回転させる
         playerTransform.rotation = Quaternion.Euler(0f, yaw, 0f);
+        pitch -= lookValue.y * rotationSpeed * Time.deltaTime;//上下回転を計算
+        pitch = Mathf.Clamp(pitch, -20f, 60f); // 上下の制限
+        // カメラの回転を計算
+        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
 
-        // プレイヤーの位置にカメラを追従
-        Quaternion rotation = Quaternion.Euler(0f, yaw, 0f);
-
-        
-
-        Vector3 playerCenter = playerTransform.position + Vector3.up * height;//プレイヤーの中心位置を計算//追加
-        //プレイヤーの後ろに位置するカメラ位置を計算//追加
+        Vector3 playerCenter = playerTransform.position + Vector3.up * height;//プレイヤーの中心位置を計算
         Vector3 targetPosition = playerCenter - playerTransform.forward * distance;
-        //カメラの位置を更新//追加
-        Vector3 smoothedPosition = Vector3.Lerp(cameraTransform.position, targetPosition, speed * Time.deltaTime);
-        cameraTransform.position = smoothedPosition;//追加
 
-        //cameraTransform.position = playerTransform.position + rotation * cameraOffset;
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, speed * Time.deltaTime);
-        // カメラはプレイヤーの頭あたりを見る
-        cameraTransform.LookAt(playerTransform.position);
-        cameraPosition.z -= 3;
+        cameraTransform.rotation= cameraRot;
 
-        // 左スティック入力で移動
-        Vector2 moveValue = _moveActionRef.action.ReadValue<Vector2>();
-        //Debug.Log("moveValue: " + moveValue);
-        if (moveValue.sqrMagnitude > 0.01f)
-        {
-            Vector3 moveDir = (playerTransform.forward * moveValue.y + playerTransform.right * moveValue.x);
-            playerTransform.position += moveDir * speed * Time.deltaTime;
-            Vector3 targetPosition2 = playerRigidbody.position + moveDir * speed * Time.deltaTime;
-            playerRigidbody.MovePosition(targetPosition2);
-        }
+        //プレイヤー基準でオフセットを加える
+        cameraTransform.position = playerTransform.position + playerTransform.rotation * cameraOffset;
+        // カメラはプレイヤーを見る
+        cameraTransform.LookAt(playerTransform.position + Vector3.up);
 
-        Vector3 playerAngle = playerTransform.eulerAngles;
-        playerAngle.x = 0f;
     }
 
-    private bool isGrounded()
+    private bool isGrounded()//地面に足がついているかの判定に使われる
     {
         return Physics.Raycast(playerTransform.position, Vector3.down, rayLength, groundLayer);
     }
 
+    //RayをScene上だけ可視化
     private void OnDrawGizmosSelected()
     {
         // SceneビューでRayを可視化
@@ -202,13 +199,12 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(playerTransform.position, playerTransform.position + Vector3.down * rayLength);
     }
 
-    private void GenerateKnife()//初期設定したナイフの数だけ生成する
+    private void GenerateKnife()//初期設定したナイフの数だけリストに加える
     {
         if (!isInitialGenerate)
         {
             for (int i = 0; i <= possessionNumber-1; i++)
             {
-                //Instantiate(knifeObject, playerTransform.position, Quaternion.identity);
                 knifeObjectList.Add(knifeObject);
             }
             isInitialGenerate = true;
@@ -220,15 +216,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log("通常攻撃！");
         if (knifeObjectList.Count > 0)
         {
-            //Instantiate(knifeObject, playerTransform.position, Quaternion.identity);
+            //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             if(rigidbody != null)
             {
                 rigidbody.AddForce(playerTransform.forward * translateSpeed, ForceMode.Impulse);
             }
-            //knifeObject.transform.Translate(playerTransform.forward * translateSpeed * Time.deltaTime);
-
         }
     }
 
