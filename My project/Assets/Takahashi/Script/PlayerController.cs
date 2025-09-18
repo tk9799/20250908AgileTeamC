@@ -218,10 +218,12 @@ public class PlayerController : MonoBehaviour
         {
             //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
+            knife.tag = "Knife";
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             if(rigidbody != null)
             {
                 rigidbody.AddForce(playerTransform.forward * translateSpeed, ForceMode.Impulse);
+                Debug.Log(knife.tag);
             }
         }
     }
