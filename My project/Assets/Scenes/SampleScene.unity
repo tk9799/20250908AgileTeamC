@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrefabPlayerObject
       objectReference: {fileID: 0}
+    - target: {fileID: 7965511449070765059, guid: 0e92129535dd7624795d1ca141d872ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1110,7 +1114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1169618311
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1211,7 +1215,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169618310}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
@@ -1225,7 +1229,6 @@ MonoBehaviour:
   playerTransform: {fileID: 1169618314}
   playerRigidbody: {fileID: 1169618316}
   cameraTransform: {fileID: 963194228}
-  playerCamera: {fileID: 963194229}
   translatePosition: {fileID: 1210669197}
   groundLayer:
     serializedVersion: 2
@@ -1233,8 +1236,6 @@ MonoBehaviour:
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
-  groundCheck: {fileID: 389613672}
-  groundDistance: 0.2
   rayLength: 1.21
   distance: 0
   mouseSensitivity: 1
@@ -1665,6 +1666,10 @@ PrefabInstance:
     - target: {fileID: 7965511449070765059, guid: 0e92129535dd7624795d1ca141d872ce, type: 3}
       propertyPath: m_Name
       value: PrefabPlayerObject (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7965511449070765059, guid: 0e92129535dd7624795d1ca141d872ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
