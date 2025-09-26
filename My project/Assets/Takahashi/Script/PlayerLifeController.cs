@@ -17,9 +17,9 @@ public class PlayerLifeController : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Knife"))
+        if (other.gameObject.CompareTag("Knife"))
         {
             life -= 20;
         }
