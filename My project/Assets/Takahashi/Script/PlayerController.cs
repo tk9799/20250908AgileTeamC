@@ -195,6 +195,7 @@ public class PlayerController : MonoBehaviour
         if (playerInput.devices.Count > 0)
         {
             gamepad = playerInput.devices[0] as Gamepad;
+            Debug.Log(gamepads.ToString());
         }
 
     }
@@ -390,6 +391,8 @@ public class PlayerController : MonoBehaviour
                 rigidbody.AddForce(playerTransform.forward * translateSpeed, ForceMode.Impulse);
                 Debug.Log(knife.tag);
             }
+            KnifeControllertr knifeControllertr = knife.GetComponent<KnifeControllertr>();
+            knifeControllertr.owner = this.gameObject;
         }
     }
 

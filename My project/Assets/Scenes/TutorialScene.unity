@@ -1453,6 +1453,7 @@ GameObject:
   - component: {fileID: 285902135}
   - component: {fileID: 285902136}
   - component: {fileID: 285902137}
+  - component: {fileID: 285902138}
   m_Layer: 0
   m_Name: Player4
   m_TagString: Untagged
@@ -1643,6 +1644,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &285902138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285902130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
 --- !u!1001 &310619500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2218,6 +2232,7 @@ GameObject:
   - component: {fileID: 386902533}
   - component: {fileID: 386902532}
   - component: {fileID: 386902534}
+  - component: {fileID: 386902535}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -2360,7 +2375,7 @@ MonoBehaviour:
   speed: 10
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 10
+  jump: 5
   translateSpeed: 10
   playerTransform: {fileID: 386902531}
   playerRigidbody: {fileID: 386902532}
@@ -2372,7 +2387,7 @@ MonoBehaviour:
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
-  rayLength: 0.2
+  rayLength: 3
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -2391,7 +2406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3ef4e24396054a343a715695a95ea264, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2408,6 +2423,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &386902535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386902527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
 --- !u!1001 &420422240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4668,6 +4696,7 @@ GameObject:
   - component: {fileID: 1005132271}
   - component: {fileID: 1005132272}
   - component: {fileID: 1005132273}
+  - component: {fileID: 1005132274}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -4783,7 +4812,7 @@ MonoBehaviour:
   speed: 10
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 10
+  jump: 5
   translateSpeed: 10
   playerTransform: {fileID: 1005132270}
   playerRigidbody: {fileID: 1005132272}
@@ -4795,7 +4824,7 @@ MonoBehaviour:
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
-  rayLength: 0.2
+  rayLength: 3
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -4841,7 +4870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3ef4e24396054a343a715695a95ea264, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -4858,6 +4887,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1005132274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005132266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
 --- !u!1001 &1037972276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6675,6 +6717,7 @@ GameObject:
   - component: {fileID: 1309293105}
   - component: {fileID: 1309293106}
   - component: {fileID: 1309293107}
+  - component: {fileID: 1309293108}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -6790,7 +6833,7 @@ MonoBehaviour:
   speed: 10
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 10
+  jump: 5
   translateSpeed: 10
   playerTransform: {fileID: 1309293104}
   playerRigidbody: {fileID: 1309293106}
@@ -6802,7 +6845,7 @@ MonoBehaviour:
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
-  rayLength: 0.2
+  rayLength: 3
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -6848,7 +6891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3ef4e24396054a343a715695a95ea264, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -6865,6 +6908,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1309293108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309293100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
 --- !u!1001 &1310368800
 PrefabInstance:
   m_ObjectHideFlags: 0
