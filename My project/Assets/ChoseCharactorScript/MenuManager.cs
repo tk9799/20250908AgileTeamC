@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // プレイヤーの数だけループして、どのコントローラーがどのプレイヤーとして割り当てられているかを確定させる
         for (int i = 0; i < menuPlayerController.Length; i++)
         {
             if (Gamepad.all.Count > i)
@@ -37,7 +38,7 @@ public class MenuManager : MonoBehaviour
             //    playerObject = controller.charactors[i];
             //}
 
-            
+            // プレイヤー番号をセット
             menuPlayerController[i].playerNum = i;
 
 
@@ -56,6 +57,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (decisionCount > 4)
         {
+            // 4人を超えたら4人に戻す
             decisionCount = 4;
         }
     }

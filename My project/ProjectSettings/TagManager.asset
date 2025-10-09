@@ -8,17 +8,19 @@ TagManager:
   - GenerateObject
   - SpecialSkill
   - NormalSkill
-  - Wall
-  - NotPossessionKnife
+  - Chara0P
+  - Chara2P
+  - Chara3P
+  - Chara1P
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - Ground
-  - Knife
+  - PostProcess
   - 
   - 
   - 
