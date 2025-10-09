@@ -12,6 +12,8 @@ TagManager:
   - Chara2P
   - Chara3P
   - Chara1P
+  - Wall
+  - Effect
   layers:
   - Default
   - TransparentFX
