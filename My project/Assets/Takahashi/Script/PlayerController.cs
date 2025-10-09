@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private Transform translatePosition;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private GameObject knifeObject;//ナイフオブジェクト
+    [SerializeField] private LayerMask knifeLayer;
+    [SerializeField] public GameObject knifeObject;//ナイフオブジェクト
     //プレイヤーから見た相対的な位置（距離・角度）を表す
     [SerializeField] private Vector3 cameraOffset = new Vector3(0, 2, -4);
     //[SerializeField] private Vector3 cameraPosition;
@@ -231,6 +232,8 @@ public class PlayerController : MonoBehaviour
         yaw += lookValue.x * rotationSpeed * Time.deltaTime;
         pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
 
+        KnifeCollect();
+        CheckKnifePickup();
         //if (isRightTrigger)
         //{
         //    normalAttack();//通常攻撃
@@ -369,7 +372,7 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i <= possessionNumber - 1; i++)
             {
-                knifeObjectList.Add(knifeObject);
+                knifeObjectList.Add(knifeObject.gameObject);
             }
             isInitialGenerate = true;
         }
@@ -404,5 +407,36 @@ public class PlayerController : MonoBehaviour
     public void StrongSkill()
     {
         Debug.Log("強スキル");
+    }
+
+    //当たり判定はtagを使ってhitしたらrayを飛ばして当たり判定を使う
+    private void KnifeCollect()
+    {
+        //Vector3 direction = (knife.transform.position - playerTransform.position);
+        //Ray ray=new Ray(playerTransform.position, direction);
+        //RaycastHit hit;
+        //if(Physics.Raycast(ray,out hit,2.0f))
+        //{
+        //    Debug.Log("ナイフを回収");
+        //}
+        //if (Physics.Raycast(playerTransform.position, direction,out hit, 2.0f, knifeLayer))
+        //{
+        //    Debug.Log("ナイフを回収");
+        //}
+        //RaycastHit hit;
+    }
+
+    void CheckKnifePickup()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, 2f); // 半径2.0の範囲を調べる
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("NotPossessionKnife"))
+            {
+                Debug.Log("ナイフを回収");
+                Destroy(hit.gameObject);
+                // 所持数を増やす処理もここで
+            }
+        }
     }
 }
