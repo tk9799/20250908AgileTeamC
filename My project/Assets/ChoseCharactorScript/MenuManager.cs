@@ -1,20 +1,24 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private MenuPlayerController[] menuPlayerController;
     [SerializeField] private GameObject playerObject = null;
+    [SerializeField] public int decisionCount = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // プレイヤーの数だけループして、どのコントローラーがどのプレイヤーとして割り当てられているかを確定させる
         for (int i = 0; i < menuPlayerController.Length; i++)
         {
             if (Gamepad.all.Count > i)
             {
+                
                 menuPlayerController[i].pad = Gamepad.all[i];
             }
             else
@@ -22,12 +26,11 @@ public class MenuManager : MonoBehaviour
                 menuPlayerController[i].pad = null;
             }
 
-            
-            // キャラクター生成
-            var player = Instantiate(playerObject, new Vector3(0, 0, 0), Quaternion.identity);
 
-            // コントローラーをアタッチ
-            var controller = player.GetComponent<MenuPlayerController>();
+            // キャラクター生成
+            //var player = Instantiate(playerObject, new Vector3(0, 0, 0), Quaternion.identity);
+
+
 
             //// null参照をはじく
             //if (controller != null && controller.charactors != null && i < controller.charactors.Length)
@@ -35,6 +38,7 @@ public class MenuManager : MonoBehaviour
             //    playerObject = controller.charactors[i];
             //}
 
+            // プレイヤー番号をセット
             menuPlayerController[i].playerNum = i;
 
 
@@ -44,6 +48,17 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (decisionCount == 4)
+        {
+            // 4人決定したらゲームシーンへ遷移
+            SceneManager.LoadScene("");
 
+            Debug.Log("4人決定！");
+        }
+        else if (decisionCount > 4)
+        {
+            // 4人を超えたら4人に戻す
+            decisionCount = 4;
+        }
     }
 }
