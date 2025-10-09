@@ -28,6 +28,11 @@ public class KnifeControllertr : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(damage);
+            if(this.gameObject.tag== "Knife")
+            {
+                //Debug.Log(this.gameObject.tag);
+                damage = 10;
+            }
             Destroy(gameObject); // 弾を消す
         }
 

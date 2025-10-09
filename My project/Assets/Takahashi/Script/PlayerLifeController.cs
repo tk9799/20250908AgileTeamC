@@ -5,6 +5,8 @@ public class PlayerLifeController : MonoBehaviour
 {
     [SerializeField] private int maxLife = 100;
     private int playerLife = 0;
+    public bool isDed = false;
+    [SerializeField] private PlayerLifeManager playerLifeManager;
     //[SerializeField] private TextMeshProUGUI lifeCountText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +47,13 @@ public class PlayerLifeController : MonoBehaviour
     private void Die()
     {
         Debug.Log(gameObject.name + " は倒された！");
-        this.gameObject.SetActive(false);
+        isDed = true;
+        playerLifeManager.GameJudgement();
+        if (playerLifeManager != null && playerLifeManager.isDeleteConfirmation)
+        {
+            this.gameObject.SetActive(false);
+        }
+        
         // Destroy(gameObject);  // プレイヤーを消す場合
     }
 }
