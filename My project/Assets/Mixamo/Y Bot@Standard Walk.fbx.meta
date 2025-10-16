@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f208d00c9a20fdf4182c787449337e59
+guid: 9e1fcf59f6d886445b9abb337cec3667
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,13 +31,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Throw
+      name: Standard Walk
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 66
+      lastFrame: 35
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: 3.59
       level: 0
       cycleOffset: 0
       loop: 0
