@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private Gamepad gamepad;
     public int playerNumber = 0;
     public string groupName = "";
+    [SerializeField] Material material2 = default;
 
     private void Awake()
     {
@@ -62,16 +63,16 @@ public class PlayerController : MonoBehaviour
         // プレイヤー番号を自動で割り当て
         playerNumber = playerInput.playerIndex;
         Debug.Log($"Player {playerNumber + 1} が参加しました！ 使用コントローラ: {gamepad?.displayName}");
-        if (playerNumber >= 1)
+        if (playerNumber <= 1)
         {
-            groupName = "TeamRed";
-            this.gameObject.tag = "RedPlayer";
+            this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.red);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamRedです");
         }
         else
         {
-            groupName = "TeamBlue";
             this.gameObject.tag = "BluePlayer";
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamBlueです");
         }
     }
@@ -317,6 +318,7 @@ public class PlayerController : MonoBehaviour
             else if (this.groupName == "TeamBlue")
             {
                 knife.tag = "Blueknife";
+                Debug.Log(knife.tag);
             }
 
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();

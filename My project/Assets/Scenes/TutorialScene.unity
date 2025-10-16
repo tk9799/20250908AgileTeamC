@@ -1628,7 +1628,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b296bab1908800142aa7b399b10a5bac, type: 2}
+  - {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1714,6 +1714,7 @@ MonoBehaviour:
   playerInput: {fileID: 285902137}
   playerNumber: 0
   groupName: 
+  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!54 &285902136
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2447,7 +2448,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cee64f5bed73be4cb39a2aeb21faa95, type: 2}
+  - {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2560,6 +2561,7 @@ MonoBehaviour:
   playerInput: {fileID: 386902534}
   playerNumber: 0
   groupName: 
+  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!114 &386902534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5421,7 +5423,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b296bab1908800142aa7b399b10a5bac, type: 2}
+  - {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5507,6 +5509,7 @@ MonoBehaviour:
   playerInput: {fileID: 1005132273}
   playerNumber: 0
   groupName: 
+  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!54 &1005132272
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7794,7 +7797,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cee64f5bed73be4cb39a2aeb21faa95, type: 2}
+  - {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7880,6 +7883,7 @@ MonoBehaviour:
   playerInput: {fileID: 1309293107}
   playerNumber: 0
   groupName: 
+  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!54 &1309293106
 Rigidbody:
   m_ObjectHideFlags: 0
