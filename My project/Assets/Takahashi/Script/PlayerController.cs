@@ -46,10 +46,34 @@ public class PlayerController : MonoBehaviour
     private bool isInitialGenerate = false;//初期生成する際のbool
     [SerializeField] private PlayerInput playerInput;
     private Gamepad gamepad;
+    public int playerNumber = 0;
+    public string groupName = "";
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        // 割り当てられたデバイス（コントローラ）を取得
+        if (playerInput.devices.Count > 0)
+        {
+            gamepad = playerInput.devices[0] as Gamepad;
+        }
+
+        // プレイヤー番号を自動で割り当て
+        playerNumber = playerInput.playerIndex;
+        Debug.Log($"Player {playerNumber + 1} が参加しました！ 使用コントローラ: {gamepad?.displayName}");
+        if (playerNumber >= 1)
+        {
+            groupName = "TeamRed";
+            this.gameObject.tag = "RedPlayer";
+            Debug.Log($"{playerNumber}はTeamRedです");
+        }
+        else
+        {
+            groupName = "TeamBlue";
+            this.gameObject.tag = "BluePlayer";
+            Debug.Log($"{playerNumber}はTeamBlueです");
+        }
     }
 
     public void Domove(InputAction.CallbackContext context)
@@ -68,7 +92,13 @@ public class PlayerController : MonoBehaviour
         //// InputActionを有効化
         //// これをしないと入力を受け取れないことに注意
         ////playerInput.onActionTriggered += OnAction;
-        
+        //_lookActionReference.action.Enable();
+        //_moveActionReference.action.Enable();
+        //_jumpActionReference.action.Enable();
+        //_attackActionReference.action.Enable();
+
+        //_jumpActionReference.action.performed += OnJump;
+        //_attackActionReference.action.performed += OnNomalAttack;
 
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
@@ -176,7 +206,8 @@ public class PlayerController : MonoBehaviour
         if (playerInput.devices.Count > 0)
         {
             gamepad = playerInput.devices[0] as Gamepad;
-            Debug.Log(gamepads.ToString());
+            //Debug.Log(gamepads.ToString());
+            Debug.Log(playerInput.devices);
         }
 
     }
@@ -184,6 +215,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // デバイス別に処理
+        if (gamepad == null) return;
+
+        Vector2 move = gamepad.leftStick.ReadValue();
+        transform.Translate(new Vector3(move.x, 0, move.y) * Time.deltaTime * 5);
+
+        if (gamepad.buttonSouth.wasPressedThisFrame)
+        {
+            Debug.Log($"Player {playerNumber + 1} がジャンプボタンを押しました！");
+        }
+
         //左スティックで移動
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
@@ -266,7 +308,17 @@ public class PlayerController : MonoBehaviour
         {
             //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
-            knife.tag = "Knife";
+            //knife.tag = "Knife";
+            if (this.groupName == "TeamRed")
+            {
+                knife.tag = "RedKnife";
+                Debug.Log(groupName);
+            }
+            else if (this.groupName == "TeamBlue")
+            {
+                knife.tag = "Blueknife";
+            }
+
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             if (rigidbody != null)
             {

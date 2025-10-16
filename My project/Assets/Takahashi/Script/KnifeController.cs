@@ -25,16 +25,34 @@ public class KnifeControllertr : MonoBehaviour
         }
 
         PlayerLifeController health = other.GetComponent<PlayerLifeController>();
-        if (health != null)
+        if(health != null) 
         {
-            health.TakeDamage(damage);
-            if(this.gameObject.tag== "Knife")
+            //Debug.Log("hit");
+            if (this.gameObject.tag == "RedKnife" && other.gameObject.CompareTag("BluePlayer"))
             {
-                //Debug.Log(this.gameObject.tag);
+                health.TakeDamage(damage);
                 damage = 10;
+                //Destroy(gameObject); // 弾を消す
             }
-            Destroy(gameObject); // 弾を消す
+            else if (this.gameObject.tag == "BlteKnife" && other.gameObject.CompareTag("RedPlayer"))
+            {
+                health.TakeDamage(damage);
+                damage = 10;
+                //Destroy(gameObject); // 弾を消す
+            }
+            //Destroy(gameObject); // 弾を消す
         }
+        
+        //if (health != null)
+        //{
+        //    health.TakeDamage(damage);
+        //    if(this.gameObject.tag== "Knife")
+        //    {
+        //        //Debug.Log(this.gameObject.tag);
+        //        damage = 10;
+        //    }
+        //    Destroy(gameObject); // 弾を消す
+        //}
 
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -42,15 +60,10 @@ public class KnifeControllertr : MonoBehaviour
             if (rb != null)
             {
                 rb.isKinematic = true; // 物理挙動を止める
-                //transform.position = Vector3.zero;
-                //rb.linearVelocity = Vector3.zero;
-                //rb.angularVelocity = Vector3.zero;
                 Debug.Log(rb.isKinematic);
             }
             this.gameObject.tag = "NotPossessionKnife";//誰のものでもないナイフにする
             transform.parent = other.transform;//壁にくっつける
-
-            
         }
 
         if (other.gameObject.CompareTag("Player")&&this.gameObject.tag== "NotPossessionKnife")

@@ -20,19 +20,6 @@ public class PlayerLifeController : MonoBehaviour
         
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Knife"))
-    //    {
-    //        Debug.Log("hit");
-    //        life -= 20;
-    //    }
-    //    if(life <= 0)
-    //    {
-    //        this.gameObject.SetActive(false);
-    //    }
-    //}
-
     public void TakeDamage(int damage)
     {
         playerLife -= damage;
