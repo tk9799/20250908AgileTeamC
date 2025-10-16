@@ -14,6 +14,11 @@ TagManager:
   - Chara1P
   - Wall
   - Effect
+  - NotPossessionKnife
+  - RedKnife
+  - Blueknife
+  - RedPlayer
+  - BluePlayer
   layers:
   - Default
   - TransparentFX

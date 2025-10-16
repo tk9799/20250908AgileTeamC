@@ -27,7 +27,23 @@ public class KnifeControllertr : MonoBehaviour
         PlayerLifeController health = other.GetComponent<PlayerLifeController>();
         if (health != null)
         {
-            health.TakeDamage(damage);
+            Debug.Log("hit");
+            //このオブジェクトのtagがRedKnifeで当たったオブジェクトのtagがBluePlayer(敵)の場合
+            if (gameObject.tag == "RedKnife" && other.gameObject.CompareTag("BluePlayer"))
+            {
+                health.TakeDamage(damage);
+                damage = 10;//10ダメージを与える
+                Destroy(gameObject); // 弾を消す
+                Debug.Log("敵に命中");
+            }
+            //このオブジェクトのtagがBlueknifeで当たったオブジェクトのtagがRedPlayer(敵)の場合
+            if (gameObject.tag == "Blueknife" && other.gameObject.CompareTag("RedPlayer"))
+            {
+                health.TakeDamage(damage);
+                damage = 10;
+                Destroy(gameObject); // 弾を消す
+                Debug.Log("敵に命中");
+            }
             Destroy(gameObject); // 弾を消す
         }
 
@@ -37,15 +53,10 @@ public class KnifeControllertr : MonoBehaviour
             if (rb != null)
             {
                 rb.isKinematic = true; // 物理挙動を止める
-                //transform.position = Vector3.zero;
-                //rb.linearVelocity = Vector3.zero;
-                //rb.angularVelocity = Vector3.zero;
                 Debug.Log(rb.isKinematic);
             }
             this.gameObject.tag = "NotPossessionKnife";//誰のものでもないナイフにする
             transform.parent = other.transform;//壁にくっつける
-
-            
         }
 
         if (other.gameObject.CompareTag("Player")&&this.gameObject.tag== "NotPossessionKnife")
