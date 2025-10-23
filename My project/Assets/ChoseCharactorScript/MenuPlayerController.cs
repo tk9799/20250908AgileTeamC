@@ -49,6 +49,8 @@ public class MenuPlayerController : MonoBehaviour
     {
         // 最初のキャラクターだけ表示
         UpdateCharactorDisplay();
+
+        charactorsState[1].gameObject.SetActive(false);
     }
 
     void Update()
