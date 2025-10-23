@@ -29,7 +29,7 @@ public class KnifeControllertr : MonoBehaviour
         {
             Debug.Log("hit");
             //このオブジェクトのtagがRedKnifeで当たったオブジェクトのtagがBluePlayer(敵)の場合
-            if (gameObject.tag == "RedKnife" && other.gameObject.CompareTag("BluePlayer"))
+            if (this.gameObject.tag == "RedKnife" && other.gameObject.CompareTag("BluePlayer"))
             {
                 health.TakeDamage(damage);
                 damage = 10;//10ダメージを与える
@@ -37,7 +37,7 @@ public class KnifeControllertr : MonoBehaviour
                 Debug.Log("敵に命中");
             }
             //このオブジェクトのtagがBlueknifeで当たったオブジェクトのtagがRedPlayer(敵)の場合
-            if (gameObject.tag == "Blueknife" && other.gameObject.CompareTag("RedPlayer"))
+            if (this.gameObject.tag == "Blueknife" && other.gameObject.CompareTag("RedPlayer"))
             {
                 health.TakeDamage(damage);
                 damage = 10;
