@@ -19,7 +19,7 @@ public class MenuPlayerController : MonoBehaviour
     private Vector3 input = Vector3.zero;
 
     // キャラクターの配列    
-    [SerializeField] public GameObject[] charactors;
+    [SerializeField] public GameObject[] charactors = null;
 
     // キャラクター詳細のUI
     [SerializeField] private TextMeshProUGUI[] charactorsState = null;
@@ -62,7 +62,7 @@ public class MenuPlayerController : MonoBehaviour
         // 左右の入力でキャラクター切り替え
         if (Time.time - lastInputTime > inputCooldown)
         {
-            if (input.x > 0)
+            if (0 < input.x)
             {
                 // インデックスを増やして、配列の範囲を超えたら0に戻す
                 currentIndex = (currentIndex + 1) % charactors.Length;
