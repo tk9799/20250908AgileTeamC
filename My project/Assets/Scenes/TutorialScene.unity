@@ -1713,7 +1713,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 285902137}
   playerNumber: 0
-  groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!54 &285902136
 Rigidbody:
@@ -2560,7 +2559,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 386902534}
   playerNumber: 0
-  groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!114 &386902534
 MonoBehaviour:
@@ -5508,7 +5506,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 1005132273}
   playerNumber: 0
-  groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!54 &1005132272
 Rigidbody:
@@ -7603,6 +7600,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead49cebc1fb74a4b999e463ebafe477, type: 3}
+--- !u!1 &1276275618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276275620}
+  - component: {fileID: 1276275619}
+  m_Layer: 0
+  m_Name: Singleton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1276275619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276275618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3f9836b0f19b944ac937d4d3a285ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winnerTeamName: 
+--- !u!4 &1276275620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276275618}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.28499797, y: 1.5968153, z: 53.25392}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1280701140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7710,6 +7752,10 @@ MonoBehaviour:
   player2Life: {fileID: 1309293108}
   player3Life: {fileID: 1005132274}
   player4Life: {fileID: 285902138}
+  player1: {fileID: 386902527}
+  player2: {fileID: 1309293100}
+  player3: {fileID: 1005132266}
+  player4: {fileID: 285902130}
   teamAMemberList: []
   teamBMemberList: []
   isDeleteConfirmation: 0
@@ -7882,7 +7928,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 1309293107}
   playerNumber: 0
-  groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
 --- !u!54 &1309293106
 Rigidbody:
@@ -11969,3 +12014,4 @@ SceneRoots:
   - {fileID: 1395102060}
   - {fileID: 1291361525}
   - {fileID: 691816393}
+  - {fileID: 1276275620}

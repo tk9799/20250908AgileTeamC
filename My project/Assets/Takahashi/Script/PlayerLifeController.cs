@@ -39,6 +39,16 @@ public class PlayerLifeController : MonoBehaviour
         if (playerLifeManager != null && playerLifeManager.isDeleteConfirmation)
         {
             this.gameObject.SetActive(false);
+            if (this.gameObject.tag == "RedPlayer")
+            {
+                playerLifeManager.teamAMemberList.Remove(this.gameObject);
+                Debug.Log("teamAList‚©‚çíœ");
+            }
+            else if(this.gameObject.tag == "BluePlayer")
+            {
+                playerLifeManager.teamBMemberList.Remove(this.gameObject);
+                Debug.Log("teamBList‚©‚çíœ");
+            }
         }
         
         // Destroy(gameObject);  // ƒvƒŒƒCƒ„[‚ğÁ‚·ê‡

@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     private Gamepad gamepad;
     public int playerNumber = 0;
-    public string groupName = "";
     [SerializeField] Material material2 = default;
 
     private void Awake()
@@ -310,26 +309,14 @@ public class PlayerController : MonoBehaviour
             //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
             //knife.tag = "Knife";
-            //if (this.groupName == "TeamRed")
-            //{
-            //    knife.tag = "RedKnife";
-            //    Debug.Log(groupName);
-            //}
             if (this.gameObject.tag == "RedPlayer")
             {
                 knife.tag = "RedKnife";
-                Debug.Log(groupName);
             }
             else if (this.gameObject.tag == "BluePlayer")
             {
                 knife.tag = "Blueknife";
-                Debug.Log(knife.tag);
             }
-            //else if (this.groupName == "TeamBlue")
-            //{
-            //    knife.tag = "Blueknife";
-            //    Debug.Log(knife.tag);
-            //}
 
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             if (rigidbody != null)
