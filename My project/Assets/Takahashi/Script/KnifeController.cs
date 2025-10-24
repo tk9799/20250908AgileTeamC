@@ -1,65 +1,88 @@
 using UnityEngine;
 
+
 public class KnifeControllertr : MonoBehaviour
 {
-    public int damage = 10;
-    public GameObject owner; // 誰が撃ったかを記録
-    Rigidbody rb;
+    //定数のため書き換えることができない
+    //tagの宣言
+    public static readonly string BLUE_PLAYER = "BluePlayer";
+    public static readonly string BLUE_KNIFE = "Blueknife";
+    public static readonly string RED_PLAYER = "RedPlayer";
+    public static readonly string RED_KNIFE = "RedKnife";
+    public static readonly string NOT_POSSESSION_KNIFE = "NotPossessionKnife";
+    public static readonly string WALL = "Wall";
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    //プレイヤーが受けるダメージの値
+    public int damage = 0;
 
-    private void Start()
-    {
-        //Destroy(gameObject, lifeTime); // 一定時間後に弾を消す
-    }
+    //通常攻撃のダメージの値
+    private int normalAttackDamage = 10;
 
+    //Rigidbodyを取得
+    //物理挙動を変更するために使う
+    [SerializeField]　private Rigidbody rigidbody = null;
+
+    /// <summary>
+    /// ナイフを生成した後の敵プレイヤーのダメージを与える、壁に当たった場合くっつくようにさせる＋その状態だと
+    /// 回収して自分のものにできる処理（予定）
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        // 自分を撃ったプレイヤーに当たったら無視する場合はここでチェック
-        if (other.gameObject == owner)
-        {
-            return;
-        }
-
+        //PlayerLifeControllerを取得して敵にダメージを与える
         PlayerLifeController health = other.GetComponent<PlayerLifeController>();
+
+        //PlayerLifeControllerがnullでない場合
         if (health != null)
         {
-            Debug.Log("hit");
             //このオブジェクトのtagがRedKnifeで当たったオブジェクトのtagがBluePlayer(敵)の場合
-            if (this.gameObject.tag == "RedKnife" && other.gameObject.CompareTag("BluePlayer"))
+            if (gameObject.tag == RED_KNIFE && other.gameObject.CompareTag(BLUE_PLAYER))
             {
+                //敵に与えるダメージの値（通常攻撃）
+                damage = normalAttackDamage;
+
+                //TakeDamageメソッドを呼び出して当たったプレイヤーの体力を減らす
                 health.TakeDamage(damage);
-                damage = 10;//10ダメージを与える
-                Destroy(gameObject); // 弾を消す
-                Debug.Log("敵に命中");
+
+                //プレイヤーに当たった状態ナイフは使わないため非表示
+                gameObject.SetActive(false); 
             }
+
             //このオブジェクトのtagがBlueknifeで当たったオブジェクトのtagがRedPlayer(敵)の場合
-            if (this.gameObject.tag == "Blueknife" && other.gameObject.CompareTag("RedPlayer"))
+            if (this.gameObject.tag == BLUE_KNIFE && other.gameObject.CompareTag(RED_PLAYER))
             {
+                //敵に与えるダメージの値（通常攻撃）
+                damage = normalAttackDamage;
+
+                //TakeDamageメソッドを呼び出して当たったプレイヤーの体力を減らす
                 health.TakeDamage(damage);
-                damage = 10;
-                Destroy(gameObject); // 弾を消す
-                Debug.Log("敵に命中");
+
+                //プレイヤーに当たった状態ナイフは使わないため非表示
+                Destroy(gameObject);
             }
-            Destroy(gameObject); // 弾を消す
         }
 
-        if (other.gameObject.CompareTag("Wall"))
+        //当たったオブジェクトのtagが"Wall"だった場合
+        if (other.gameObject.CompareTag(WALL))
         {
-            
-            if (rb != null)
+            //Rigidbodyを取得している場合
+            if (rigidbody != null)
             {
-                rb.isKinematic = true; // 物理挙動を止める
-                Debug.Log(rb.isKinematic);
+                // 物理挙動を止める
+                //ナイフを落下させないようにする
+                rigidbody.isKinematic = true; 
             }
-            this.gameObject.tag = "NotPossessionKnife";//誰のものでもないナイフにする
+
+            //プレイヤーのナイフではない状態にするためtagの変更
+            this.gameObject.tag = NOT_POSSESSION_KNIFE;
+
+            //くっついた壁の子オブジェクトにする
             transform.parent = other.transform;//壁にくっつける
         }
 
-        if (other.gameObject.CompareTag("Player")&&this.gameObject.tag== "NotPossessionKnife")
+        //誰のものでもないナイフ（gameObject.tag== "NotPossessionKnife"）だった場合、ナイフオブジェクトに
+        //触れたプレイヤーの物になる（予定）
+        if (other.gameObject.CompareTag(RED_PLAYER) && other.gameObject.CompareTag(BLUE_PLAYER) &&
+            gameObject.tag== NOT_POSSESSION_KNIFE)
         {
             Debug.Log("ナイフを回収");
         }
