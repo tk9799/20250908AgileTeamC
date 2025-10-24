@@ -24,6 +24,9 @@ public class MenuPlayerController : MonoBehaviour
     // キャラクター詳細のUI
     [SerializeField] private TextMeshProUGUI[] charactorsState = null;
 
+    //キャラクター詳細のページ表記
+    [SerializeField] private TextMeshProUGUI charactorPage = null;
+
     // メニューマネージャーを取得するための変数
     [SerializeField] private MenuManager menuManager;
 
@@ -60,6 +63,10 @@ public class MenuPlayerController : MonoBehaviour
 
         // 左スティック受け取り
         input = new Vector2(Gamepad.all[playerNum].leftStick.ReadValue().x, Gamepad.all[playerNum].leftStick.ReadValue().y);
+
+
+        float vertical = Gamepad.all[playerNum].leftStick.ReadValue().y;
+        float horizontal = Gamepad.all[playerNum].leftStick.ReadValue().x;
 
         // 左右の入力でキャラクター切り替え
         if (Time.time - lastInputTime > inputCooldown)
