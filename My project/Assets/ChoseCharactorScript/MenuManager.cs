@@ -1,64 +1,63 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// コントローラーの接続管理をするクラス
+/// </summary>
 public class MenuManager : MonoBehaviour
 {
+    [Header("MenuPlayerControllerを取得して配列にする")]
     [SerializeField] private MenuPlayerController[] menuPlayerController;
-    [SerializeField] private GameObject playerObject = null;
+
+    [Header("決定、キャンセルで増減する変数")]
     [SerializeField] public int decisionCount = 0;
 
+    [Header("ゲームシーンへシーン遷移")]
+    [SerializeField] private string gameScene = "";
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// コントローラーの接続をして、それぞれに番号を与えるメソッド
+    /// </summary>
     void Start()
     {
         // プレイヤーの数だけループして、どのコントローラーがどのプレイヤーとして割り当てられているかを確定させる
         for (int i = 0; i < menuPlayerController.Length; i++)
         {
-            if (Gamepad.all.Count > i)
+            if (i < Gamepad.all.Count)
             {
-                
+                // i番目のコントローラーより大きいときに処理
+
+                // 接続順にpadへ情報を入れる
                 menuPlayerController[i].pad = Gamepad.all[i];
             }
             else
             {
+                // i番目未満の時はnullを入れる
                 menuPlayerController[i].pad = null;
             }
 
-
-            // キャラクター生成
-            //var player = Instantiate(playerObject, new Vector3(0, 0, 0), Quaternion.identity);
-
-
-
-            //// null参照をはじく
-            //if (controller != null && controller.charactors != null && i < controller.charactors.Length)
-            //{
-            //    playerObject = controller.charactors[i];
-            //}
-
             // プレイヤー番号をセット
             menuPlayerController[i].playerNum = i;
-
-
         }
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// 全員決定後にシーン遷移をするメソッド
+    /// </summary>
     void Update()
     {
-        if (decisionCount == 4)
+        if (decisionCount == menuPlayerController.Length)
         {
             // 4人決定したらゲームシーンへ遷移
             SceneManager.LoadScene("");
 
             Debug.Log("4人決定！");
         }
-        else if (decisionCount > 4)
+        else if (menuPlayerController.Length < decisionCount)
         {
             // 4人を超えたら4人に戻す
-            decisionCount = 4;
+            decisionCount = menuPlayerController.Length;
         }
     }
 }

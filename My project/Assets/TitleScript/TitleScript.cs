@@ -2,17 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// タイトルシーンから別のシーンへ遷移させるためのクラス
+/// </summary>
 public class TitleScript : MonoBehaviour
 {
-    // コントローラーの接続
+    [Header("ゲームパッドの接続")]
     private Gamepad pad = null;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
+    /// <summary>
+    /// いずれかのボタンを押してシーン遷移するメソッド
+    /// </summary>
     void Update()
     {
         // コントローラーが接続されいるかつABXYのいずれかのボタンが押されたらシーン遷移
