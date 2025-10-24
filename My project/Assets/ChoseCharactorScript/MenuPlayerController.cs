@@ -19,10 +19,13 @@ public class MenuPlayerController : MonoBehaviour
     private Vector3 input = Vector3.zero;
 
     // キャラクターの配列    
-    [SerializeField] public GameObject[] charactors;
+    [SerializeField] public GameObject[] charactors = null;
 
     // キャラクター詳細のUI
     [SerializeField] private TextMeshProUGUI[] charactorsState = null;
+
+    //キャラクター詳細のページ表記
+    [SerializeField] private TextMeshProUGUI charactorPage = null;
 
     // メニューマネージャーを取得するための変数
     [SerializeField] private MenuManager menuManager;
@@ -49,6 +52,8 @@ public class MenuPlayerController : MonoBehaviour
     {
         // 最初のキャラクターだけ表示
         UpdateCharactorDisplay();
+
+        charactorsState[1].gameObject.SetActive(false);
     }
 
     void Update()
@@ -59,10 +64,14 @@ public class MenuPlayerController : MonoBehaviour
         // 左スティック受け取り
         input = new Vector2(Gamepad.all[playerNum].leftStick.ReadValue().x, Gamepad.all[playerNum].leftStick.ReadValue().y);
 
+
+        float vertical = Gamepad.all[playerNum].leftStick.ReadValue().y;
+        float horizontal = Gamepad.all[playerNum].leftStick.ReadValue().x;
+
         // 左右の入力でキャラクター切り替え
         if (Time.time - lastInputTime > inputCooldown)
         {
-            if (input.x > 0)
+            if (0 < input.x)
             {
                 // インデックスを増やして、配列の範囲を超えたら0に戻す
                 currentIndex = (currentIndex + 1) % charactors.Length;
