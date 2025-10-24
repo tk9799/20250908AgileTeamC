@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
             if (this.gameObject.tag == "RedPlayer")
             {
                 knife.tag = "RedKnife";
-                Debug.Log(groupName);
+                Debug.Log(knife.tag);
             }
             else if (this.gameObject.tag == "BluePlayer")
             {
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(knife.tag);
             }
             KnifeControllertr knifeControllertr = knife.GetComponent<KnifeControllertr>();
-            knifeControllertr.owner = this.gameObject;
+            //knifeControllertr.owner = this.gameObject;
             //knifeObjectList.Remove(knifeObject.gameObject);
         }
     }
