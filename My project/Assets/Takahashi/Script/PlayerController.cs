@@ -186,10 +186,12 @@ public class PlayerController : MonoBehaviour
             if (isInputLB)
             {
                 WeakSkill(); // LB‚Æ“¯Žž‰Ÿ‚µ‚È‚çŽãƒXƒLƒ‹
+                Debug.Log("WeakSkill");
             }
             else
             {
                 normalAttack(); // ’P”­‚È‚ç’ÊíUŒ‚
+                Debug.Log("normalAttack");
             }
         }
         else if (callbackContext.canceled)
@@ -304,7 +306,7 @@ public class PlayerController : MonoBehaviour
 
     public void normalAttack()
     {
-        Debug.Log("’ÊíUŒ‚I");
+        //Debug.Log("’ÊíUŒ‚I");
         Vector3 translatePos = playerTransform.position;
         translatePos.z += 1.5f;
         if (knifeObjectList.Count > 0)

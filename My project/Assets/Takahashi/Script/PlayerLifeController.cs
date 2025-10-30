@@ -6,7 +6,7 @@ public class PlayerLifeController : MonoBehaviour
     [SerializeField] private int maxLife = 100;
 
     //プレイヤーのプレイ中のの体力
-    private int playerLife = 0;
+    public int playerLife = 0;
 
     //プレイヤーがやられた時の判定
     public bool isDed = false;
@@ -56,7 +56,7 @@ public class PlayerLifeController : MonoBehaviour
         //playerLifeManagerのteamAMemberList、teamBMemberListから削除された場合
         if (playerLifeManager != null && playerLifeManager.isDeleteConfirmation)
         {
-            gameObject.SetActive(false);
+            
             if (gameObject.tag == "RedPlayer")
             {
                 playerLifeManager.teamAMemberList.Remove(gameObject);
@@ -67,6 +67,7 @@ public class PlayerLifeController : MonoBehaviour
                 playerLifeManager.teamBMemberList.Remove(gameObject);
                 Debug.Log("teamBListから削除");
             }
+            gameObject.SetActive(false);
         }
     }
 }
