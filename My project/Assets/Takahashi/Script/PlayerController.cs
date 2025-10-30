@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
     public int playerNumber = 0;
     public string groupName = "";
     [SerializeField] Material material2 = default;
+    //右トリガーを押して通常攻撃発動する値
+    [SerializeField] private float triggerValue = 1.0f;
 
     private void Awake()
     {
@@ -113,6 +115,10 @@ public class PlayerController : MonoBehaviour
         attackAction.canceled += OnNomalAttack; // 押し離し両方見る
         lbAction.performed += OnLB;
         lbAction.canceled += OnLB;
+
+        rbAction.performed += OnRB;
+        rbAction.canceled += OnRB;
+
     }
 
     // 無効化
@@ -148,14 +154,32 @@ public class PlayerController : MonoBehaviour
     {
         isInputLB = callbackContext.performed; // true/false 自動で更新
         Debug.Log(isInputLB);
-        //if (callbackContext.performed)//弱スキルコマンドを押したとき
-        //{
-        //    isInputLB = true;
-        //}
-        //else if (callbackContext.canceled)//弱スキルコマンドを離したとき
-        //{
-        //    isInputLB = false;
-        //}
+        if (callbackContext.performed)//強スキルコマンドを押したとき
+        {
+            isInputLB = true;
+            StrongSkill();
+            Debug.Log("StrongSkill");
+        }
+        else if (callbackContext.canceled)//弱スキルコマンドを離したとき
+        {
+            isInputLB = false;
+        }
+    }
+
+    private void OnRB(InputAction.CallbackContext callbackContext)
+    {
+        isInputRB = callbackContext.performed;
+        Debug.Log(isInputRB);
+        if (callbackContext.performed)
+        {
+            isInputRB = true;
+            WeakSkill();
+            Debug.Log("WeakSkill");
+        }
+        else if (callbackContext.canceled)
+        {
+            isInputRB = false;
+        }
     }
 
     private void OnNomalAttack(InputAction.CallbackContext callbackContext)
@@ -178,15 +202,17 @@ public class PlayerController : MonoBehaviour
         //    isRightTrigger = false;
         //}
         ////normalAttack();
-
+        
         if (callbackContext.performed)
         {
             isRightTrigger = true;
-
-            if (isInputLB)
+            var lbPressed = playerInput.actions["WeakSkill"].IsPressed();
+            Debug.Log("LB押下状態: " + lbPressed);
+            //Debug.Log("hit");
+            if (lbPressed)
             {
-                WeakSkill(); // LBと同時押しなら弱スキル
-                Debug.Log("WeakSkill");
+                //WeakSkill(); // LBと同時押しなら弱スキル
+                //Debug.Log("WeakSkill");
             }
             else
             {
@@ -232,7 +258,14 @@ public class PlayerController : MonoBehaviour
         //左スティックで移動
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
-        
+        float rightTriggerValue = attackAction.ReadValue<float>();
+
+        if(rightTriggerValue > triggerValue && !isRightTrigger)
+        {
+            normalAttack();
+            Debug.Log("通常攻撃");
+            isRightTrigger = true;
+        }
 
         if (moveValue.sqrMagnitude > 0.01f)
         {
