@@ -2195,6 +2195,7 @@ MonoBehaviour:
   playerNumber: 0
   groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
+  triggerValue: 1
 --- !u!54 &285902136
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3043,6 +3044,7 @@ MonoBehaviour:
   playerNumber: 0
   groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
+  triggerValue: 1
 --- !u!114 &386902534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6312,6 +6314,7 @@ MonoBehaviour:
   playerNumber: 0
   groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
+  triggerValue: 1
 --- !u!54 &1005132272
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9237,6 +9240,7 @@ MonoBehaviour:
   playerNumber: 0
   groupName: 
   material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
+  triggerValue: 1
 --- !u!54 &1309293106
 Rigidbody:
   m_ObjectHideFlags: 0
