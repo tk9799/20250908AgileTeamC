@@ -150,7 +150,8 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("èàóù");
                 //playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
-                Jump();
+                animator.SetTrigger("isJump");
+                Jumping();
             }
         }
     }
@@ -330,13 +331,13 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(playerTransform.position, playerTransform.position + Vector3.down * rayLength);
     }
 
-    public void Jump()
+    public void Jumping()
     {
         Debug.Log("jump");
         if (isGrounded())
         {
-            playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
-            animator.SetTrigger("Jump");
+           // playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+            
         }
     }
 
