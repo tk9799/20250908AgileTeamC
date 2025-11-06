@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
     //右トリガーを押して通常攻撃発動する値
     [SerializeField] private float triggerValue = 1.0f;
 
+    // Animtorを取得
+    [SerializeField] private Animator animator = null;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -68,13 +71,13 @@ public class PlayerController : MonoBehaviour
         if (playerNumber <= 1)
         {
             this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.red);//見分けやすくするためチームの色に変更
+            //this.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.red);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamRedです");
         }
         else
         {
             this.gameObject.tag = "BluePlayer";
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
+            //this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamBlueです");
         }
     }
@@ -84,6 +87,8 @@ public class PlayerController : MonoBehaviour
         //performed、canceledコールバックを受け取る
         if (context.started) return;
         inputMove = context.ReadValue<Vector2>();
+
+
 
         //Moveアクションの入力取得
         //var inputMove = context.ReadValue<Vector2>();
@@ -140,7 +145,7 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.performed)
         {
-            
+
             if (isGrounded())
             {
                 Debug.Log("処理");
@@ -202,7 +207,7 @@ public class PlayerController : MonoBehaviour
         //    isRightTrigger = false;
         //}
         ////normalAttack();
-        
+
         if (callbackContext.performed)
         {
             isRightTrigger = true;
@@ -258,13 +263,22 @@ public class PlayerController : MonoBehaviour
         //左スティックで移動
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
+        // Animatorに値を渡す
+        // 前後移動
+        animator.SetFloat("Vertical", moveValue.y);
+
+        // 左右移動
+        animator.SetFloat("Horizontal", moveValue.x);
+        
+
         float rightTriggerValue = attackAction.ReadValue<float>();
 
-        if(rightTriggerValue > triggerValue && !isRightTrigger)
+        if (rightTriggerValue > triggerValue && !isRightTrigger)
         {
             normalAttack();
             Debug.Log("通常攻撃");
             isRightTrigger = true;
+            animator.SetTrigger("isThrow");
         }
 
         if (moveValue.sqrMagnitude > 0.01f)
@@ -322,6 +336,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded())
         {
             playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+            animator.SetTrigger("Jump");
         }
     }
 
@@ -397,7 +412,7 @@ public class PlayerController : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, 2f); // 半径2.0の範囲を調べる
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("NotPossessionKnife")&&knifeObjectList.Count<=6)
+            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count <= 6)
             {
                 Debug.Log("ナイフを回収");
                 Destroy(hit.gameObject);
