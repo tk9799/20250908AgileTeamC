@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f208d00c9a20fdf4182c787449337e59
+guid: c402ac0223eea47488e6410c24ba25d3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,13 +31,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Throw
+      name: Jumping
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 66
+      lastFrame: 57
       wrapMode: 0
-      orientationOffsetY: 13.51
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -54,7 +54,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.2763819
+        functionName: Jumping
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
