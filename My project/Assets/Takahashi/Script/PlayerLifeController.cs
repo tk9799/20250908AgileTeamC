@@ -11,6 +11,9 @@ public class PlayerLifeController : MonoBehaviour
     //プレイヤーがやられた時の判定
     public bool isDed = false;
 
+    //プレイヤーがやられた後脱落させる判定
+    private bool isDropout = false;
+
     //PlayerLifeManagerスクリプトを取得
     [SerializeField] private PlayerLifeManager playerLifeManager;
    
@@ -47,26 +50,39 @@ public class PlayerLifeController : MonoBehaviour
     {
         Debug.Log(gameObject.name + " は倒された！");
 
-        //
+        //プレイヤーがやられた判定にするためtrueにする
         isDed = true;
 
-
+        //GameJudgement()を呼び出すことでプレイヤーがやられた時Listから削除できる
         playerLifeManager.GameJudgement();
 
         //playerLifeManagerのteamAMemberList、teamBMemberListから削除された場合
         if (playerLifeManager != null && playerLifeManager.isDeleteConfirmation)
         {
-            
+            //やられたプレイヤーのtagがRedPlayerの場合
             if (gameObject.tag == "RedPlayer")
             {
+                //teamAMemberListから削除
                 playerLifeManager.teamAMemberList.Remove(gameObject);
                 Debug.Log("teamAListから削除");
+                //脱落判定にする
+                isDropout = true;
             }
-            else if(gameObject.tag == "BluePlayer")
+            //やられたプレイヤーのtagがBluePlayerの場合
+            else if (gameObject.tag == "BluePlayer")
             {
+                //teamBMemberListから削除
                 playerLifeManager.teamBMemberList.Remove(gameObject);
                 Debug.Log("teamBListから削除");
+                //脱落判定にする
+                isDropout = true;
             }
+            //gameObject.SetActive(false);
+        }
+
+        //プレイヤーが脱落判定になった時非表示にする
+        if (isDropout)
+        {
             gameObject.SetActive(false);
         }
     }

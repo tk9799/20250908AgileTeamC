@@ -60,7 +60,6 @@ public class PlayerLifeManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (teamAMemberList.Count == 0 || teamBMemberList.Count == 0)
@@ -102,24 +101,6 @@ public class PlayerLifeManager : MonoBehaviour
             teamBMemberList.Remove(player4Life.gameObject);
             isDeleteConfirmation = true;
         }
-
-        //if (teamAMemberList.Count == 0 || teamBMemberList.Count == 0)
-        //{
-        //    if (teamAMemberList.Count > 0)
-        //    {
-        //        winnerName = "RedPlayer";
-        //        Debug.Log(winnerName);
-        //    }
-        //    else if (teamBMemberList.Count > 0)
-        //    {
-        //        winnerName = "BulePlayer";
-        //        Debug.Log(winnerName);
-        //    }
-
-        //    //DontDestroyOnLoad(gameObject);
-        //    //SceneManager.LoadScene("ResultScene");
-        //}
-        //isDeleteConfirmation = false;
     }
 
     public void ResultJudgement()
