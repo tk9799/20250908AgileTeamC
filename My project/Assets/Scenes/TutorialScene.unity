@@ -9231,7 +9231,7 @@ MonoBehaviour:
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
-  rayLength: 1.5
+  rayLength: 1.15
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100

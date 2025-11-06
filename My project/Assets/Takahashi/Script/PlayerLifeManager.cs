@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLifeManager : MonoBehaviour
 {
+    //4人想定でそれぞれのPlayerLifeControllerとplayerオブジェクトをアタッチする
     [SerializeField] private PlayerLifeController player1Life;
     [SerializeField] private PlayerLifeController player2Life;
     [SerializeField] private PlayerLifeController player3Life;
@@ -16,11 +17,19 @@ public class PlayerLifeManager : MonoBehaviour
     [SerializeField] private GameObject player3;
     [SerializeField] private GameObject player4;
     
+    //チーム分けする際Listを使ってチーム分けするため2つのListを作成
     [SerializeField] public List<GameObject> teamAMemberList=new List<GameObject>();
     [SerializeField] public List<GameObject> teamBMemberList=new List<GameObject>();
-    public bool isDeleteConfirmation = false;//Listから削除したかを確認するbool
+
+    //Listから削除したかを確認するbool
+    public bool isDeleteConfirmation = false;
+
+    //勝敗が決まった時に変更される変数
     private string winnerName = "";
 
+    /// <summary>
+    /// tagの名前でプレイヤーのチーム分けしてそれぞれのListに加える
+    /// </summary>
     void Start()
     {
         if (player1.tag == "RedPlayer")
@@ -60,10 +69,15 @@ public class PlayerLifeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Listが0になったのを検知して勝ったチーム名を更新する
+    /// </summary>
     void Update()
     {
+        //どちらかのListの中身が0になった場合
         if (teamAMemberList.Count == 0 || teamBMemberList.Count == 0)
         {
+            //Listの中身が0の場合もう片方のチーム名をwinnerNameに代入
             if (teamAMemberList.Count > 0)
             {
                 winnerName = "RedPlayer";
@@ -73,15 +87,18 @@ public class PlayerLifeManager : MonoBehaviour
                 winnerName = "BulePlayer";
             }
 
-            ////DontDestroyOnLoad(gameObject);
-            //SceneManager.LoadScene("ResultScene");
+            //勝者の名前を保存するメソッド
             ResultJudgement();
         }
     }
 
+    /// <summary>
+    /// プレイヤーがやられた時Listから削除するメソッド
+    /// </summary>
     public void GameJudgement()
     {
-        if(player1Life != null && player1Life.isDed)
+        //プレイヤーがやられた時Listから削除する
+        if (player1Life != null && player1Life.isDed)
         {
             teamAMemberList.Remove(player1Life.gameObject);
             isDeleteConfirmation = true;
@@ -103,6 +120,9 @@ public class PlayerLifeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 勝者の名前を保存するメソッド
+    /// </summary>
     public void ResultJudgement()
     {
         //勝者の情報を保存する
