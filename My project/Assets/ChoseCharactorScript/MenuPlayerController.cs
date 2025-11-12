@@ -183,7 +183,6 @@ public class MenuPlayerController : MonoBehaviour
 
             default:
                 break;
-
         }
     }
 
