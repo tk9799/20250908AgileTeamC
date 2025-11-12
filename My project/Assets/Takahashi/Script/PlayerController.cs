@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private Vector3 cameraPosition;
     private Vector2 inputMove;
     [Header("ナイフの初期値")]
     [SerializeField] public int possessionNumber = 5;
@@ -24,6 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject knifeObject;//ナイフオブジェクト
     //プレイヤーから見た相対的な位置（距離・角度）を表す
     [SerializeField] private Vector3 cameraOffset = new Vector3(0, 2, -4);
+
+    private Vector2 moveInput;
+    private Vector2 lookValue;
     //[SerializeField] private Vector3 cameraPosition;
     public bool onGround = true;
     private bool isRightTrigger = false;//攻撃判定
@@ -63,6 +67,7 @@ public class PlayerController : MonoBehaviour
         if (playerInput.devices.Count > 0)
         {
             gamepad = playerInput.devices[0] as Gamepad;
+            Debug.Log("接続されました");
         }
 
         // プレイヤー番号を自動で割り当て
@@ -149,7 +154,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded())
             {
                 Debug.Log("処理");
-                //playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+                playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
                 animator.SetTrigger("isJump");
                 Jumping();
             }
@@ -190,25 +195,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnNomalAttack(InputAction.CallbackContext callbackContext)
     {
-        ////Debug.Log(callbackContext);
-        //if (callbackContext.performed)//右トリガーを押したとき
-        //{
-        //    isRightTrigger = true;
-        //    if (isInputLB)
-        //    {
-        //        WeakSkill();
-        //    }
-        //    else
-        //    {
-        //        normalAttack();
-        //    }
-        //}
-        //else if (callbackContext.canceled)//右トリガーを離したとき
-        //{
-        //    isRightTrigger = false;
-        //}
-        ////normalAttack();
-
         if (callbackContext.performed)
         {
             isRightTrigger = true;
@@ -236,13 +222,23 @@ public class PlayerController : MonoBehaviour
     {
         isDush = false;
         GenerateKnife();
-        var gamepads = Gamepad.all;
-
-        if (playerInput.devices.Count > 0)
+        //var gamepads = Gamepad.all;
+        // デバイスが登録されているか確認
+        if (playerInput != null && playerInput.devices.Count > 0)
         {
             gamepad = playerInput.devices[0] as Gamepad;
-            //Debug.Log(gamepads.ToString());
-            Debug.Log(playerInput.devices);
+            if (gamepad != null)
+            {
+                Debug.Log($"Player {playerNumber + 1} が {gamepad.displayName} を使用中");
+            }
+            else
+            {
+                Debug.LogWarning($"Player {playerNumber + 1}: デバイスはあるがGamepadではありません。");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Player {playerNumber + 1}: PlayerInputにデバイスが割り当てられていません。");
         }
 
     }
@@ -253,24 +249,46 @@ public class PlayerController : MonoBehaviour
         // デバイス別に処理
         if (gamepad == null) return;
 
-        Vector2 move = gamepad.leftStick.ReadValue();
-        transform.Translate(new Vector3(move.x, 0, move.y) * Time.deltaTime * 5);
+        // 右スティック入力を取得
+        lookValue = lookAction.ReadValue<Vector2>();
 
-        if (gamepad.buttonSouth.wasPressedThisFrame)
-        {
-            Debug.Log($"Player {playerNumber + 1} がジャンプボタンを押しました！");
-        }
+        // 回転を更新
+        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
+        pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, -20f, 60f);
 
-        //左スティックで移動
-        Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        // カメラの回転と位置
+        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
+        Vector3 playerCenter = playerTransform.position + Vector3.up * height;
+        Vector3 targetPosition = playerCenter - cameraRot * Vector3.forward * distance;
+
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * speed);
+        cameraTransform.rotation = cameraRot;
+
+        //moveInput = Gamepad.current.leftStick.ReadValue();
+        //if (gamepad != null)
+        //{
+        //    moveInput = gamepad.leftStick.ReadValue();
+        //}
+        //else
+        //{
+        //    // 念のためのフォールバック
+        //    moveInput = moveAction.ReadValue<Vector2>();
+        //}
+
+        //if (gamepad.buttonSouth.wasPressedThisFrame)
+        //{
+        //    Debug.Log($"Player {playerNumber + 1} がジャンプボタンを押しました！");
+        //}
+        moveInput = moveAction.ReadValue<Vector2>();
 
         // Animatorに値を渡す
         // 前後移動
-        animator.SetFloat("Vertical", moveValue.y);
+        animator.SetFloat("Vertical", moveInput.y);
 
         // 左右移動
-        animator.SetFloat("Horizontal", moveValue.x);
-        
+        animator.SetFloat("Horizontal", moveInput.x);
+
 
         float rightTriggerValue = attackAction.ReadValue<float>();
 
@@ -281,41 +299,43 @@ public class PlayerController : MonoBehaviour
             isRightTrigger = true;
             animator.SetTrigger("isThrow");
         }
-
-        if (moveValue.sqrMagnitude > 0.01f)
-        {
-            Vector3 moveDir = (playerTransform.forward * moveValue.y + playerTransform.right * moveValue.x);
-            Vector3 targetPos = playerRigidbody.position + moveDir * speed * Time.deltaTime;
-            playerRigidbody.MovePosition(targetPos);
-        }
-
-        Vector2 lookValue = lookAction.ReadValue<Vector2>();
-        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
-        pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
-
+        //Debug.Log($"Move入力: {moveAction.ReadValue<Vector2>()}");
         CheckKnifePickup();
     }
 
-    void LateUpdate()
+    private void FixedUpdate()
     {
-        // 右スティック入力を取得
-        Vector2 lookValue = lookAction.ReadValue<Vector2>();
+        if (playerRigidbody == null)
+        {
+            Debug.LogError("playerRigidbodyが設定されていません！");
+        }
 
-        // 回転を更新
-        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
-        pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, -20f, 60f);
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
 
-        // プレイヤーの向き（Y軸のみ）
-        playerTransform.rotation = Quaternion.Euler(0f, yaw, 0f);
+        Vector3 moveDir = forward * moveInput.y + right * moveInput.x;
 
-        // カメラの回転と位置
-        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
-        Vector3 playerCenter = playerTransform.position + Vector3.up * height;
-        Vector3 targetPosition = playerCenter - playerTransform.forward * distance;
+        if (moveDir.sqrMagnitude < 0.0001f)
+        {
+            return;
+        }
 
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, speed * Time.deltaTime);
-        cameraTransform.rotation = cameraRot;
+        Quaternion targetRot = Quaternion.LookRotation(moveDir);
+
+        playerRigidbody.MoveRotation(Quaternion.Slerp(playerRigidbody.rotation, targetRot, speed * Time.fixedDeltaTime));
+
+        //位置の更新
+        //Vector3 move = moveDir * speed * Time.fixedDeltaTime;
+        playerRigidbody.MovePosition(playerRigidbody.position + moveDir * speed * Time.fixedDeltaTime);
+        if (gamepad == null)
+        {
+            Debug.Log("gamepadがnullです");
+            return;
+        }
     }
 
     private bool isGrounded()//地面に足がついているかの判定に使われる
