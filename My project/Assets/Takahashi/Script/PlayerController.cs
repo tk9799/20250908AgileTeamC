@@ -76,13 +76,13 @@ public class PlayerController : MonoBehaviour
         if (playerNumber <= 1)
         {
             this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
-            //this.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.red);//見分けやすくするためチームの色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.red);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamRedです");
         }
         else
         {
             this.gameObject.tag = "BluePlayer";
-            //this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamBlueです");
         }
     }
@@ -249,37 +249,22 @@ public class PlayerController : MonoBehaviour
         // デバイス別に処理
         if (gamepad == null) return;
 
-        // 右スティック入力を取得
-        lookValue = lookAction.ReadValue<Vector2>();
+        //// 右スティック入力を取得
+        //lookValue = lookAction.ReadValue<Vector2>();
 
-        // 回転を更新
-        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
-        pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, -20f, 60f);
+        //// 回転を更新
+        //yaw += lookValue.x * rotationSpeed * Time.deltaTime;
+        //pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
+        //pitch = Mathf.Clamp(pitch, -20f, 60f);
 
-        // カメラの回転と位置
-        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
-        Vector3 playerCenter = playerTransform.position + Vector3.up * height;
-        Vector3 targetPosition = playerCenter - cameraRot * Vector3.forward * distance;
+        //// カメラの回転と位置
+        //Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
+        //Vector3 playerCenter = playerTransform.position + Vector3.up * height;
+        //Vector3 targetPosition = playerCenter - cameraRot * Vector3.forward * distance;
 
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * speed);
-        cameraTransform.rotation = cameraRot;
+        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * speed);
+        //cameraTransform.rotation = cameraRot;
 
-        //moveInput = Gamepad.current.leftStick.ReadValue();
-        //if (gamepad != null)
-        //{
-        //    moveInput = gamepad.leftStick.ReadValue();
-        //}
-        //else
-        //{
-        //    // 念のためのフォールバック
-        //    moveInput = moveAction.ReadValue<Vector2>();
-        //}
-
-        //if (gamepad.buttonSouth.wasPressedThisFrame)
-        //{
-        //    Debug.Log($"Player {playerNumber + 1} がジャンプボタンを押しました！");
-        //}
         moveInput = moveAction.ReadValue<Vector2>();
 
         // Animatorに値を渡す
@@ -336,6 +321,29 @@ public class PlayerController : MonoBehaviour
             Debug.Log("gamepadがnullです");
             return;
         }
+    }
+
+    private void LateUpdate()
+    {
+        // 右スティック入力を取得
+        lookValue = lookAction.ReadValue<Vector2>();
+
+        // 回転を更新
+        yaw += lookValue.x * rotationSpeed * Time.deltaTime;
+        pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, -20f, 60f);
+
+        // カメラの回転と位置
+        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
+
+        Vector3 playerCenter = playerTransform.position + Vector3.up * height;
+
+        //カメラの位置
+        Vector3 targetPosition = playerCenter - cameraRot * Vector3.forward * distance;
+
+        //カメラをプレイヤーに即座に追従
+        cameraTransform.position = targetPosition;
+        cameraTransform.rotation = cameraRot;
     }
 
     private bool isGrounded()//地面に足がついているかの判定に使われる
