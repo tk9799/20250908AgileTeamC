@@ -18,14 +18,12 @@ public class TextAnimation : MonoBehaviour
     [Header("テキストの透明度が変わる速度")]
     [SerializeField] private float changeTransparencySpeed = 0.0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // テキストを点滅させる処理
         moveText.DOFade(textTransparency, changeTransparencySpeed).SetLoops(loop, LoopType.Yoyo).Play();
     }
 
-    // Update is called once per frame
     void Update()
     {
        
