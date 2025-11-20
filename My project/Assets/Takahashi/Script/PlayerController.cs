@@ -249,21 +249,11 @@ public class PlayerController : MonoBehaviour
         // デバイス別に処理
         if (gamepad == null) return;
 
-        //// 右スティック入力を取得
-        //lookValue = lookAction.ReadValue<Vector2>();
+        //Aボタンが押された場合
+        if (Input.GetKeyDown(KeyCode.JoystickButton14))
+        {
 
-        //// 回転を更新
-        //yaw += lookValue.x * rotationSpeed * Time.deltaTime;
-        //pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
-        //pitch = Mathf.Clamp(pitch, -20f, 60f);
-
-        //// カメラの回転と位置
-        //Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
-        //Vector3 playerCenter = playerTransform.position + Vector3.up * height;
-        //Vector3 targetPosition = playerCenter - cameraRot * Vector3.forward * distance;
-
-        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * speed);
-        //cameraTransform.rotation = cameraRot;
+        }
 
         moveInput = moveAction.ReadValue<Vector2>();
 
@@ -424,12 +414,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void WeakSkill()
+    private void WeakSkill()
     {
         Debug.Log("弱スキル");
     }
 
-    public void StrongSkill()
+    private void StrongSkill()
     {
         Debug.Log("強スキル");
     }
