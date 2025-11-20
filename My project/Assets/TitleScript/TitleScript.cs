@@ -22,5 +22,12 @@ public class TitleScript : MonoBehaviour
         {
             SceneManager.LoadScene("TutorialScene");
         }
+        else
+        {
+            if(Input.anyKey)
+            {
+                SceneManager.LoadScene("TutorialScene");
+            }
+        }
     }
 }
