@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private InputAction jumpAction;
     private InputAction attackAction;
     private InputAction sceneMoveAction;
-    [SerializeField] private List<GameObject> knifeObjectList = new List<GameObject>();
+    [SerializeField] public List<GameObject> knifeObjectList = new List<GameObject>();
     private bool isInitialGenerate = false;//初期生成する際のbool
     [SerializeField] private PlayerInput playerInput;
     private Gamepad gamepad;
@@ -422,12 +422,7 @@ public class PlayerController : MonoBehaviour
         {
             //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
-            //knife.tag = "Knife";
-            //if (this.groupName == "TeamRed")
-            //{
-            //    knife.tag = "RedKnife";
-            //    Debug.Log(groupName);
-            //}
+            
             if (this.gameObject.tag == "RedPlayer")
             {
                 knife.tag = "RedKnife";
@@ -438,11 +433,6 @@ public class PlayerController : MonoBehaviour
                 knife.tag = "Blueknife";
                 Debug.Log(knife.tag);
             }
-            //else if (this.groupName == "TeamBlue")
-            //{
-            //    knife.tag = "Blueknife";
-            //    Debug.Log(knife.tag);
-            //}
 
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             if (rigidbody != null)
@@ -451,8 +441,8 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(knife.tag);
             }
             KnifeControllertr knifeControllertr = knife.GetComponent<KnifeControllertr>();
-            //knifeControllertr.owner = this.gameObject;
-            //knifeObjectList.Remove(knifeObject.gameObject);
+            
+            knifeObjectList.RemoveAt(0);//ナイフを投げたらリストから削除
         }
     }
 
@@ -473,9 +463,10 @@ public class PlayerController : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, 2f); // 半径2.0の範囲を調べる
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count <= 6)
+            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count < 5)
             {
                 Debug.Log("ナイフを回収");
+                knifeObjectList.Add(knifeObject.gameObject);
                 Destroy(hit.gameObject);
                 // 所持数を増やす処理もここで
             }
