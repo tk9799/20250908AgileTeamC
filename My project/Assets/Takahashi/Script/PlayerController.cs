@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputMove;
     [Header("ナイフの初期値")]
     [SerializeField] public int possessionNumber = 5;
+    //プレイヤーの準備完了時に表示させるCanvasオブジェクト
+    [SerializeField] private GameObject whiteScreenObject;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float defaultSpeed = 10f;
     [SerializeField] private float maxSpeed = 13f;//ダッシュ時のスピード
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask knifeLayer;
     [SerializeField] public GameObject knifeObject;//ナイフオブジェクト
+    
     //プレイヤーから見た相対的な位置（距離・角度）を表す
     [SerializeField] private Vector3 cameraOffset = new Vector3(0, 2, -4);
 
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction attackAction;
+    private InputAction sceneMoveAction;
     [SerializeField] private List<GameObject> knifeObjectList = new List<GameObject>();
     private bool isInitialGenerate = false;//初期生成する際のbool
     [SerializeField] private PlayerInput playerInput;
@@ -58,6 +62,9 @@ public class PlayerController : MonoBehaviour
 
     // Animtorを取得
     [SerializeField] private Animator animator = null;
+
+    // プレイヤーの準備完了の判定
+    public bool isReady = false;
 
     private void Awake()
     {
@@ -116,11 +123,13 @@ public class PlayerController : MonoBehaviour
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
+        sceneMoveAction = playerInput.actions["SceneMove"];
         attackAction = playerInput.actions["NomalAttack"];
         var lbAction = playerInput.actions["WeakSkill"];
         var rbAction = playerInput.actions["StrongSkill"];
 
         jumpAction.performed += OnJump;
+        sceneMoveAction.performed += OnSceneMove;
         attackAction.performed += OnNomalAttack;
         attackAction.canceled += OnNomalAttack; // 押し離し両方見る
         lbAction.performed += OnLB;
@@ -157,6 +166,24 @@ public class PlayerController : MonoBehaviour
                 playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
                 animator.SetTrigger("isJump");
                 Jumping();
+            }
+        }
+    }
+
+    private void OnSceneMove(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            isReady = !isReady;
+
+            // Canvasオブジェクトの表示・非表示を切り替え
+            if (isReady)
+            {
+                whiteScreenObject.SetActive(true);
+            }
+            else if (!isReady)
+            {
+                whiteScreenObject.SetActive(false);
             }
         }
     }
@@ -220,6 +247,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        whiteScreenObject.SetActive(false);
+
         isDush = false;
         GenerateKnife();
         //var gamepads = Gamepad.all;
@@ -249,11 +278,24 @@ public class PlayerController : MonoBehaviour
         // デバイス別に処理
         if (gamepad == null) return;
 
-        //Aボタンが押された場合
-        if (Input.GetKeyDown(KeyCode.JoystickButton14))
-        {
+        ////Aボタンが押された場合
+        //if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        //{
+        //    Debug.Log("Aボタンが押されました");
 
-        }
+        //    // プレイヤーの準備完了状態を切り替え
+        //    isReady = !isReady;
+
+        //    // Canvasオブジェクトの表示・非表示を切り替え
+        //    if (isReady)
+        //    {
+        //        whiteScreenObject.SetActive(true);
+        //    }
+        //    else if (!isReady)
+        //    {
+        //        whiteScreenObject.SetActive(false);
+        //    }
+        //}
 
         moveInput = moveAction.ReadValue<Vector2>();
 
