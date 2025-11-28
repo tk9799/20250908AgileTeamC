@@ -6,37 +6,51 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private Vector3 cameraPosition;
     private Vector2 inputMove;
     [Header("ナイフの初期値")]
     [SerializeField] public int possessionNumber = 5;
     //プレイヤーの準備完了時に表示させるCanvasオブジェクト
     [SerializeField] private GameObject whiteScreenObject;
+
+    //プレイヤーの移動速度とRotation速度
     [SerializeField] private float speed = 10f;
+
+    //プレイヤーが走る前のデフォルトスピード
     [SerializeField] private float defaultSpeed = 10f;
-    [SerializeField] private float maxSpeed = 13f;//ダッシュ時のスピード
-    [SerializeField] private float jump = 10f;
+
+    //ダッシュ時のスピード
+    [SerializeField] private float maxSpeed = 13f;
+
+    //ジャンプするときの力
+    [SerializeField] private float jumpPower = 10f;
+
+    //ナイフを投げる時の速度
     [SerializeField] private float translateSpeed = 10f;
+
+    //プレイヤーのTransformとRigidbody
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody playerRigidbody;
-    [SerializeField] private Transform cameraTransform;
-    //[SerializeField] private PlayerCamera playerCamera;
-    [SerializeField] private Transform translatePosition;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask knifeLayer;
-    [SerializeField] public GameObject knifeObject;//ナイフオブジェクト
-    
-    //プレイヤーから見た相対的な位置（距離・角度）を表す
-    [SerializeField] private Vector3 cameraOffset = new Vector3(0, 2, -4);
 
+    //カメラのTransform
+    [SerializeField] private Transform cameraTransform;
+
+    //ナイフを生成して飛ばすときのposition
+    [SerializeField] private Transform translatePosition;
+
+    //地面についているかを判定するLayer
+    [SerializeField] private LayerMask groundLayer;
+
+    //ナイフを生成するために参照するGameObject
+    [SerializeField] public GameObject knifeObject;
+    
+    //プレイヤーの移動入力(moveInput)と視点回転入力(lookValue)
     private Vector2 moveInput;
     private Vector2 lookValue;
-    //[SerializeField] private Vector3 cameraPosition;
+
+    //地面についているかの判定
     public bool onGround = true;
     private bool isRightTrigger = false;//攻撃判定
-    private bool isNomalAttack = false;
     private bool isDush = false;//ダッシュ判定
-    private bool isInputRightTrigger = false;//右トリガーの入力判定
     private bool isInputRB = false;//RBの入力判定
     private bool isInputLB = false;//LBの入力判定
     public float rayLength = 0.2f;
@@ -44,19 +58,33 @@ public class PlayerController : MonoBehaviour
     private float height = 2f;//カメラの高さ
     [SerializeField] float mouseSensitivity = 1.0f;
     [SerializeField] private float rotationSpeed = 100f;
+
+    //カメラの縦横回転の数値
     private float yaw, pitch;
+
+    //新InputActionの割り当てしたそれぞれのActions
+    //それぞれのActionsのメソッドを作ることで入力したときの処理ができたり
+    //代入したりするとInputActionに設定した入力を取得できる
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction attackAction;
     private InputAction sceneMoveAction;
+
+    //プレイヤーが所持しているナイフを格納するリスト
     [SerializeField] public List<GameObject> knifeObjectList = new List<GameObject>();
-    private bool isInitialGenerate = false;//初期生成する際のbool
+    //開始時ナイフを設定した数生成する際に使うbool
+    private bool isInitialGenerate = false;
+
+    //InputActionを自動で読み込むコンポーネントを取得
     [SerializeField] private PlayerInput playerInput;
+
+    //ゲームパッドの取得
     private Gamepad gamepad;
+
+    //複数人でやる際のプレイヤーの番号割り当てに使う変数
     public int playerNumber = 0;
-    public string groupName = "";
-    [SerializeField] Material material2 = default;
+    //public string groupName = "";
     //右トリガーを押して通常攻撃発動する値
     [SerializeField] private float triggerValue = 1.0f;
 
@@ -66,9 +94,12 @@ public class PlayerController : MonoBehaviour
     // プレイヤーの準備完了の判定
     public bool isReady = false;
 
+    /// <summary>
+    /// それぞれのプレイヤーをチームごとに割り当てる
+    /// </summary>
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        //playerInput = GetComponent<PlayerInput>();
 
         // 割り当てられたデバイス（コントローラ）を取得
         if (playerInput.devices.Count > 0)
@@ -99,27 +130,10 @@ public class PlayerController : MonoBehaviour
         //performed、canceledコールバックを受け取る
         if (context.started) return;
         inputMove = context.ReadValue<Vector2>();
-
-
-
-        //Moveアクションの入力取得
-        //var inputMove = context.ReadValue<Vector2>();
-        var look = context.ReadValue<Quaternion>();
     }
 
     private void OnEnable()
     {
-        //// InputActionを有効化
-        //// これをしないと入力を受け取れないことに注意
-        ////playerInput.onActionTriggered += OnAction;
-        //_lookActionReference.action.Enable();
-        //_moveActionReference.action.Enable();
-        //_jumpActionReference.action.Enable();
-        //_attackActionReference.action.Enable();
-
-        //_jumpActionReference.action.performed += OnJump;
-        //_attackActionReference.action.performed += OnNomalAttack;
-
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
@@ -140,20 +154,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // 無効化
-    private void OnDisable()
-    {
-        //// 自身が無効化されるタイミングなどで
-        //// Actionを無効化する必要がある
-        //_lookActionReference.action.Disable();
-        //_moveActionReference.action.Disable();
-        //_jumpActionReference.action.Disable();
-        //_attackActionReference.action.Disable();
-
-        //_jumpActionReference.action.performed -= OnJump;
-        //_attackActionReference.action.performed -= OnNomalAttack;
-
-    }
 
     private void OnJump(InputAction.CallbackContext ctx)
     {
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded())
             {
                 Debug.Log("処理");
-                playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+                playerRigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
                 animator.SetTrigger("isJump");
                 Jumping();
             }
@@ -278,25 +278,8 @@ public class PlayerController : MonoBehaviour
         // デバイス別に処理
         if (gamepad == null) return;
 
-        ////Aボタンが押された場合
-        //if (Input.GetKeyDown(KeyCode.JoystickButton0))
-        //{
-        //    Debug.Log("Aボタンが押されました");
-
-        //    // プレイヤーの準備完了状態を切り替え
-        //    isReady = !isReady;
-
-        //    // Canvasオブジェクトの表示・非表示を切り替え
-        //    if (isReady)
-        //    {
-        //        whiteScreenObject.SetActive(true);
-        //    }
-        //    else if (!isReady)
-        //    {
-        //        whiteScreenObject.SetActive(false);
-        //    }
-        //}
-
+        //左スティック入力の更新
+        //左スティック入力の値が入る
         moveInput = moveAction.ReadValue<Vector2>();
 
         // Animatorに値を渡す
@@ -306,9 +289,11 @@ public class PlayerController : MonoBehaviour
         // 左右移動
         animator.SetFloat("Horizontal", moveInput.x);
 
-
+        //右トリガーを押したときの数値
+        //右トリガーを押すほど数値が大きくなる(最大１)
         float rightTriggerValue = attackAction.ReadValue<float>();
 
+        //右トリガーを押した値が一定数以上ならば通常攻撃する
         if (rightTriggerValue > triggerValue && !isRightTrigger)
         {
             normalAttack();
