@@ -29,7 +29,7 @@ public class Character1Skill : PlayerController
     /// <summary>
     /// キャラクター1弱スキル発動メソッド
     /// </summary>
-    protected virtual void WeakSkill()
+    protected override void WeakSkill()
     {
 
     }
@@ -37,7 +37,7 @@ public class Character1Skill : PlayerController
     /// <summary>
     /// キャラクター1の強スキル発動メソッド
     /// </summary>
-    protected virtual void StrongSkill()
+    protected override void StrongSkill()
     {
 
     }

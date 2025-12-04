@@ -2380,9 +2380,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 1137202721}
-  speed: 5
+  speed: 10
   defaultSpeed: 10
   maxSpeed: 13
   jumpPower: 10
@@ -2393,10 +2394,10 @@ MonoBehaviour:
   translatePosition: {fileID: 285902134}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
-  rayLength: 1.5
+  rayLength: 0.2
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -2404,7 +2405,6 @@ MonoBehaviour:
   playerInput: {fileID: 285902137}
   playerNumber: 0
   triggerValue: 1
-  animator: {fileID: 942040564}
   isReady: 0
 --- !u!54 &285902136
 Rigidbody:
@@ -2479,6 +2479,51 @@ MonoBehaviour:
   playerLife: 0
   isDed: 0
   playerLifeManager: {fileID: 1291361524}
+--- !u!1 &296300274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 296300276}
+  - component: {fileID: 296300275}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &296300275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296300274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980b657f2521b034ab6924cb86d715a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInTutorial: 0
+--- !u!4 &296300276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296300274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.8724525, y: -3.5531895, z: 4.942334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &308645484
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,9 +3531,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 1568209460}
-  speed: 5
+  speed: 10
   defaultSpeed: 10
   maxSpeed: 13
   jumpPower: 10
@@ -3499,10 +3545,10 @@ MonoBehaviour:
   translatePosition: {fileID: 386902531}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
-  rayLength: 1.5
+  rayLength: 0.2
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -3510,7 +3556,6 @@ MonoBehaviour:
   playerInput: {fileID: 386902534}
   playerNumber: 0
   triggerValue: 1
-  animator: {fileID: 942040564}
   isReady: 0
 --- !u!114 &386902534
 MonoBehaviour:
@@ -6362,11 +6407,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4943870592999408, guid: d0129a27e457ca34daa588bd4c0ccdfe, type: 3}
   m_PrefabInstance: {fileID: 934548506}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &942040564 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-  m_PrefabInstance: {fileID: 2127599336}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &956620018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7054,9 +7094,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 250242774}
-  speed: 5
+  speed: 10
   defaultSpeed: 10
   maxSpeed: 13
   jumpPower: 10
@@ -7067,10 +7108,10 @@ MonoBehaviour:
   translatePosition: {fileID: 1005132270}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
-  rayLength: 1.5
+  rayLength: 0.2
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -7078,7 +7119,6 @@ MonoBehaviour:
   playerInput: {fileID: 1005132273}
   playerNumber: 0
   triggerValue: 1
-  animator: {fileID: 942040564}
   isReady: 0
 --- !u!54 &1005132272
 Rigidbody:
@@ -7186,6 +7226,7 @@ MonoBehaviour:
   playerController2: {fileID: 1309293105}
   playerController3: {fileID: 1005132271}
   playerController4: {fileID: 285902135}
+  tutorialManager: {fileID: 296300275}
 --- !u!4 &1005686807
 Transform:
   m_ObjectHideFlags: 0
@@ -10229,51 +10270,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead49cebc1fb74a4b999e463ebafe477, type: 3}
---- !u!1 &1276275618
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1276275620}
-  - component: {fileID: 1276275619}
-  m_Layer: 0
-  m_Name: Singleton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1276275619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276275618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f3f9836b0f19b944ac937d4d3a285ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winnerTeamName: 
---- !u!4 &1276275620
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276275618}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28499797, y: 1.5968153, z: 53.25392}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1278915730
 GameObject:
   m_ObjectHideFlags: 0
@@ -10639,9 +10635,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 775525694}
-  speed: 5
+  speed: 10
   defaultSpeed: 10
   maxSpeed: 13
   jumpPower: 10
@@ -10652,10 +10649,10 @@ MonoBehaviour:
   translatePosition: {fileID: 1309293104}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
-  rayLength: 1.5
+  rayLength: 0.2
   distance: 5
   mouseSensitivity: 1
   rotationSpeed: 100
@@ -10663,7 +10660,6 @@ MonoBehaviour:
   playerInput: {fileID: 1309293107}
   playerNumber: 0
   triggerValue: 1
-  animator: {fileID: 942040564}
   isReady: 0
 --- !u!54 &1309293106
 Rigidbody:
@@ -15893,75 +15889,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2127599336
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_Name
-      value: Y Bot (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 55f9d6f6402819f4e9db4e011163fb62, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fefff9be3a75a7f41a8b309800f1cc5e, type: 3}
 --- !u!1 &2131715695
 GameObject:
   m_ObjectHideFlags: 0
@@ -16075,6 +16002,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1870699905}
+  - {fileID: 296300276}
   - {fileID: 386902531}
   - {fileID: 1309293104}
   - {fileID: 1005132270}
@@ -16098,13 +16026,11 @@ SceneRoots:
   - {fileID: 1271836195}
   - {fileID: 1058206851}
   - {fileID: 956620018}
-  - {fileID: 2127599336}
   - {fileID: 1623169402}
   - {fileID: 220032590}
   - {fileID: 1395102060}
   - {fileID: 1291361525}
   - {fileID: 691816393}
-  - {fileID: 1276275620}
   - {fileID: 1227052793}
   - {fileID: 21486305}
   - {fileID: 2109022535}

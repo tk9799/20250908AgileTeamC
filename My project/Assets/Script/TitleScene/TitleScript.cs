@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 
@@ -17,17 +18,17 @@ public class TitleScript : MonoBehaviour
     void Update()
     {
         // コントローラーが接続されいるかつABXYのいずれかのボタンが押されたらシーン遷移
-        if (pad != null && Gamepad.current.buttonEast.wasPressedThisFrame || Gamepad.current.buttonWest.wasPressedThisFrame || Gamepad.current.buttonNorth.wasPressedThisFrame ||
-            Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (pad != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
             Singleton.instance.TransitionTutorialScene();
         }
         else
         {
-            // キーボードのいずれかのキーが押されたらシーン遷移
-            if (Input.anyKey)
-            {
-                Singleton.instance.TransitionTutorialScene();            }
+            //// キーボードのいずれかのキーが押されたらシーン遷移
+            //if (Input.anyKey)
+            //{
+            //    Singleton.instance.TransitionTutorialScene();
+            //}
         }
     }
 }
