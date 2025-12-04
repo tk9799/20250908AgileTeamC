@@ -2385,7 +2385,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 5
+  jumpPower: 10
   translateSpeed: 10
   playerTransform: {fileID: 285902134}
   playerRigidbody: {fileID: 285902136}
@@ -2394,11 +2394,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  knifeLayer:
-    serializedVersion: 2
-    m_Bits: 128
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
-  cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
   rayLength: 1.5
   distance: 5
@@ -2407,8 +2403,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 285902137}
   playerNumber: 0
-  groupName: 
-  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   triggerValue: 1
   animator: {fileID: 942040564}
   isReady: 0
@@ -2769,6 +2763,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4943870592999408, guid: d0129a27e457ca34daa588bd4c0ccdfe, type: 3}
   m_PrefabInstance: {fileID: 311518903}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &316093116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316093117}
+  - component: {fileID: 316093118}
+  m_Layer: 5
+  m_Name: OuterFrameKnifeIconParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &316093117
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316093116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1835623770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &316093118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316093116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 40
+    m_Right: 0
+    m_Top: 90
+    m_Bottom: 0
+  m_ChildAlignment: 2
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &317178431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2872,11 +2928,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 386902531}
+  m_Father: {fileID: 1705479706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 967, y: 539}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &334059778
@@ -3389,7 +3445,6 @@ Transform:
   m_Children:
   - {fileID: 1045416074}
   - {fileID: 1705479706}
-  - {fileID: 334059777}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &386902532
@@ -3436,7 +3491,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 5
+  jumpPower: 10
   translateSpeed: 10
   playerTransform: {fileID: 386902531}
   playerRigidbody: {fileID: 386902532}
@@ -3445,11 +3500,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  knifeLayer:
-    serializedVersion: 2
-    m_Bits: 128
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
-  cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
   rayLength: 1.5
   distance: 5
@@ -3458,8 +3509,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 386902534}
   playerNumber: 0
-  groupName: 
-  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   triggerValue: 1
   animator: {fileID: 942040564}
   isReady: 0
@@ -5732,6 +5781,7 @@ RectTransform:
   - {fileID: 90467136}
   - {fileID: 1553061307}
   - {fileID: 1137202722}
+  - {fileID: 1030013869}
   - {fileID: 1800549017}
   m_Father: {fileID: 285902134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5816,7 +5866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
   iconParent: {fileID: 1800549017}
+  outerFrameIconParent: {fileID: 1030013869}
   playerController: {fileID: 285902135}
 --- !u!1001 &813287645
 PrefabInstance:
@@ -6988,7 +7040,6 @@ Transform:
   m_Children:
   - {fileID: 278760872}
   - {fileID: 1835623770}
-  - {fileID: 2090418151}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1005132271
@@ -7008,7 +7059,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 5
+  jumpPower: 10
   translateSpeed: 10
   playerTransform: {fileID: 1005132270}
   playerRigidbody: {fileID: 1005132272}
@@ -7017,11 +7068,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  knifeLayer:
-    serializedVersion: 2
-    m_Bits: 128
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
-  cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
   rayLength: 1.5
   distance: 5
@@ -7030,8 +7077,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 1005132273}
   playerNumber: 0
-  groupName: 
-  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   triggerValue: 1
   animator: {fileID: 942040564}
   isReady: 0
@@ -7213,6 +7258,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
+--- !u!1 &1030013868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1030013869}
+  - component: {fileID: 1030013870}
+  m_Layer: 5
+  m_Name: OuterFrameKnifeIconParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1030013869
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030013868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 783745655}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1030013870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030013868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 40
+    m_Right: 0
+    m_Top: 90
+    m_Bottom: 0
+  m_ChildAlignment: 2
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &1037972276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8882,11 +8989,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1309293104}
+  m_Father: {fileID: 1442407281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 952.7, y: 539}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1184132507
@@ -9794,6 +9901,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
+--- !u!1 &1249902852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249902853}
+  - component: {fileID: 1249902854}
+  m_Layer: 5
+  m_Name: OuterFrameKnifeIconParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1249902853
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249902852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1705479706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1249902854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249902852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 40
+    m_Right: 0
+    m_Top: 90
+    m_Bottom: 0
+  m_ChildAlignment: 2
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &1254955959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10456,7 +10625,6 @@ Transform:
   m_Children:
   - {fileID: 536035231}
   - {fileID: 1442407281}
-  - {fileID: 1184132506}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1309293105
@@ -10476,7 +10644,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jump: 5
+  jumpPower: 10
   translateSpeed: 10
   playerTransform: {fileID: 1309293104}
   playerRigidbody: {fileID: 1309293106}
@@ -10485,11 +10653,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  knifeLayer:
-    serializedVersion: 2
-    m_Bits: 128
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
-  cameraOffset: {x: 0, y: 2, z: -4}
   onGround: 1
   rayLength: 1.5
   distance: 5
@@ -10498,8 +10662,6 @@ MonoBehaviour:
   knifeObjectList: []
   playerInput: {fileID: 1309293107}
   playerNumber: 0
-  groupName: 
-  material2: {fileID: 2100000, guid: a2ac236cfa8f75e41b3c0fb592860116, type: 2}
   triggerValue: 1
   animator: {fileID: 942040564}
   isReady: 0
@@ -11196,6 +11358,8 @@ RectTransform:
   - {fileID: 228820379}
   - {fileID: 400394101}
   - {fileID: 775525697}
+  - {fileID: 1563318588}
+  - {fileID: 1184132506}
   m_Father: {fileID: 1309293104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -11279,7 +11443,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
   iconParent: {fileID: 1184132506}
+  outerFrameIconParent: {fileID: 1563318588}
   playerController: {fileID: 1309293105}
 --- !u!1001 &1444207209
 PrefabInstance:
@@ -11924,6 +12090,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553061306}
   m_CullTransparentMesh: 1
+--- !u!1 &1563318587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1563318588}
+  - component: {fileID: 1563318589}
+  m_Layer: 5
+  m_Name: OuterFrameKnifeIconParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1563318588
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563318587}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1442407281}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1563318589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563318587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 40
+    m_Right: 0
+    m_Top: 90
+    m_Bottom: 0
+  m_ChildAlignment: 2
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1568209460
 GameObject:
   m_ObjectHideFlags: 0
@@ -13250,6 +13478,8 @@ RectTransform:
   - {fileID: 2035681493}
   - {fileID: 1598930322}
   - {fileID: 1568209463}
+  - {fileID: 1249902853}
+  - {fileID: 334059777}
   m_Father: {fileID: 386902531}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13333,7 +13563,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
   iconParent: {fileID: 334059777}
+  outerFrameIconParent: {fileID: 1249902853}
   playerController: {fileID: 386902533}
 --- !u!1001 &1713625656
 PrefabInstance:
@@ -13873,6 +14105,8 @@ RectTransform:
   - {fileID: 84147426}
   - {fileID: 68339489}
   - {fileID: 250242775}
+  - {fileID: 316093117}
+  - {fileID: 2090418151}
   m_Father: {fileID: 1005132270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13956,7 +14190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
   iconParent: {fileID: 2090418151}
+  outerFrameIconParent: {fileID: 316093117}
   playerController: {fileID: 1005132271}
 --- !u!1001 &1847803592
 PrefabInstance:
@@ -15302,15 +15538,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090418150}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -49.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1005132270}
+  m_Father: {fileID: 1835623770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133, y: 539}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090418152

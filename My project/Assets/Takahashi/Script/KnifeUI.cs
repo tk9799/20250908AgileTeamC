@@ -3,11 +3,23 @@ using UnityEngine.UI;
 
 public class KnifeUI : MonoBehaviour
 {
+    //ナイフUIプレハブオブジェクト
     [SerializeField] private GameObject knifeIconPrefab;
+
+    //ナイフの外枠UIプレハブオブジェクト
+    [SerializeField] private GameObject knifeOuterFrameIconPrefab;
+    //ナイフUIを表示させる座標
     [SerializeField] private Transform iconParent;
+    [SerializeField] private Transform outerFrameIconParent;
     [SerializeField] private PlayerController playerController;
+    
+    //ナイフUIの最小値と最大値
     private int lowestKnifeCount = 0;
     private int MaxestKnifeCount = 5;
+
+    //ナイフの外枠UIの最小値と最大値
+    private int lowestOuterFrameKnifeCount = 0;
+    private int MaxestOuterFrameKnifeCount = 5;
 
     //ナイフUI表示非表示の切り替え判定
     bool isActive = false;
@@ -21,6 +33,11 @@ public class KnifeUI : MonoBehaviour
         for(int i=lowestKnifeCount; i<MaxestKnifeCount; i++)
         {
             Instantiate(knifeIconPrefab, iconParent);
+        }
+
+        for(int j=lowestOuterFrameKnifeCount;j<MaxestOuterFrameKnifeCount; j++)
+        {
+            Instantiate(knifeOuterFrameIconPrefab, outerFrameIconParent);
         }
 
         UpdateKnifeUI(currentCount);
@@ -52,7 +69,6 @@ public class KnifeUI : MonoBehaviour
             {
                 isActive = false;
             }
-            //bool isActive = (i < count);
             iconParent.GetChild(i).gameObject.SetActive(isActive);
             //Debug.Log("ナイフUI増加");
         }
