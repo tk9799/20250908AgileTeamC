@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 //using UnityEditor.Timeline.Actions;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private TutorialManager tutorialManager = null;
+
     private Vector2 inputMove;
     [Header("ナイフの初期値")]
     [SerializeField] public int possessionNumber = 5;
@@ -42,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     //ナイフを生成するために参照するGameObject
     [SerializeField] public GameObject knifeObject;
-    
+
     //プレイヤーの移動入力(moveInput)と視点回転入力(lookValue)
     private Vector2 moveInput;
     private Vector2 lookValue;
@@ -89,7 +92,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float triggerValue = 1.0f;
 
     // Animtorを取得
-    [SerializeField] private Animator animator = null;
+    //[SerializeField] private Animator animator = null;
 
     // プレイヤーの準備完了の判定
     public bool isReady = false;
@@ -100,6 +103,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         //playerInput = GetComponent<PlayerInput>();
+
+        
 
         // 割り当てられたデバイス（コントローラ）を取得
         if (playerInput.devices.Count > 0)
@@ -114,7 +119,7 @@ public class PlayerController : MonoBehaviour
         if (playerNumber <= 1)
         {
             this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color",Color.red);//見分けやすくするためチームの色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);//見分けやすくするためチームの色に変更
             Debug.Log($"{playerNumber}はTeamRedです");
         }
         else
@@ -164,7 +169,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("処理");
                 playerRigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-                animator.SetTrigger("isJump");
+                //animator.SetTrigger("isJump");
                 Jumping();
             }
         }
@@ -172,18 +177,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnSceneMove(InputAction.CallbackContext callbackContext)
     {
-        if (callbackContext.performed)
+        if (tutorialManager.isInTutorial)
         {
-            isReady = !isReady;
+            if (callbackContext.performed)
+            {
+                isReady = !isReady;
 
-            // Canvasオブジェクトの表示・非表示を切り替え
-            if (isReady)
-            {
-                whiteScreenObject.SetActive(true);
-            }
-            else if (!isReady)
-            {
-                whiteScreenObject.SetActive(false);
+                // Canvasオブジェクトの表示・非表示を切り替え
+                if (isReady)
+                {
+                    whiteScreenObject.SetActive(true);
+                }
+                else if (!isReady)
+                {
+                    whiteScreenObject.SetActive(false);
+                }
             }
         }
     }
@@ -249,6 +257,7 @@ public class PlayerController : MonoBehaviour
     {
         whiteScreenObject.SetActive(false);
 
+
         isDush = false;
         GenerateKnife();
         //var gamepads = Gamepad.all;
@@ -284,10 +293,10 @@ public class PlayerController : MonoBehaviour
 
         // Animatorに値を渡す
         // 前後移動
-        animator.SetFloat("Vertical", moveInput.y);
+        //animator.SetFloat("Vertical", moveInput.y);
 
         // 左右移動
-        animator.SetFloat("Horizontal", moveInput.x);
+        //animator.SetFloat("Horizontal", moveInput.x);
 
         //右トリガーを押したときの数値
         //右トリガーを押すほど数値が大きくなる(最大１)
@@ -299,7 +308,7 @@ public class PlayerController : MonoBehaviour
             normalAttack();
             Debug.Log("通常攻撃");
             isRightTrigger = true;
-            animator.SetTrigger("isThrow");
+            //animator.SetTrigger("isThrow");
         }
         //Debug.Log($"Move入力: {moveAction.ReadValue<Vector2>()}");
         CheckKnifePickup();
@@ -381,8 +390,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("jump");
         if (isGrounded())
         {
-           // playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
-            
+            // playerRigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+
         }
     }
 
@@ -407,7 +416,7 @@ public class PlayerController : MonoBehaviour
         {
             //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
-            
+
             if (this.gameObject.tag == "RedPlayer")
             {
                 knife.tag = "RedKnife";
@@ -426,17 +435,17 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(knife.tag);
             }
             KnifeControllertr knifeControllertr = knife.GetComponent<KnifeControllertr>();
-            
+
             knifeObjectList.RemoveAt(0);//ナイフを投げたらリストから削除
         }
     }
 
-    private void WeakSkill()
+    protected virtual void WeakSkill()
     {
         Debug.Log("弱スキル");
     }
 
-    private void StrongSkill()
+    protected virtual void StrongSkill()
     {
         Debug.Log("強スキル");
     }

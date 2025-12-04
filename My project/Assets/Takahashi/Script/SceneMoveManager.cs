@@ -9,15 +9,20 @@ public class SceneMoveManager : MonoBehaviour
     [SerializeField] private PlayerController playerController3;
     [SerializeField] private PlayerController playerController4;
 
+    [SerializeField] private TutorialManager tutorialManager = null;
     void Update()
     {
-        //それぞれのPlayerControllerスクリプトのisReadyがtrueになったらシーン移動
-        if (playerController1!=null&&playerController1.isReady
-            && playerController2!=null&&playerController2.isReady
-            && playerController3!=null&&playerController3.isReady
-            && playerController4 != null && playerController4.isReady)
+        // チュートリアル中であるかを判定
+        if (tutorialManager.isInTutorial)
         {
-            SceneManager.LoadScene("MainGameScene");
+            //それぞれのPlayerControllerスクリプトのisReadyがtrueになったらシーン移動
+            if (playerController1 != null && playerController1.isReady
+                && playerController2 != null && playerController2.isReady
+                && playerController3 != null && playerController3.isReady
+                && playerController4 != null && playerController4.isReady)
+            {
+                SceneManager.LoadScene("MainGameScene");
+            }
         }
     }
 }
