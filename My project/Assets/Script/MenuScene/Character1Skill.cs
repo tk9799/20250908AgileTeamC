@@ -14,14 +14,14 @@ public class Character1Skill : PlayerController
     [Header("弱スキル発動判定")]
     [SerializeField] private bool weakSkillEnabled = false;
 
-    [Header("でかいナイフ")]
+    [Header("サイズが大きいナイフ")]
     [SerializeField] private GameObject bigKnife = null;
 
     [Header("強スキルの継続時間")]
     [SerializeField] private float strongSkillTime = 0.0f;
 
     [Header("強スキルの解除時間")]
-    [SerializeField] private float strongSkillEndTime = 0.0f;
+    [SerializeField] private float strongSkillEnable = 0.0f;
 
     [Header("強スキル発動判定")]
     [SerializeField] private bool strongSkillEnabled = false;
