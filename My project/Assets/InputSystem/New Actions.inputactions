@@ -61,9 +61,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SceneMove",
+                    "name": "TitleSceneMove",
                     "type": "Button",
-                    "id": "8586e319-2cd0-4c00-a35f-47dc9003147c",
+                    "id": "458919cf-04d6-4849-a028-1e0f3361ac67",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TutorialSceneMove",
+                    "type": "Button",
+                    "id": "98f5d6b9-c8c6-4fba-abc1-361976a1a267",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -138,13 +147,46 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "One Modifier",
+                    "id": "922c6982-fb9a-4ddd-a37f-322bb83fab94",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TitleSceneMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "1e40b71b-0a0c-4253-b6f1-898b4fd353e2",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamePad",
+                    "action": "TitleSceneMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "dfd9ee3a-2fb6-4703-aa45-92598ac842b2",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamePad",
+                    "action": "TitleSceneMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
-                    "id": "8154f8a2-1550-49c5-aafc-927e96f7aa44",
+                    "id": "3192d355-d7a0-4943-aacc-40d0558d5eed",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";GamePad",
-                    "action": "SceneMove",
+                    "action": "TutorialSceneMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
