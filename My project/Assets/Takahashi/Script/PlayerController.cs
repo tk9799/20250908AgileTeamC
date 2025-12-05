@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
     {
         //playerInput = GetComponent<PlayerInput>();
 
-        
+
 
         // 割り当てられたデバイス（コントローラ）を取得
         if (playerInput.devices.Count > 0)
@@ -130,19 +130,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Domove(InputAction.CallbackContext context)
-    {
-        //performed、canceledコールバックを受け取る
-        if (context.started) return;
-        inputMove = context.ReadValue<Vector2>();
-    }
+    //public void Domove(InputAction.CallbackContext context)
+    //{
+    //    //performed、canceledコールバックを受け取る
+    //    if (context.started) return;
+    //    inputMove = context.ReadValue<Vector2>();
+    //}
 
     private void OnEnable()
     {
+        //InputSystemで設定したActionsを
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
-        sceneMoveAction = playerInput.actions["SceneMove"];
+        sceneMoveAction = playerInput.actions["TutorialSceneMove"];
         attackAction = playerInput.actions["NomalAttack"];
         var lbAction = playerInput.actions["WeakSkill"];
         var rbAction = playerInput.actions["StrongSkill"];
@@ -156,7 +157,6 @@ public class PlayerController : MonoBehaviour
 
         rbAction.performed += OnRB;
         rbAction.canceled += OnRB;
-
     }
 
 
@@ -177,21 +177,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnSceneMove(InputAction.CallbackContext callbackContext)
     {
-        if (tutorialManager.isInTutorial)
+        if (callbackContext.performed)
         {
-            if (callbackContext.performed)
-            {
-                isReady = !isReady;
+            isReady = !isReady;
+            Debug.Log(isReady);
 
-                // Canvasオブジェクトの表示・非表示を切り替え
-                if (isReady)
-                {
-                    whiteScreenObject.SetActive(true);
-                }
-                else if (!isReady)
-                {
-                    whiteScreenObject.SetActive(false);
-                }
+            // Canvasオブジェクトの表示・非表示を切り替え
+            if (isReady)
+            {
+                whiteScreenObject.SetActive(true);
+            }
+            else if (!isReady)
+            {
+                whiteScreenObject.SetActive(false);
             }
         }
     }

@@ -32,6 +32,7 @@ public class PlayerLifeManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //プレイヤーのtag名でチームを分ける
         if (player1.tag == "RedPlayer")
         {
             teamAMemberList.Add(player1.gameObject);
