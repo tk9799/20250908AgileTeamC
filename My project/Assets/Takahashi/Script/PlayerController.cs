@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //[SerializeField] private TutorialManager tutorialManager = null;
 
     private Vector2 inputMove;
     [Header("ナイフの初期値")]
@@ -37,7 +36,9 @@ public class PlayerController : MonoBehaviour
     //カメラのTransform
     [SerializeField] private Transform cameraTransform;
 
+    // チュートリアルマネージャーの取得
     //private TutorialManager tutorial = new TutorialManager();
+    [SerializeField] private TutorialManager tutorial;
 
     //ナイフを生成して飛ばすときのposition
     [SerializeField] private Transform translatePosition;
@@ -106,7 +107,17 @@ public class PlayerController : MonoBehaviour
     {
         //playerInput = GetComponent<PlayerInput>();
 
-
+        // チーム分けをタグによって行う
+        if (this.gameObject.tag == "RedPlayer")
+        {
+            // RedPlayerタグであれば、赤色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);//見分けやすくするためチームの色に変更
+        }
+        else if (this.gameObject.tag == "BluePlayer")
+        {
+            // BluePlayerタグであれば、青色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
+        }
 
         // 割り当てられたデバイス（コントローラ）を取得
         if (playerInput.devices.Count > 0)
@@ -115,21 +126,21 @@ public class PlayerController : MonoBehaviour
             Debug.Log("接続されました");
         }
 
-        // プレイヤー番号を自動で割り当て
-        playerNumber = playerInput.playerIndex;
-        Debug.Log($"Player {playerNumber + 1} が参加しました！ 使用コントローラ: {gamepad?.displayName}");
-        if (playerNumber <= 1)
-        {
-            this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);//見分けやすくするためチームの色に変更
-            Debug.Log($"{playerNumber}はTeamRedです");
-        }
-        else
-        {
-            this.gameObject.tag = "BluePlayer";
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
-            Debug.Log($"{playerNumber}はTeamBlueです");
-        }
+        //// プレイヤー番号を自動で割り当て
+        //playerNumber = playerInput.playerIndex;
+        //Debug.Log($"Player {playerNumber + 1} が参加しました！ 使用コントローラ: {gamepad?.displayName}");
+        //if (playerNumber <= 1)
+        //{
+        //    this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
+        //    this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);//見分けやすくするためチームの色に変更
+        //    Debug.Log($"{playerNumber}はTeamRedです");
+        //}
+        //else
+        //{
+        //    this.gameObject.tag = "BluePlayer";
+        //    this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
+        //    Debug.Log($"{playerNumber}はTeamBlueです");
+        //}
     }
 
     //public void Domove(InputAction.CallbackContext context)
@@ -185,8 +196,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log(isReady);
 
             // Canvasオブジェクトの表示・非表示を切り替え
-            if (isReady)
+            if (tutorial.isInTutorial && isReady)
             {
+                Debug.Log("準備完了");
                 whiteScreenObject.SetActive(true);
             }
             else if (!isReady)
