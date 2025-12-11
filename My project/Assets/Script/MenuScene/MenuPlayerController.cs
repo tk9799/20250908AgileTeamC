@@ -14,6 +14,9 @@ public class MenuPlayerController : MonoBehaviour
     [Header("接続されているコントローラー")]
     public Gamepad pad = null;
 
+    [Header("キャラクターを決定したときのテキスト")]
+    [SerializeField] private GameObject characterDecidedText = null;
+
     [Header("スティックでの入力情報を受け取る")]
     private Vector3 input = Vector3.zero;
 
@@ -47,18 +50,16 @@ public class MenuPlayerController : MonoBehaviour
     [Header("最後に入力を受け付けた時間")]
     [SerializeField] private float lastInputTime = 0f;
 
-    [Header("TitleSceneへシーン遷移")]
-    [SerializeField] private string titleScene = "";
-
-    [SerializeField] private TextMeshProUGUI readyText = null;
 
     /// <summary>
     /// キャラ表示とキャラ詳細説明文の表示管理メソッド
     /// </summary>
-    void Start()
+    private void Start()
     {
-        // 最初のキャラクターだけ表示
-        UpdateCharactorDisplay();
+
+
+        // キャラクター決定のテキストを非表示にする
+        characterDecidedText.SetActive(false);
 
         // キャラ詳細の二つ目の文を非表示にする
         charactorsState[1].gameObject.SetActive(false);
@@ -67,10 +68,15 @@ public class MenuPlayerController : MonoBehaviour
     /// <summary>
     /// キャラ切り替えと説明文切り替えのメソッド
     /// </summary>
-    void Update()
+    private void Update()
     {
         // コントローラーがつながってないときは通さない
         if (pad == null || charactors.Length == 0) return;
+
+        Debug.Log(input.x);
+
+        // 最初のキャラクターだけ表示
+        //UpdateCharactorDisplay();
 
         // 左スティック受け取り
         input = new Vector2(Gamepad.all[playerNum].leftStick.ReadValue().x, Gamepad.all[playerNum].leftStick.ReadValue().y);
@@ -81,33 +87,9 @@ public class MenuPlayerController : MonoBehaviour
         // 左右操作の変数
         float horizontal = Gamepad.all[playerNum].leftStick.ReadValue().x;
 
-        // 左右の入力でキャラクター切り替え
-        // 最後に入力された時間がクールタイムを上回ったら処理開始
-        if (inputCooldown < Time.time - lastInputTime)
-        {
-            if (0 < input.x)
-            {
-                //右入力でインデックスを増やして、配列の範囲を超えたら0に戻す
-                currentIndex = (currentIndex + 1) % charactors.Length;
 
-                // 配列を切り替えてキャラ変更
-                UpdateCharactorDisplay();
+        
 
-                // 入力した時間を変数に入れる
-                lastInputTime = Time.time;
-            }
-            else if (input.x < 0)
-            {
-                // 左入力でインデックスを減らして、配列の範囲を超えたら最後のインデックスに戻す
-                currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;
-
-                // 配列を切り替えてキャラ変更
-                UpdateCharactorDisplay();
-
-                // 入力した時間を変数に入れる
-                lastInputTime = Time.time;
-            }
-        }
 
         if (this.pad.buttonSouth.wasPressedThisFrame && !isDecided)
         {
@@ -118,28 +100,27 @@ public class MenuPlayerController : MonoBehaviour
             // キャラクター決定処理
             menuManager.decisionCount++;
 
-            
+            // キャラクター決定のテキスト表示
+            characterDecidedText.SetActive(true);
 
             // 決定した判定
             isDecided = true;
         }
-        else if (this.pad.buttonEast.wasPressedThisFrame && isDecided)
+        else if (this.pad.buttonEast.wasPressedThisFrame)
         {
-            // isDecidedがtrueのとき、Bボタンを押したらキャンセル処理
-
-            Debug.Log("Player " + (playerNum + 1) + " canceled character selection.");
-
             // キャラクター選択キャンセル処理
             menuManager.decisionCount--;
+            Debug.Log("Player " + (playerNum + 1) + " canceled character selection.");
 
             // 非表示
-            readyText.gameObject.SetActive(false);
+            characterDecidedText.SetActive(false);
 
-            
+            isDecided = false;
 
             // 誰も決定ボタンを押していないとき、タイトルシーンへ戻る
-            if (this.pad.buttonEast.wasPressedThisFrame && menuManager.decisionCount <= -1)
+            if (menuManager.decisionCount <= -1)
             {
+                Debug.Log("fads");
                 // タイトルシーンへ遷移
                 Singleton.instance.TransitionTitleScene();
             }
@@ -152,19 +133,6 @@ public class MenuPlayerController : MonoBehaviour
             // Yボタンを押した回数を1増やす
             yButtonPressCount++;
         }
-
-
-        //if(isDecided)
-        //{
-        //    // 準備できたら表示
-        //    readyText.gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    // 決定をキャンセルした判定
-        //    isDecided = false;
-        //}
-
 
         switch (yButtonPressCount)
         {
@@ -202,6 +170,39 @@ public class MenuPlayerController : MonoBehaviour
 
             default:
                 break;
+        }
+
+        // 左右の入力でキャラクター切り替え
+        // 最後に入力された時間がクールタイムを上回ったら処理開始
+        if (inputCooldown < Time.time - lastInputTime)
+        {
+            if (isDecided)
+            {
+                return;
+            }
+
+            if (0 < input.x)
+            {
+                //右入力でインデックスを増やして、配列の範囲を超えたら0に戻す
+                currentIndex = (currentIndex + 1) % charactors.Length;
+
+                // 配列を切り替えてキャラ変更
+                UpdateCharactorDisplay();
+
+                // 入力した時間を変数に入れる
+                lastInputTime = Time.time;
+            }
+            else if (input.x < 0)
+            {
+                // 左入力でインデックスを減らして、配列の範囲を超えたら最後のインデックスに戻す
+                currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;
+
+                // 配列を切り替えてキャラ変更
+                UpdateCharactorDisplay();
+
+                // 入力した時間を変数に入れる
+                lastInputTime = Time.time;
+            }
         }
     }
 

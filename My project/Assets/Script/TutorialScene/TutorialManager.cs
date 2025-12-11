@@ -11,7 +11,7 @@ public class TutorialManager : MonoBehaviour
     /// <summary>
     /// 初期設定メソッド
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         // チュートリアルシーンでは最初からチュートリアル中に設定
         isInTutorial = true;

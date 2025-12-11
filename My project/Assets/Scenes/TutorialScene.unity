@@ -2380,7 +2380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 1137202721}
   speed: 10
@@ -2391,10 +2390,11 @@ MonoBehaviour:
   playerTransform: {fileID: 285902134}
   playerRigidbody: {fileID: 285902136}
   cameraTransform: {fileID: 1625646838}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 285902134}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
   rayLength: 0.2
@@ -3394,7 +3394,7 @@ GameObject:
   - component: {fileID: 386902535}
   m_Layer: 3
   m_Name: Player1
-  m_TagString: Player
+  m_TagString: RedPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3531,7 +3531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 1568209460}
   speed: 10
@@ -3542,10 +3541,11 @@ MonoBehaviour:
   playerTransform: {fileID: 386902531}
   playerRigidbody: {fileID: 386902532}
   cameraTransform: {fileID: 1045416074}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 386902531}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
   rayLength: 0.2
@@ -7094,7 +7094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 250242774}
   speed: 10
@@ -7105,10 +7104,11 @@ MonoBehaviour:
   playerTransform: {fileID: 1005132270}
   playerRigidbody: {fileID: 1005132272}
   cameraTransform: {fileID: 278760872}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 1005132270}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
   rayLength: 0.2
@@ -10635,7 +10635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 296300275}
   possessionNumber: 5
   whiteScreenObject: {fileID: 775525694}
   speed: 10
@@ -10646,10 +10645,11 @@ MonoBehaviour:
   playerTransform: {fileID: 1309293104}
   playerRigidbody: {fileID: 1309293106}
   cameraTransform: {fileID: 536035231}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 1309293104}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   onGround: 1
   rayLength: 0.2

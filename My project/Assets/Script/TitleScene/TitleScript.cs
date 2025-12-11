@@ -15,10 +15,9 @@ public class TitleScript : MonoBehaviour
     void Update()
     {
         // コントローラーが接続されいるかつABXYのいずれかのボタンが押されたらシーン遷移
-        if (Gamepad.current.buttonEast.wasPressedThisFrame　|| Gamepad.current.buttonWest.wasPressedThisFrame || 
-            Gamepad.current.buttonNorth.wasPressedThisFrame || Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (Gamepad.current.leftShoulder.wasPressedThisFrame && Gamepad.current.rightShoulder.wasPressedThisFrame)
         {
-            Singleton.instance.TransitionTutorialScene();
+            Singleton.instance.TransitionChoseCharactorScene();
         }
     }
 }
