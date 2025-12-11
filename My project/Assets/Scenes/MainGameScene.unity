@@ -3140,7 +3140,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 390890997}
   playerRigidbody: {fileID: 390890992}
@@ -15408,7 +15408,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 1725737035}
   playerRigidbody: {fileID: 1725737030}
