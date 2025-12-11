@@ -18,7 +18,7 @@ public class TitleScript : MonoBehaviour
         if (Gamepad.current.buttonEast.wasPressedThisFrameÅ@|| Gamepad.current.buttonWest.wasPressedThisFrame || 
             Gamepad.current.buttonNorth.wasPressedThisFrame || Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
-            Singleton.instance.TransitionChoseCharactorScene();
+            Singleton.instance.TransitionTutorialScene();
         }
     }
 }
