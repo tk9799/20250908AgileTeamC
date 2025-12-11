@@ -47,7 +47,7 @@ public class MenuManager : MonoBehaviour
         if (decisionCount == menuPlayerController.Length)
         {
             // 4人決定したらゲームシーンへ遷移
-            Singleton.instance.TransitionMainGameScene();
+            Singleton.instance.TransitionTutorialScene();
 
             Debug.Log("4人決定！");
         }

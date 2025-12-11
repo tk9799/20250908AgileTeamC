@@ -4,7 +4,7 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] public bool isInTutorial = false;
 
-    private void Start()
+    private void Awake()
     {
         isInTutorial = true;
     }

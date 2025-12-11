@@ -50,6 +50,8 @@ public class MenuPlayerController : MonoBehaviour
     [Header("TitleSceneへシーン遷移")]
     [SerializeField] private string titleScene = "";
 
+    [SerializeField] private TextMeshProUGUI readyText = null;
+
     /// <summary>
     /// キャラ表示とキャラ詳細説明文の表示管理メソッド
     /// </summary>
@@ -116,6 +118,8 @@ public class MenuPlayerController : MonoBehaviour
             // キャラクター決定処理
             menuManager.decisionCount++;
 
+            
+
             // 決定した判定
             isDecided = true;
         }
@@ -128,8 +132,10 @@ public class MenuPlayerController : MonoBehaviour
             // キャラクター選択キャンセル処理
             menuManager.decisionCount--;
 
-            // 決定をキャンセルした判定
-            isDecided = false;
+            // 非表示
+            readyText.gameObject.SetActive(false);
+
+            
 
             // 誰も決定ボタンを押していないとき、タイトルシーンへ戻る
             if (this.pad.buttonEast.wasPressedThisFrame && menuManager.decisionCount <= -1)
@@ -146,6 +152,19 @@ public class MenuPlayerController : MonoBehaviour
             // Yボタンを押した回数を1増やす
             yButtonPressCount++;
         }
+
+
+        //if(isDecided)
+        //{
+        //    // 準備できたら表示
+        //    readyText.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    // 決定をキャンセルした判定
+        //    isDecided = false;
+        //}
+
 
         switch (yButtonPressCount)
         {

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private TutorialManager tutorialManager = null;
+    //[SerializeField] private TutorialManager tutorialManager = null;
 
     private Vector2 inputMove;
     [Header("ナイフの初期値")]
@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     //カメラのTransform
     [SerializeField] private Transform cameraTransform;
+
+    //private TutorialManager tutorial = new TutorialManager();
 
     //ナイフを生成して飛ばすときのposition
     [SerializeField] private Transform translatePosition;
@@ -253,7 +255,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
         whiteScreenObject.SetActive(false);
+
 
 
         isDush = false;
