@@ -20,16 +20,26 @@ public class KnifeControllertr : MonoBehaviour
 
     //Rigidbodyを取得
     //物理挙動を変更するために使う
-    [SerializeField]　private Rigidbody rigidbody = null;
+    private Rigidbody rigidbody = null;
+
+    private PlayerLifeController playerLifeController = null;
+
+
+    private void Start() 
+    {
+        rigidbody = GetComponent<Rigidbody>();
+        playerLifeController = GetComponent<PlayerLifeController>();
+    }
 
     /// <summary>
     /// ナイフを生成した後の敵プレイヤーのダメージを与える、壁に当たった場合くっつくようにさせる＋その状態だと
     /// 回収して自分のものにできる処理（予定）
     /// </summary>
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         //PlayerLifeControllerを取得して敵にダメージを与える
-        PlayerLifeController health = other.GetComponent<PlayerLifeController>();
+        PlayerLifeController health = other.gameObject.GetComponent<PlayerLifeController>();
 
         //PlayerLifeControllerがnullでない場合
         if (health != null)
