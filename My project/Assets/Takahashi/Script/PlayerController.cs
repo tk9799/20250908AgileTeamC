@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower = 5f;
 
     //ナイフを投げる時の速度
-    [SerializeField] private float translateSpeed = 10f;
+    [SerializeField] private float translateSpeed = 1f;
 
     //プレイヤーのTransformとRigidbody
     [SerializeField] private Transform playerTransform;
@@ -99,6 +99,9 @@ public class PlayerController : MonoBehaviour
 
     // プレイヤーの準備完了の判定
     public bool isReady = false;
+
+    // 生成したい距離
+    float spawnDistance = 2.0f;
 
     /// <summary>
     /// それぞれのプレイヤーをチームごとに割り当てる
@@ -408,12 +411,11 @@ public class PlayerController : MonoBehaviour
     public void normalAttack()
     {
         //Debug.Log("通常攻撃！");
-        Vector3 translatePos = playerTransform.position;
-        translatePos.z += 1.5f;
+        Vector3 translatePos = playerTransform.position + playerTransform.forward * spawnDistance;
         if (knifeObjectList.Count > 0)
         {
             //ナイフを指定したpositionに生成して飛ばす
-            GameObject knife = Instantiate(knifeObject, translatePosition.position, translatePosition.rotation);
+            GameObject knife = Instantiate(knifeObject, translatePos, translatePosition.rotation);
 
             if (this.gameObject.tag == "RedPlayer")
             {
