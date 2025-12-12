@@ -50,6 +50,11 @@ public class MenuPlayerController : MonoBehaviour
     [Header("最後に入力を受け付けた時間")]
     [SerializeField] private float lastInputTime = 0f;
 
+    [Header("コントローラーの左スティックの入力値の制御右")]
+    [SerializeField] private float leftStickInputThreshold = 0.0f;
+
+    [Header("コントローラーの左スティックの入力値の制御左")]
+    [SerializeField] private float leftStickInputThresholdNegative = 0.0f;
 
     /// <summary>
     /// キャラ表示とキャラ詳細説明文の表示管理メソッド
@@ -80,6 +85,7 @@ public class MenuPlayerController : MonoBehaviour
 
         // 左スティック受け取り
         input = new Vector2(Gamepad.all[playerNum].leftStick.ReadValue().x, Gamepad.all[playerNum].leftStick.ReadValue().y);
+
 
         // 上下操作の変数
         float vertical = Gamepad.all[playerNum].leftStick.ReadValue().y;
@@ -181,7 +187,7 @@ public class MenuPlayerController : MonoBehaviour
                 return;
             }
 
-            if (0 < input.x)
+            if (leftStickInputThreshold <= input.x)
             {
                 //右入力でインデックスを増やして、配列の範囲を超えたら0に戻す
                 currentIndex = (currentIndex + 1) % charactors.Length;
@@ -192,7 +198,7 @@ public class MenuPlayerController : MonoBehaviour
                 // 入力した時間を変数に入れる
                 lastInputTime = Time.time;
             }
-            else if (input.x < 0)
+            else if (input.x < leftStickInputThresholdNegative)
             {
                 // 左入力でインデックスを減らして、配列の範囲を超えたら最後のインデックスに戻す
                 currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;
