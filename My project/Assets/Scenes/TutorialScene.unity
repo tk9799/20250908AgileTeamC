@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 68339492}
   - component: {fileID: 68339491}
   - component: {fileID: 68339490}
+  - component: {fileID: 68339493}
   m_Layer: 5
   m_Name: HPgauge
   m_TagString: Untagged
@@ -678,12 +679,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68339488}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c722b5e66759c9648815f1b31d8cda43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLifeController: {fileID: 1005132274}
+  playerLifeController: {fileID: 0}
   image: {fileID: 68339491}
 --- !u!114 &68339491
 MonoBehaviour:
@@ -723,6 +724,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68339488}
   m_CullTransparentMesh: 1
+--- !u!114 &68339493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68339488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a1c257e5ad4604f8ab30c519db3ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialPlayerLifeController: {fileID: 1005132275}
+  image: {fileID: 68339491}
 --- !u!1001 &73432772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2239,7 +2254,6 @@ GameObject:
   - component: {fileID: 285902139}
   - component: {fileID: 285902136}
   - component: {fileID: 285902137}
-  - component: {fileID: 285902138}
   - component: {fileID: 285902140}
   m_Layer: 3
   m_Name: Player4
@@ -2437,22 +2451,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &285902138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285902130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 100
-  playerLife: 0
-  isDed: 0
-  playerLifeManager: {fileID: 1291361524}
 --- !u!114 &285902139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2498,7 +2496,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285902130}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
   m_Name: 
@@ -2506,7 +2504,7 @@ MonoBehaviour:
   maxLife: 100
   playerLife: 0
   isDed: 0
-  playerLifeManager: {fileID: 1291361524}
+  TutorialPlayerLifeManager: {fileID: 1291361526}
 --- !u!1 &296300274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3420,7 +3418,6 @@ GameObject:
   - component: {fileID: 386902536}
   - component: {fileID: 386902532}
   - component: {fileID: 386902534}
-  - component: {fileID: 386902535}
   - component: {fileID: 386902537}
   m_Layer: 3
   m_Name: Player1
@@ -3617,22 +3614,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &386902535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386902527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 100
-  playerLife: 0
-  isDed: 0
-  playerLifeManager: {fileID: 1291361524}
 --- !u!114 &386902536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3678,7 +3659,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386902527}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
   m_Name: 
@@ -3686,7 +3667,7 @@ MonoBehaviour:
   maxLife: 100
   playerLife: 0
   isDed: 0
-  playerLifeManager: {fileID: 1291361524}
+  TutorialPlayerLifeManager: {fileID: 1291361526}
 --- !u!1 &400394100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3699,6 +3680,7 @@ GameObject:
   - component: {fileID: 400394104}
   - component: {fileID: 400394103}
   - component: {fileID: 400394102}
+  - component: {fileID: 400394105}
   m_Layer: 5
   m_Name: HPgauge
   m_TagString: Untagged
@@ -3732,12 +3714,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400394100}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c722b5e66759c9648815f1b31d8cda43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLifeController: {fileID: 1309293108}
+  playerLifeController: {fileID: 0}
   image: {fileID: 400394103}
 --- !u!114 &400394103
 MonoBehaviour:
@@ -3777,6 +3759,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400394100}
   m_CullTransparentMesh: 1
+--- !u!114 &400394105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400394100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a1c257e5ad4604f8ab30c519db3ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialPlayerLifeController: {fileID: 1309293109}
+  image: {fileID: 400394103}
 --- !u!1001 &420422240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7311,7 +7307,6 @@ GameObject:
   - component: {fileID: 1005132276}
   - component: {fileID: 1005132272}
   - component: {fileID: 1005132273}
-  - component: {fileID: 1005132274}
   - component: {fileID: 1005132275}
   m_Layer: 3
   m_Name: Player3
@@ -7508,7 +7503,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1005132274
+--- !u!114 &1005132275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7517,29 +7512,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1005132266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 100
-  playerLife: 0
-  isDed: 0
-  playerLifeManager: {fileID: 1291361524}
---- !u!114 &1005132275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005132266}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 100
   playerLife: 0
   isDed: 0
-  playerLifeManager: {fileID: 1291361524}
+  TutorialPlayerLifeManager: {fileID: 1291361526}
 --- !u!114 &1005132276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10937,15 +10916,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291361523}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fffeb6bdc9f69748a82648e21e5d280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Life: {fileID: 386902535}
-  player2Life: {fileID: 1309293108}
-  player3Life: {fileID: 1005132274}
-  player4Life: {fileID: 285902138}
+  player1Life: {fileID: 0}
+  player2Life: {fileID: 0}
+  player3Life: {fileID: 0}
+  player4Life: {fileID: 0}
   player1: {fileID: 386902527}
   player2: {fileID: 1309293100}
   player3: {fileID: 1005132266}
@@ -10980,14 +10959,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45037711d5b26194ca915ec0c8ed6e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Life: {fileID: 0}
-  player2Life: {fileID: 0}
-  player3Life: {fileID: 0}
+  player1Life: {fileID: 386902537}
+  player2Life: {fileID: 1309293109}
+  player3Life: {fileID: 1005132275}
   player4Life: {fileID: 0}
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  player3: {fileID: 0}
-  player4: {fileID: 0}
+  player1: {fileID: 386902527}
+  player2: {fileID: 1309293100}
+  player3: {fileID: 1005132266}
+  player4: {fileID: 285902130}
   teamAMemberList: []
   teamBMemberList: []
   isDeleteConfirmation: 0
@@ -11007,7 +10986,6 @@ GameObject:
   - component: {fileID: 1309293110}
   - component: {fileID: 1309293106}
   - component: {fileID: 1309293107}
-  - component: {fileID: 1309293108}
   - component: {fileID: 1309293109}
   m_Layer: 3
   m_Name: Player2
@@ -11204,7 +11182,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1309293108
+--- !u!114 &1309293109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11213,29 +11191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1309293100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 100
-  playerLife: 0
-  isDed: 0
-  playerLifeManager: {fileID: 1291361524}
---- !u!114 &1309293109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309293100}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 100
   playerLife: 0
   isDed: 0
-  playerLifeManager: {fileID: 1291361524}
+  TutorialPlayerLifeManager: {fileID: 1291361526}
 --- !u!114 &1309293110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12718,6 +12680,7 @@ GameObject:
   - component: {fileID: 1553061310}
   - component: {fileID: 1553061309}
   - component: {fileID: 1553061308}
+  - component: {fileID: 1553061311}
   m_Layer: 5
   m_Name: HPgauge
   m_TagString: Untagged
@@ -12751,12 +12714,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553061306}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c722b5e66759c9648815f1b31d8cda43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLifeController: {fileID: 285902138}
+  playerLifeController: {fileID: 0}
   image: {fileID: 1553061309}
 --- !u!114 &1553061309
 MonoBehaviour:
@@ -12796,6 +12759,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553061306}
   m_CullTransparentMesh: 1
+--- !u!114 &1553061311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553061306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a1c257e5ad4604f8ab30c519db3ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialPlayerLifeController: {fileID: 285902140}
+  image: {fileID: 1553061309}
 --- !u!1 &1563318587
 GameObject:
   m_ObjectHideFlags: 0
@@ -13408,6 +13385,7 @@ GameObject:
   - component: {fileID: 1598930325}
   - component: {fileID: 1598930324}
   - component: {fileID: 1598930323}
+  - component: {fileID: 1598930326}
   m_Layer: 5
   m_Name: HPgauge
   m_TagString: Untagged
@@ -13441,12 +13419,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598930321}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c722b5e66759c9648815f1b31d8cda43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLifeController: {fileID: 386902535}
+  playerLifeController: {fileID: 0}
   image: {fileID: 1598930324}
 --- !u!114 &1598930324
 MonoBehaviour:
@@ -13486,6 +13464,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598930321}
   m_CullTransparentMesh: 1
+--- !u!114 &1598930326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598930321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a1c257e5ad4604f8ab30c519db3ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialPlayerLifeController: {fileID: 386902537}
+  image: {fileID: 1598930324}
 --- !u!1001 &1620564020
 PrefabInstance:
   m_ObjectHideFlags: 0

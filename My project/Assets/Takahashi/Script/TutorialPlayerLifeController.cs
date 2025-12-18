@@ -16,7 +16,7 @@ public class TutorialPlayerLifeController : MonoBehaviour
     private bool isDropout = false;
 
     //PlayerLifeManagerスクリプトを取得
-    [SerializeField] private PlayerLifeManager playerLifeManager = null;
+    [SerializeField] private TutorialPlayerLifeManager TutorialPlayerLifeManager = null;
 
     /// <summary>
     /// 処理開始時プレイヤーの体力に最大値の体力を代入
@@ -55,16 +55,16 @@ public class TutorialPlayerLifeController : MonoBehaviour
         isDed = true;
 
         //GameJudgement()を呼び出すことでプレイヤーがやられた時Listから削除できる
-        playerLifeManager.GameJudgement();
+        TutorialPlayerLifeManager.GameJudgement();
 
         //playerLifeManagerのteamAMemberList、teamBMemberListから削除された場合
-        if (playerLifeManager != null && playerLifeManager.isDeleteConfirmation)
+        if (TutorialPlayerLifeManager != null && TutorialPlayerLifeManager.isDeleteConfirmation)
         {
             //やられたプレイヤーのtagがRedPlayerの場合
             if (gameObject.tag == "RedPlayer")
             {
                 //teamAMemberListから削除
-                playerLifeManager.teamAMemberList.Remove(gameObject);
+                TutorialPlayerLifeManager.teamAMemberList.Remove(gameObject);
                 Debug.Log("teamAListから削除");
                 //脱落判定にする
                 isDropout = true;
@@ -73,7 +73,7 @@ public class TutorialPlayerLifeController : MonoBehaviour
             else if (gameObject.tag == "BluePlayer")
             {
                 //teamBMemberListから削除
-                playerLifeManager.teamBMemberList.Remove(gameObject);
+                TutorialPlayerLifeManager.teamBMemberList.Remove(gameObject);
                 Debug.Log("teamBListから削除");
                 //脱落判定にする
                 isDropout = true;
@@ -84,7 +84,7 @@ public class TutorialPlayerLifeController : MonoBehaviour
         //プレイヤーが脱落判定になった時非表示にする
         if (isDropout)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 }

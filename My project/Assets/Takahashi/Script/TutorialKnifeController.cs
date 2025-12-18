@@ -21,13 +21,13 @@ public class TutorialKnifeController : MonoBehaviour
     //物理挙動を変更するために使う
     private Rigidbody rigidbody = null;
 
-    private TutorialPlayerLifeController TutorialPlayerLifeController = null;
+    private TutorialPlayerLifeController tutorialPlayerLifeController = null;
 
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        TutorialPlayerLifeController = GetComponent<TutorialPlayerLifeController>();
+        tutorialPlayerLifeController = GetComponent<TutorialPlayerLifeController>();
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public class TutorialKnifeController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         //PlayerLifeControllerを取得して敵にダメージを与える
-        PlayerLifeController health = other.gameObject.GetComponent<PlayerLifeController>();
+        TutorialPlayerLifeController health = other.gameObject.GetComponent<TutorialPlayerLifeController>();
 
         //PlayerLifeControllerがnullでない場合
         if (health != null)
