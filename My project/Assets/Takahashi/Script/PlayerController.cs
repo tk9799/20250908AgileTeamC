@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxSpeed = 13f;
 
     //ジャンプするときの力
-    [SerializeField] private float jumpPower = 5f;
+    [SerializeField] private float jumpPower = 10f;
 
     //ナイフを投げる時の速度
     [SerializeField] private float translateSpeed = 1f;
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private bool isDush = false;//ダッシュ判定
     private bool isInputRB = false;//RBの入力判定
     private bool isInputLB = false;//LBの入力判定
-    public float rayLength = 1.2f;
+    public float rayLength = 0.2f;
     public float distance = 5f; // カメラとプレイヤー間の距離
     private float height = 2f;//カメラの高さ
     [SerializeField] float mouseSensitivity = 1.0f;
@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
     // Animtorを取得
     //[SerializeField] private Animator animator = null;
 
+
     // プレイヤーの準備完了の判定
     public bool isReady = false;
 
@@ -128,6 +129,22 @@ public class PlayerController : MonoBehaviour
             gamepad = playerInput.devices[0] as Gamepad;
             Debug.Log("接続されました");
         }
+
+        //// プレイヤー番号を自動で割り当て
+        //playerNumber = playerInput.playerIndex;
+        //Debug.Log($"Player {playerNumber + 1} が参加しました！ 使用コントローラ: {gamepad?.displayName}");
+        //if (playerNumber <= 1)
+        //{
+        //    this.gameObject.tag = "RedPlayer";//チーム分けするためtagを変更
+        //    this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);//見分けやすくするためチームの色に変更
+        //    Debug.Log($"{playerNumber}はTeamRedです");
+        //}
+        //else
+        //{
+        //    this.gameObject.tag = "BluePlayer";
+        //    this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
+        //    Debug.Log($"{playerNumber}はTeamBlueです");
+        //}
     }
 
     //public void Domove(InputAction.CallbackContext context)
@@ -164,7 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.performed)
         {
-            Debug.Log("処理");
+
             if (isGrounded())
             {
                 Debug.Log("処理");

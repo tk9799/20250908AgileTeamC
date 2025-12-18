@@ -21,7 +21,7 @@ public class SceneMoveManager : MonoBehaviour
                 && playerController3 != null && playerController3.isReady
                 && playerController4 != null && playerController4.isReady)
             {
-                SceneManager.LoadScene("MainGameScene");
+                Singleton.instance.TransitionMainGameScene();
             }
         }
     }

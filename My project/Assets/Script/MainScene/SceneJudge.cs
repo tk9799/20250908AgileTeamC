@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class SceneJudge : MonoBehaviour
 {
-    [Header("チュートリアルマネージャーの取得")]
+    [Header("チュートリアルマネージャーの取得gs")]
     [SerializeField] private TutorialManager tutorialManager = null;
 
     private void Update()

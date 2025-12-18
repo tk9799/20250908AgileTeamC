@@ -3246,7 +3246,7 @@ Transform:
   m_GameObject: {fileID: 390890989}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 85.04, y: 3.05, z: -8.55}
+  m_LocalPosition: {x: 85.04, y: 3.05, z: -9.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5814,7 +5814,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 653392075}
   playerRigidbody: {fileID: 653392070}
@@ -11997,7 +11997,7 @@ GameObject:
   - component: {fileID: 1381199064}
   m_Layer: 3
   m_Name: Player1
-  m_TagString: Player
+  m_TagString: RedPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12092,7 +12092,7 @@ MonoBehaviour:
   speed: 5
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 1381199071}
   playerRigidbody: {fileID: 1381199066}
