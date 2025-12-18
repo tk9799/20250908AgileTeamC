@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerLifeController : MonoBehaviour
+public class TutorialPlayerLifeController : MonoBehaviour
 {
     //プレイヤーの最大体力のデフォルト値
     //プレイヤーの体力が減る処理があるため０にしていない
@@ -17,7 +17,7 @@ public class PlayerLifeController : MonoBehaviour
 
     //PlayerLifeManagerスクリプトを取得
     [SerializeField] private PlayerLifeManager playerLifeManager = null;
-   
+
     /// <summary>
     /// 処理開始時プレイヤーの体力に最大値の体力を代入
     /// </summary>
@@ -40,7 +40,7 @@ public class PlayerLifeController : MonoBehaviour
         //プレイヤーの体力が０（初期値）以下の時
         if (playerLife <= 0)
         {
-            Die();
+            //Die();
         }
     }
 

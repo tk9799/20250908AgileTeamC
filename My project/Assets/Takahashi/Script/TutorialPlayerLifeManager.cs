@@ -1,25 +1,23 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerLifeManager : MonoBehaviour
+public class TutorialPlayerLifeManager : MonoBehaviour
 {
     //4人想定でそれぞれのPlayerLifeControllerとplayerオブジェクトをアタッチする
-    [SerializeField] private PlayerLifeController player1Life;
-    [SerializeField] private PlayerLifeController player2Life;
-    [SerializeField] private PlayerLifeController player3Life;
-    [SerializeField] private PlayerLifeController player4Life;
+    [SerializeField] private TutorialPlayerLifeController player1Life;
+    [SerializeField] private TutorialPlayerLifeController player2Life;
+    [SerializeField] private TutorialPlayerLifeController player3Life;
+    [SerializeField] private TutorialPlayerLifeController player4Life;
 
     [SerializeField] private GameObject player1;
     [SerializeField] private GameObject player2;
     [SerializeField] private GameObject player3;
     [SerializeField] private GameObject player4;
-    
+
     //チーム分けする際Listを使ってチーム分けするため2つのListを作成
-    [SerializeField] public List<GameObject> teamAMemberList=new List<GameObject>();
-    [SerializeField] public List<GameObject> teamBMemberList=new List<GameObject>();
+    [SerializeField] public List<GameObject> teamAMemberList = new List<GameObject>();
+    [SerializeField] public List<GameObject> teamBMemberList = new List<GameObject>();
 
     //Listから削除したかを確認するbool
     public bool isDeleteConfirmation = false;
@@ -30,7 +28,7 @@ public class PlayerLifeManager : MonoBehaviour
     /// <summary>
     /// tagの名前でプレイヤーのチーム分けしてそれぞれのListに加える
     /// </summary>
-    void Start()
+    private void Start()
     {
         //プレイヤーのtag名でチームを分ける
         if (player1.tag == "RedPlayer")
@@ -73,7 +71,7 @@ public class PlayerLifeManager : MonoBehaviour
     /// <summary>
     /// Listが0になったのを検知して勝ったチーム名を更新する
     /// </summary>
-    void Update()
+    private void Update()
     {
         //どちらかのListの中身が0になった場合
         if (teamAMemberList.Count == 0 || teamBMemberList.Count == 0)
@@ -104,17 +102,17 @@ public class PlayerLifeManager : MonoBehaviour
             teamAMemberList.Remove(player1Life.gameObject);
             isDeleteConfirmation = true;
         }
-        else if(player2Life != null && player2Life.isDed)
+        else if (player2Life != null && player2Life.isDed)
         {
             teamAMemberList.Remove(player2Life.gameObject);
             isDeleteConfirmation = true;
         }
-        else if(player3Life != null && player3Life.isDed)
+        else if (player3Life != null && player3Life.isDed)
         {
             teamBMemberList.Remove(player3Life.gameObject);
             isDeleteConfirmation = true;
         }
-        else if(player4Life != null && player4Life.isDed)
+        else if (player4Life != null && player4Life.isDed)
         {
             teamBMemberList.Remove(player4Life.gameObject);
             isDeleteConfirmation = true;

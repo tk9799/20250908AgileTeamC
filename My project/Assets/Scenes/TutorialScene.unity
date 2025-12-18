@@ -2109,7 +2109,6 @@ GameObject:
   - component: {fileID: 278760872}
   - component: {fileID: 278760874}
   - component: {fileID: 278760873}
-  - component: {fileID: 278760875}
   - component: {fileID: 278760876}
   m_Layer: 0
   m_Name: P3Camera
@@ -2192,66 +2191,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &278760875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278760871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 278760872}
-  volumeLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  stopNaNPropagation: 1
-  finalBlitToCameraTarget: 0
-  antialiasingMode: 0
-  temporalAntialiasing:
-    jitterSpread: 0.75
-    sharpness: 0.25
-    stationaryBlending: 0.95
-    motionBlending: 0.85
-  subpixelMorphologicalAntialiasing:
-    quality: 2
-  fastApproximateAntialiasing:
-    fastMode: 0
-    keepAlpha: 0
-  fog:
-    enabled: 1
-    excludeSkybox: 1
-  debugLayer:
-    lightMeter:
-      width: 512
-      height: 256
-      showCurves: 1
-    histogram:
-      width: 512
-      height: 256
-      channel: 3
-    waveform:
-      exposure: 0.12
-      height: 256
-    vectorscope:
-      size: 256
-      exposure: 0.12
-    overlaySettings:
-      linearDepth: 0
-      motionColorIntensity: 4
-      motionGridSize: 64
-      colorBlindnessType: 0
-      colorBlindnessStrength: 1
-  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
-  breakBeforeColorGrading: 0
-  m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
-  m_AfterStackBundles: []
 --- !u!114 &278760876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2297,9 +2236,11 @@ GameObject:
   - component: {fileID: 285902132}
   - component: {fileID: 285902131}
   - component: {fileID: 285902135}
+  - component: {fileID: 285902139}
   - component: {fileID: 285902136}
   - component: {fileID: 285902137}
   - component: {fileID: 285902138}
+  - component: {fileID: 285902140}
   m_Layer: 3
   m_Name: Player4
   m_TagString: BluePlayer
@@ -2408,7 +2349,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285902130}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
@@ -2506,6 +2447,60 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
+  playerLife: 0
+  isDed: 0
+  playerLifeManager: {fileID: 1291361524}
+--- !u!114 &285902139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285902130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5cb76e24f4e7a46b354cdba72766aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possessionNumber: 5
+  whiteScreenObject: {fileID: 1137202721}
+  speed: 10
+  defaultSpeed: 10
+  maxSpeed: 13
+  jumpPower: 5
+  translateSpeed: 10
+  playerTransform: {fileID: 285902134}
+  playerRigidbody: {fileID: 285902136}
+  cameraTransform: {fileID: 1625646838}
+  tutorial: {fileID: 296300275}
+  translatePosition: {fileID: 285902134}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  knifeObject: {fileID: 593837249679426983, guid: f55a4ec2cddad5e468f65a888bef029d, type: 3}
+  onGround: 1
+  rayLength: 1.1
+  distance: 5
+  mouseSensitivity: 1
+  rotationSpeed: 100
+  knifeObjectList: []
+  playerInput: {fileID: 285902137}
+  playerNumber: 0
+  triggerValue: 1
+  isReady: 0
+--- !u!114 &285902140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285902130}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 100
@@ -3422,9 +3417,11 @@ GameObject:
   - component: {fileID: 386902529}
   - component: {fileID: 386902528}
   - component: {fileID: 386902533}
+  - component: {fileID: 386902536}
   - component: {fileID: 386902532}
   - component: {fileID: 386902534}
   - component: {fileID: 386902535}
+  - component: {fileID: 386902537}
   m_Layer: 3
   m_Name: Player1
   m_TagString: RedPlayer
@@ -3559,7 +3556,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386902527}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
@@ -3630,6 +3627,60 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89eeca078f526a1489da7ecb74d0372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
+  playerLife: 0
+  isDed: 0
+  playerLifeManager: {fileID: 1291361524}
+--- !u!114 &386902536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386902527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5cb76e24f4e7a46b354cdba72766aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possessionNumber: 5
+  whiteScreenObject: {fileID: 1568209460}
+  speed: 10
+  defaultSpeed: 10
+  maxSpeed: 13
+  jumpPower: 5
+  translateSpeed: 10
+  playerTransform: {fileID: 386902531}
+  playerRigidbody: {fileID: 386902532}
+  cameraTransform: {fileID: 1045416074}
+  tutorial: {fileID: 296300275}
+  translatePosition: {fileID: 386902531}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  knifeObject: {fileID: 593837249679426983, guid: f55a4ec2cddad5e468f65a888bef029d, type: 3}
+  onGround: 1
+  rayLength: 1.1
+  distance: 5
+  mouseSensitivity: 1
+  rotationSpeed: 100
+  knifeObjectList: []
+  playerInput: {fileID: 386902534}
+  playerNumber: 0
+  triggerValue: 1
+  isReady: 0
+--- !u!114 &386902537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386902527}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 100
@@ -6061,6 +6112,7 @@ GameObject:
   - component: {fileID: 783745657}
   - component: {fileID: 783745656}
   - component: {fileID: 783745659}
+  - component: {fileID: 783745660}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6165,7 +6217,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783745654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe83502ffdfb5f4eb56954a5ecad859, type: 3}
   m_Name: 
@@ -6175,6 +6227,23 @@ MonoBehaviour:
   iconParent: {fileID: 1800549017}
   outerFrameIconParent: {fileID: 1030013869}
   playerController: {fileID: 285902135}
+--- !u!114 &783745660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783745654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24933b7768b092a48be7d6101a09886c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
+  iconParent: {fileID: 1800549017}
+  outerFrameIconParent: {fileID: 1030013869}
+  playerControllerTutorial: {fileID: 285902139}
 --- !u!1001 &813287645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7239,9 +7308,11 @@ GameObject:
   - component: {fileID: 1005132268}
   - component: {fileID: 1005132267}
   - component: {fileID: 1005132271}
+  - component: {fileID: 1005132276}
   - component: {fileID: 1005132272}
   - component: {fileID: 1005132273}
   - component: {fileID: 1005132274}
+  - component: {fileID: 1005132275}
   m_Layer: 3
   m_Name: Player3
   m_TagString: BluePlayer
@@ -7349,7 +7420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005132266}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
@@ -7453,6 +7524,60 @@ MonoBehaviour:
   playerLife: 0
   isDed: 0
   playerLifeManager: {fileID: 1291361524}
+--- !u!114 &1005132275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005132266}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
+  playerLife: 0
+  isDed: 0
+  playerLifeManager: {fileID: 1291361524}
+--- !u!114 &1005132276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005132266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5cb76e24f4e7a46b354cdba72766aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possessionNumber: 5
+  whiteScreenObject: {fileID: 250242774}
+  speed: 10
+  defaultSpeed: 10
+  maxSpeed: 13
+  jumpPower: 5
+  translateSpeed: 10
+  playerTransform: {fileID: 1005132270}
+  playerRigidbody: {fileID: 1005132272}
+  cameraTransform: {fileID: 278760872}
+  tutorial: {fileID: 296300275}
+  translatePosition: {fileID: 1005132270}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  knifeObject: {fileID: 593837249679426983, guid: f55a4ec2cddad5e468f65a888bef029d, type: 3}
+  onGround: 1
+  rayLength: 1.1
+  distance: 5
+  mouseSensitivity: 1
+  rotationSpeed: 100
+  knifeObjectList: []
+  playerInput: {fileID: 1005132273}
+  playerNumber: 0
+  triggerValue: 1
+  isReady: 0
 --- !u!1 &1005686805
 GameObject:
   m_ObjectHideFlags: 0
@@ -10797,6 +10922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1291361525}
   - component: {fileID: 1291361524}
+  - component: {fileID: 1291361526}
   m_Layer: 0
   m_Name: PlayerLifeManager
   m_TagString: Untagged
@@ -10842,6 +10968,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1291361526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291361523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45037711d5b26194ca915ec0c8ed6e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1Life: {fileID: 0}
+  player2Life: {fileID: 0}
+  player3Life: {fileID: 0}
+  player4Life: {fileID: 0}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  player3: {fileID: 0}
+  player4: {fileID: 0}
+  teamAMemberList: []
+  teamBMemberList: []
+  isDeleteConfirmation: 0
 --- !u!1 &1309293100
 GameObject:
   m_ObjectHideFlags: 0
@@ -10855,9 +11004,11 @@ GameObject:
   - component: {fileID: 1309293102}
   - component: {fileID: 1309293101}
   - component: {fileID: 1309293105}
+  - component: {fileID: 1309293110}
   - component: {fileID: 1309293106}
   - component: {fileID: 1309293107}
   - component: {fileID: 1309293108}
+  - component: {fileID: 1309293109}
   m_Layer: 3
   m_Name: Player2
   m_TagString: RedPlayer
@@ -10965,7 +11116,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309293100}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43bacb7d9dcbc3c4e92c5f3e3f882fba, type: 3}
   m_Name: 
@@ -11069,6 +11220,60 @@ MonoBehaviour:
   playerLife: 0
   isDed: 0
   playerLifeManager: {fileID: 1291361524}
+--- !u!114 &1309293109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309293100}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e88cc3958ad17746b1dd36de54473c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
+  playerLife: 0
+  isDed: 0
+  playerLifeManager: {fileID: 1291361524}
+--- !u!114 &1309293110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309293100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5cb76e24f4e7a46b354cdba72766aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possessionNumber: 5
+  whiteScreenObject: {fileID: 775525694}
+  speed: 10
+  defaultSpeed: 10
+  maxSpeed: 13
+  jumpPower: 5
+  translateSpeed: 10
+  playerTransform: {fileID: 1309293104}
+  playerRigidbody: {fileID: 1309293106}
+  cameraTransform: {fileID: 536035231}
+  tutorial: {fileID: 296300275}
+  translatePosition: {fileID: 1309293104}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  knifeObject: {fileID: 593837249679426983, guid: f55a4ec2cddad5e468f65a888bef029d, type: 3}
+  onGround: 1
+  rayLength: 1.1
+  distance: 5
+  mouseSensitivity: 1
+  rotationSpeed: 100
+  knifeObjectList: []
+  playerInput: {fileID: 1309293107}
+  playerNumber: 0
+  triggerValue: 1
+  isReady: 0
 --- !u!1001 &1310368800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11741,6 +11946,7 @@ GameObject:
   - component: {fileID: 1442407283}
   - component: {fileID: 1442407282}
   - component: {fileID: 1442407285}
+  - component: {fileID: 1442407286}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -11845,7 +12051,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442407280}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe83502ffdfb5f4eb56954a5ecad859, type: 3}
   m_Name: 
@@ -11855,6 +12061,23 @@ MonoBehaviour:
   iconParent: {fileID: 1184132506}
   outerFrameIconParent: {fileID: 1563318588}
   playerController: {fileID: 1309293105}
+--- !u!114 &1442407286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442407280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24933b7768b092a48be7d6101a09886c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
+  iconParent: {fileID: 1184132506}
+  outerFrameIconParent: {fileID: 1563318588}
+  playerControllerTutorial: {fileID: 1309293110}
 --- !u!1001 &1444207209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14026,6 +14249,7 @@ GameObject:
   - component: {fileID: 1705479708}
   - component: {fileID: 1705479707}
   - component: {fileID: 1705479710}
+  - component: {fileID: 1705479711}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -14130,7 +14354,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705479705}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe83502ffdfb5f4eb56954a5ecad859, type: 3}
   m_Name: 
@@ -14140,6 +14364,23 @@ MonoBehaviour:
   iconParent: {fileID: 334059777}
   outerFrameIconParent: {fileID: 1249902853}
   playerController: {fileID: 386902533}
+--- !u!114 &1705479711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705479705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24933b7768b092a48be7d6101a09886c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
+  iconParent: {fileID: 334059777}
+  outerFrameIconParent: {fileID: 1249902853}
+  playerControllerTutorial: {fileID: 386902536}
 --- !u!1001 &1713625656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14655,6 +14896,7 @@ GameObject:
   - component: {fileID: 1835623772}
   - component: {fileID: 1835623771}
   - component: {fileID: 1835623774}
+  - component: {fileID: 1835623775}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -14759,7 +15001,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835623769}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe83502ffdfb5f4eb56954a5ecad859, type: 3}
   m_Name: 
@@ -14769,6 +15011,23 @@ MonoBehaviour:
   iconParent: {fileID: 2090418151}
   outerFrameIconParent: {fileID: 316093117}
   playerController: {fileID: 1005132271}
+--- !u!114 &1835623775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835623769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24933b7768b092a48be7d6101a09886c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeIconPrefab: {fileID: 8323605036115366180, guid: cf010f99b573c9746829f0463310c917, type: 3}
+  knifeOuterFrameIconPrefab: {fileID: 8323605036115366180, guid: a67837a4e5c94a444b2056bc604a532a, type: 3}
+  iconParent: {fileID: 2090418151}
+  outerFrameIconParent: {fileID: 316093117}
+  playerControllerTutorial: {fileID: 1005132276}
 --- !u!1001 &1847803592
 PrefabInstance:
   m_ObjectHideFlags: 0
