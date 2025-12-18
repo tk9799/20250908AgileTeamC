@@ -3569,12 +3569,12 @@ MonoBehaviour:
   speed: 10
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 386902531}
   playerRigidbody: {fileID: 386902532}
   cameraTransform: {fileID: 1045416074}
-  tutorial: {fileID: 0}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 386902531}
   groundLayer:
     serializedVersion: 2
@@ -7132,12 +7132,12 @@ MonoBehaviour:
   speed: 10
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 1005132270}
   playerRigidbody: {fileID: 1005132272}
   cameraTransform: {fileID: 278760872}
-  tutorial: {fileID: 0}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 1005132270}
   groundLayer:
     serializedVersion: 2
@@ -10673,12 +10673,12 @@ MonoBehaviour:
   speed: 10
   defaultSpeed: 10
   maxSpeed: 13
-  jumpPower: 10
+  jumpPower: 5
   translateSpeed: 10
   playerTransform: {fileID: 1309293104}
   playerRigidbody: {fileID: 1309293106}
   cameraTransform: {fileID: 536035231}
-  tutorial: {fileID: 0}
+  tutorial: {fileID: 296300275}
   translatePosition: {fileID: 1309293104}
   groundLayer:
     serializedVersion: 2
