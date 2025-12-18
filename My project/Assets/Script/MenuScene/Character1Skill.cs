@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Character1Skill : PlayerController
 {
+    private KnifeControllertr knifeControllertr = new KnifeControllertr();
+
+    [Header("ナイフのダメージ値を1.5倍に設定")]
+    [SerializeField] private float knifeDamageMultiplier = 0.0f;
+
     [Header("ナイフを跳ね返すガードオブジェクト")]
     [SerializeField] private GameObject reflectionGuard = null;
 
@@ -31,7 +36,7 @@ public class Character1Skill : PlayerController
     /// </summary>
     protected override void WeakSkill()
     {
-
+        // ナイフの当たり判定をでかくする
     }
 
     /// <summary>
@@ -39,6 +44,6 @@ public class Character1Skill : PlayerController
     /// </summary>
     protected override void StrongSkill()
     {
-
+        // ナイフコントローラー内のダメージ値を1.5倍にして変更
     }
 }
