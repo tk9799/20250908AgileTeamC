@@ -23,10 +23,15 @@ public class Singleton : MonoBehaviour
     // メインゲームシーンを入力する
     public string mainGameScene = "";
 
+
+    // シーン遷移用の変数
+    // リザルトシーンを入力する
+    public string resultScene = "";
+
     /// <summary>
     /// タイトルシーンへ遷移するメソッド
     /// </summary>
-   public void TransitionTitleScene()
+    public void TransitionTitleScene()
     {
         SceneManager.LoadScene(titleScene);
     }
@@ -53,6 +58,14 @@ public class Singleton : MonoBehaviour
     public void TransitionMainGameScene()
     {
         SceneManager.LoadScene(mainGameScene);
+    }
+
+    /// <summary>
+    /// リザルトシーンへ遷移するメソッド
+    /// </summary>
+    public void TransitionResultScene()
+    {
+        SceneManager.LoadScene(resultScene);
     }
 
     public void StringWinnerName(string winnerName)
