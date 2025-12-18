@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
-//using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerTutorial : MonoBehaviour
 {
 
     private Vector2 inputMove;
@@ -24,10 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxSpeed = 13f;
 
     //ジャンプするときの力
-    [SerializeField] private float jumpPower = 10f;
+    [SerializeField] private float jumpPower = 5f;
 
     //ナイフを投げる時の速度
-    [SerializeField] private float translateSpeed = 1f;
+    [SerializeField] private float translateSpeed = 10f;
 
     //プレイヤーのTransformとRigidbody
     [SerializeField] private Transform playerTransform;
