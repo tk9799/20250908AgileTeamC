@@ -414,7 +414,7 @@ public class PlayerControllerTutorial : MonoBehaviour
         if (knifeObjectList.Count > 0)
         {
             //ナイフを指定したpositionに生成して飛ばす
-            GameObject knife = Instantiate(knifeObject, translatePos, translatePosition.rotation);
+            GameObject knife = Instantiate(knifeObject, translatePos, Quaternion.Euler(0,90,0));
 
             if (this.gameObject.tag == "RedPlayer")
             {
