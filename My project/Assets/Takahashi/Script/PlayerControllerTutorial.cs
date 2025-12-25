@@ -413,8 +413,10 @@ public class PlayerControllerTutorial : MonoBehaviour
         Vector3 translatePos = playerTransform.position + playerTransform.forward * spawnDistance;
         if (knifeObjectList.Count > 0)
         {
+            Quaternion knifeRotation = Quaternion.Euler(0f, 90f, 0f);
+
             //ナイフを指定したpositionに生成して飛ばす
-            GameObject knife = Instantiate(knifeObject, translatePos, Quaternion.identity);
+            GameObject knife = Instantiate(knifeObject, translatePos, knifeRotation);
 
             if (this.gameObject.tag == "RedPlayer")
             {
