@@ -40,6 +40,7 @@ public class PlayerLifeController : MonoBehaviour
         //プレイヤーの体力が０（初期値）以下の時
         if (playerLife <= 0)
         {
+            //プレイヤーが倒された時の処理を呼び出す
             Die();
         }
     }

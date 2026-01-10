@@ -24,7 +24,9 @@ public class KnifeControllertr : MonoBehaviour
 
     private PlayerLifeController playerLifeController = null;
 
-
+    /// <summary>
+    /// 初期化・宣言
+    /// </summary>
     private void Start() 
     {
         rigidbody = GetComponent<Rigidbody>();
