@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// プレイヤーのチームわけ・勝利の判定をするクラス
+/// </summary>
 public class PlayerLifeManager : MonoBehaviour
 {
     //4人想定でそれぞれのPlayerLifeControllerとplayerオブジェクトをアタッチする

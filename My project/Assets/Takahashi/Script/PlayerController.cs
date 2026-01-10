@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor;
-//using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
-    private Vector2 inputMove;
+    //private Vector2 inputMove;
     [Header("ナイフの初期値")]
     [SerializeField] public int possessionNumber = 5;
     //プレイヤーの準備完了時に表示させるCanvasオブジェクト
@@ -37,7 +33,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
 
     // チュートリアルマネージャーの取得
-    //private TutorialManager tutorial = new TutorialManager();
     [SerializeField] private TutorialManager tutorial;
 
     //ナイフを生成して飛ばすときのposition
@@ -55,14 +50,27 @@ public class PlayerController : MonoBehaviour
 
     //地面についているかの判定
     public bool onGround = true;
-    private bool isRightTrigger = false;//攻撃判定
-    private bool isDush = false;//ダッシュ判定
-    private bool isInputRB = false;//RBの入力判定
-    private bool isInputLB = false;//LBの入力判定
+
+    //攻撃判定
+    private bool isRightTrigger = false;
+
+    //ダッシュ判定
+    private bool isDush = false;
+
+    //RBの入力判定
+    private bool isInputRB = false;
+
+    //LBの入力判定
+    private bool isInputLB = false;
     public float rayLength = 0.2f;
-    public float distance = 5f; // カメラとプレイヤー間の距離
-    private float height = 2f;//カメラの高さ
-    [SerializeField] float mouseSensitivity = 1.0f;
+
+    // カメラとプレイヤー間の距離
+    public float distance = 5f;
+
+    //カメラの高さ
+    private float height = 2f;
+
+    //プレイヤーの回転速度
     [SerializeField] private float rotationSpeed = 100f;
 
     //カメラの縦横回転の数値
@@ -82,6 +90,13 @@ public class PlayerController : MonoBehaviour
     //開始時ナイフを設定した数生成する際に使うbool
     private bool isInitialGenerate = false;
 
+    //ナイフを回収する範囲
+    private float knifeCollectRange = 2.0f;
+
+    //ナイフの最大所持数
+    //Listで所持数を数えているため処理ではListの配列の数が６未満で処理される
+    private int maxKnifePossessionsCount = 5;
+
     //InputActionを自動で読み込むコンポーネントを取得
     [SerializeField] private PlayerInput playerInput;
 
@@ -94,53 +109,55 @@ public class PlayerController : MonoBehaviour
     //右トリガーを押して通常攻撃発動する値
     [SerializeField] private float triggerValue = 1.0f;
 
-    // Animtorを取得
-    //[SerializeField] private Animator animator = null;
-
-
     // プレイヤーの準備完了の判定
     public bool isReady = false;
 
     // 生成したい距離
-    float spawnDistance = 2.0f;
+    private float spawnDistance = 2.0f;
+
+    //割り当てられたコントローラーの最低数量
+    private int minDevicesCount = 1;
+
+    //回転の上限値と最低値
+    private float maxRotate = 60.0f;
+    private float minRotate = -20.0f;
+
+    //カメラのz座標数値
+    private float cameraZCoordinate = 0.0f;
 
     /// <summary>
     /// それぞれのプレイヤーをチームごとに割り当てる
     /// </summary>
     private void Awake()
     {
-        //playerInput = GetComponent<PlayerInput>();
-
         // チーム分けをタグによって行う
         if (this.gameObject.tag == "RedPlayer")
         {
             // RedPlayerタグであれば、赤色に変更
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);//見分けやすくするためチームの色に変更
+            //見分けやすくするためチームの色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
         }
         else if (this.gameObject.tag == "BluePlayer")
         {
             // BluePlayerタグであれば、青色に変更
-            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//見分けやすくするためチームの色に変更
+            //見分けやすくするためチームの色に変更
+            this.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);
         }
 
         // 割り当てられたデバイス（コントローラ）を取得
-        if (playerInput.devices.Count > 0)
+        if (playerInput.devices.Count >= minDevicesCount)
         {
             gamepad = playerInput.devices[0] as Gamepad;
             Debug.Log("接続されました");
         }
     }
 
-    //public void Domove(InputAction.CallbackContext context)
-    //{
-    //    //performed、canceledコールバックを受け取る
-    //    if (context.started) return;
-    //    inputMove = context.ReadValue<Vector2>();
-    //}
-
+    /// <summary>
+    /// InputActionの登録
+    /// </summary>
     private void OnEnable()
     {
-        //InputSystemで設定したActionsを
+        //InputActionの取得し、Action内で入力の設定して追加した名前を取得
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
@@ -149,26 +166,36 @@ public class PlayerController : MonoBehaviour
         var lbAction = playerInput.actions["WeakSkill"];
         var rbAction = playerInput.actions["StrongSkill"];
 
+        //それぞれのInputActionをメソッドに登録
         jumpAction.performed += OnJump;
         sceneMoveAction.performed += OnSceneMove;
         attackAction.performed += OnNomalAttack;
         attackAction.canceled += OnNomalAttack; // 押し離し両方見る
         lbAction.performed += OnLB;
+
+        //LBボタンを離したときに呼び出されるメソッド
         lbAction.canceled += OnLB;
 
         rbAction.performed += OnRB;
+
+        //RBボタンを離したときに呼び出されるメソッド
         rbAction.canceled += OnRB;
     }
 
-
+    /// <summary>
+    /// ジャンプ入力を押したときの処理
+    /// </summary>
     private void OnJump(InputAction.CallbackContext ctx)
     {
+        //ジャンプ入力を押したとき
         if (ctx.performed)
         {
-
+            //地面の接地判定
             if (isGrounded())
             {
                 Debug.Log("処理");
+
+                //プレイヤーの上方向に力を加える
                 playerRigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
                 //animator.SetTrigger("isJump");
                 Jumping();
@@ -176,10 +203,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 準備完了を表示するUIを表示非表示切り替える処理
+    /// </summary>
     private void OnSceneMove(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.performed)
         {
+            //boolのtrue/falseを切り替える
             isReady = !isReady;
             Debug.Log(isReady);
 
@@ -196,40 +227,58 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// LBボタンを押したとき強スキルを発動する処理
+    /// </summary>
     private void OnLB(InputAction.CallbackContext callbackContext)
     {
-        isInputLB = callbackContext.performed; // true/false 自動で更新
+        // true/false 自動で更新
+        isInputLB = callbackContext.performed; 
         Debug.Log(isInputLB);
-        if (callbackContext.performed)//強スキルコマンドを押したとき
+
+        //強スキルコマンドを押したとき
+        if (callbackContext.performed)
         {
             isInputLB = true;
             StrongSkill();
             Debug.Log("StrongSkill");
         }
-        else if (callbackContext.canceled)//弱スキルコマンドを離したとき
+        //強スキルコマンドを離したとき
+        else if (callbackContext.canceled)
         {
             isInputLB = false;
         }
     }
 
+    /// <summary>
+    /// RBボタンを押したとき弱スキルを発動する処理
+    /// </summary>
     private void OnRB(InputAction.CallbackContext callbackContext)
     {
+        // true/false 自動で更新
         isInputRB = callbackContext.performed;
         Debug.Log(isInputRB);
+
+        //弱スキルコマンドを押したとき
         if (callbackContext.performed)
         {
             isInputRB = true;
             WeakSkill();
             Debug.Log("WeakSkill");
         }
+        //弱スキルコマンドを離したとき
         else if (callbackContext.canceled)
         {
             isInputRB = false;
         }
     }
 
+    /// <summary>
+    /// 攻撃処理
+    /// </summary>
     private void OnNomalAttack(InputAction.CallbackContext callbackContext)
     {
+        //入力を検知した場合
         if (callbackContext.performed)
         {
             isRightTrigger = true;
@@ -238,12 +287,12 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("hit");
             if (lbPressed)
             {
-                //WeakSkill(); // LBと同時押しなら弱スキル
-                //Debug.Log("WeakSkill");
+                
             }
             else
             {
-                normalAttack(); // 単発なら通常攻撃
+                // 単発なら通常攻撃
+                normalAttack(); 
                 Debug.Log("normalAttack");
             }
         }
@@ -255,14 +304,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        //準備完了を表示するUIを非表示
         whiteScreenObject.SetActive(false);
 
-
-
         isDush = false;
+
+        //ナイフの初期生成
         GenerateKnife();
-        //var gamepads = Gamepad.all;
+
         // デバイスが登録されているか確認
         if (playerInput != null && playerInput.devices.Count > 0)
         {
@@ -283,7 +332,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// 入力の取得・GamePadのトリガー入力時の計算、メソッドの呼び出し・
+    /// ナイフ回収の呼び出しをしている処理
+    /// </summary>
     void Update()
     {
         // デバイス別に処理
@@ -292,13 +344,6 @@ public class PlayerController : MonoBehaviour
         //左スティック入力の更新
         //左スティック入力の値が入る
         moveInput = moveAction.ReadValue<Vector2>();
-
-        // Animatorに値を渡す
-        // 前後移動
-        //animator.SetFloat("Vertical", moveInput.y);
-
-        // 左右移動
-        //animator.SetFloat("Horizontal", moveInput.x);
 
         //右トリガーを押したときの数値
         //右トリガーを押すほど数値が大きくなる(最大１)
@@ -310,12 +355,15 @@ public class PlayerController : MonoBehaviour
             normalAttack();
             Debug.Log("通常攻撃");
             isRightTrigger = true;
-            //animator.SetTrigger("isThrow");
         }
-        //Debug.Log($"Move入力: {moveAction.ReadValue<Vector2>()}");
+
+        //ナイフを回収するメソッド
         CheckKnifePickup();
     }
 
+    /// <summary>
+    /// プレイヤーの移動・カメラの正面を基準にプレイヤーの正面を更新する処理
+    /// </summary>
     private void FixedUpdate()
     {
         if (playerRigidbody == null)
@@ -323,7 +371,10 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("playerRigidbodyが設定されていません！");
         }
 
+        //カメラの正面方向を取得
         Vector3 forward = cameraTransform.forward;
+
+        //カメラのX方向を取得
         Vector3 right = cameraTransform.right;
         forward.y = 0f;
         right.y = 0f;
@@ -337,13 +388,16 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        //進行方向に回転する情報
         Quaternion targetRot = Quaternion.LookRotation(moveDir);
 
-        playerRigidbody.MoveRotation(Quaternion.Slerp(playerRigidbody.rotation, targetRot, speed * Time.fixedDeltaTime));
+        //進行方向にプレイヤーの体を向ける
+        playerRigidbody.MoveRotation(Quaternion.Slerp(playerRigidbody.rotation, 
+            targetRot, speed * Time.fixedDeltaTime));
 
-        //位置の更新
-        //Vector3 move = moveDir * speed * Time.fixedDeltaTime;
-        playerRigidbody.MovePosition(playerRigidbody.position + moveDir * speed * Time.fixedDeltaTime);
+        //位置の更新・移動
+        playerRigidbody.MovePosition(playerRigidbody.position + moveDir *
+            speed * Time.fixedDeltaTime);
         if (gamepad == null)
         {
             Debug.Log("gamepadがnullです");
@@ -351,6 +405,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// カメラの回転・カメラをプレイヤーの後ろに配置して追従する処理
+    /// </summary>
     private void LateUpdate()
     {
         // 右スティック入力を取得
@@ -359,11 +416,12 @@ public class PlayerController : MonoBehaviour
         // 回転を更新
         yaw += lookValue.x * rotationSpeed * Time.deltaTime;
         pitch -= lookValue.y * rotationSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, -20f, 60f);
+        pitch = Mathf.Clamp(pitch, -minRotate, maxRotate);
 
         // カメラの回転と位置
-        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, 0f);
+        Quaternion cameraRot = Quaternion.Euler(pitch, yaw, cameraZCoordinate);
 
+        //プレイヤーの
         Vector3 playerCenter = playerTransform.position + Vector3.up * height;
 
         //カメラの位置
@@ -374,17 +432,23 @@ public class PlayerController : MonoBehaviour
         cameraTransform.rotation = cameraRot;
     }
 
-    private bool isGrounded()//地面に足がついているかの判定に使われる
+    /// <summary>
+    /// 地面に足がついているかの判定
+    /// </summary>
+    private bool isGrounded()
     {
         return Physics.Raycast(playerTransform.position, Vector3.down, rayLength, groundLayer);
     }
 
-    //RayをScene上だけ可視化
+    /// <summary>
+    /// RayをScene上だけ可視化
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
         // SceneビューでRayを可視化
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(playerTransform.position, playerTransform.position + Vector3.down * rayLength);
+        Gizmos.DrawLine(playerTransform.position, playerTransform.position + 
+            Vector3.down * rayLength);
     }
 
     public void Jumping()
@@ -412,12 +476,14 @@ public class PlayerController : MonoBehaviour
     public void normalAttack()
     {
         //Debug.Log("通常攻撃！");
+        //プレイヤー前方の座標を取得
         Vector3 translatePos = playerTransform.position + playerTransform.forward * spawnDistance;
         if (knifeObjectList.Count > 0)
         {
             //ナイフを指定したpositionに生成して飛ばす
             GameObject knife = Instantiate(knifeObject, translatePos, translatePosition.rotation);
 
+            //投げたプレイヤーによってTag名を変える
             if (this.gameObject.tag == "RedPlayer")
             {
                 knife.tag = "RedKnife";
@@ -429,6 +495,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(knife.tag);
             }
 
+            //ナイフをプレイヤーの正面に力を加えて飛ばす
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             if (rigidbody != null)
             {
@@ -437,7 +504,8 @@ public class PlayerController : MonoBehaviour
             }
             KnifeControllertr knifeControllertr = knife.GetComponent<KnifeControllertr>();
 
-            knifeObjectList.RemoveAt(0);//ナイフを投げたらリストから削除
+            //ナイフを投げたらリストから削除
+            knifeObjectList.RemoveAt(0);
         }
     }
 
@@ -451,19 +519,25 @@ public class PlayerController : MonoBehaviour
         Debug.Log("強スキル");
     }
 
-    //当たり判定はtagを使ってhitしたらrayを飛ばして当たり判定を使う
-
+    
+    /// <summary>
+    /// ナイフを回収・所持数を増やす
+    /// </summary>
     void CheckKnifePickup()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, 2f); // 半径2.0の範囲を調べる
+        //当たり判定はtagを使ってhitしたらrayを飛ばして当たり判定を使う
+        // 半径2.0の範囲を調べる
+        Collider[] hits = Physics.OverlapSphere(transform.position, knifeCollectRange); 
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count < 5)
+            //ナイフの所持者が誰のものでもなく所持数が上限未満の場合ナイフを追加する
+            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count < 
+                maxKnifePossessionsCount)
             {
                 Debug.Log("ナイフを回収");
                 knifeObjectList.Add(knifeObject.gameObject);
                 Destroy(hit.gameObject);
-                // 所持数を増やす処理もここで
+                // 所持数を増やす処理もここで行う
             }
         }
     }
