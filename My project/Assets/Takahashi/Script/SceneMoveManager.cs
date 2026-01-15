@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneMoveManager : MonoBehaviour
 {
-    [Header("それぞれのプレイヤーのPlayerController")]
-    [SerializeField] private PlayerController playerController1;
-    [SerializeField] private PlayerController playerController2;
-    [SerializeField] private PlayerController playerController3;
-    [SerializeField] private PlayerController playerController4;
+    [Header("それぞれのプレイヤーのPlayerControllerTutorial")]
+    [SerializeField] private PlayerControllerTutorial playerController1;
+    [SerializeField] private PlayerControllerTutorial playerController2;
+    [SerializeField] private PlayerControllerTutorial playerController3;
+    [SerializeField] private PlayerControllerTutorial playerController4;
 
     [SerializeField] private TutorialManager tutorialManager = null;
     void Update()
@@ -21,6 +21,7 @@ public class SceneMoveManager : MonoBehaviour
                 && playerController3 != null && playerController3.isReady
                 && playerController4 != null && playerController4.isReady)
             {
+                Debug.Log("シーン移動");
                 Singleton.instance.TransitionMainGameScene();
             }
         }
