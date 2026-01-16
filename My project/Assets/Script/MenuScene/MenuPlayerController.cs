@@ -56,52 +56,48 @@ public class MenuPlayerController : MonoBehaviour
     [Header("コントローラーの左スティックの入力値の制御左")]
     [SerializeField] private float leftStickInputThresholdNegative = 0.0f;
 
-    /// <summary>
-    /// キャラ表示とキャラ詳細説明文の表示管理メソッド
-    /// </summary>
-    private void Start()
+    //InputActionを自動で読み込むコンポーネントを取得
+    [SerializeField] private PlayerInput playerInput;
+
+    //Lスティック入力
+    private InputAction moveAction;
+
+    //Aボタン入力
+    private InputAction decisionAction;
+
+    //Bボタン入力
+    private InputAction canselAction;
+
+    //Yボタン入力
+    private InputAction displaySwitchingAction;
+
+    //左スティック入力を取得するためのVector2
+    private Vector2 moveInput;
+
+    private void OnEnable()
     {
+        moveAction = playerInput.actions["Move"];
 
+        decisionAction = playerInput.actions["DecisionButton"];
 
-        // キャラクター決定のテキストを非表示にする
-        characterDecidedText.SetActive(false);
+        canselAction = playerInput.actions["CancelButton"];
 
-        // キャラ詳細の二つ目の文を非表示にする
-        charactorsState[1].gameObject.SetActive(false);
+        displaySwitchingAction = playerInput.actions["DisplaySwitching"];
+
+        decisionAction.performed += OnDecision;
+
+        canselAction.performed += OnCansel;
+
+        displaySwitchingAction.performed += OnDisplaySwitching;
     }
 
-    /// <summary>
-    /// キャラ切り替えと説明文切り替えのメソッド
-    /// </summary>
-    private void Update()
+    private void OnDecision(InputAction.CallbackContext callbackContext)
     {
-        // コントローラーがつながってないときは通さない
-        if (pad == null || charactors.Length == 0) return;
-
-        Debug.Log(input.x);
-
-        // 最初のキャラクターだけ表示
-        //UpdateCharactorDisplay();
-
-        // 左スティック受け取り
-        input = new Vector2(Gamepad.all[playerNum].leftStick.ReadValue().x, Gamepad.all[playerNum].leftStick.ReadValue().y);
-
-
-        // 上下操作の変数
-        float vertical = Gamepad.all[playerNum].leftStick.ReadValue().y;
-
-        // 左右操作の変数
-        float horizontal = Gamepad.all[playerNum].leftStick.ReadValue().x;
-
-
-        
-
-
-        if (this.pad.buttonSouth.wasPressedThisFrame && !isDecided)
+        if (/*this.pad.buttonSouth.wasPressedThisFrame &&*/ !isDecided)
         {
             // isDecidedがfalseのとき、Aボタンを押したら決定処理
 
-            Debug.Log("Player " + (playerNum + 1) + " selected character " + charactors[currentIndex].name);
+            Debug.Log("じぇふぃをｄ");
 
             // キャラクター決定処理
             menuManager.decisionCount++;
@@ -112,33 +108,44 @@ public class MenuPlayerController : MonoBehaviour
             // 決定した判定
             isDecided = true;
         }
-        else if (this.pad.buttonEast.wasPressedThisFrame)
+    }
+
+    private void OnCansel(InputAction.CallbackContext callbackContext)
+    {
+        // キャラクター選択キャンセル処理
+        menuManager.decisionCount--;
+        Debug.Log("Player " + (playerNum + 1) + " canceled character selection.");
+
+        // 非表示
+        characterDecidedText.SetActive(false);
+
+        isDecided = false;
+
+        // 誰も決定ボタンを押していないとき、タイトルシーンへ戻る
+        if (menuManager.decisionCount <= -1)
         {
-            // キャラクター選択キャンセル処理
-            menuManager.decisionCount--;
-            Debug.Log("Player " + (playerNum + 1) + " canceled character selection.");
-
-            // 非表示
-            characterDecidedText.SetActive(false);
-
-            isDecided = false;
-
-            // 誰も決定ボタンを押していないとき、タイトルシーンへ戻る
-            if (menuManager.decisionCount <= -1)
-            {
-                Debug.Log("fads");
-                // タイトルシーンへ遷移
-                Singleton.instance.TransitionTitleScene();
-            }
+            Debug.Log("fads");
+            // タイトルシーンへ遷移
+            Singleton.instance.TransitionTitleScene();
         }
 
-        if (this.pad.buttonNorth.wasPressedThisFrame)
-        {
-            // ゲームパッドのYボタンを押すと処理開始
+        //if (this.pad.buttonEast.wasPressedThisFrame)
+        //{
+            
+        //}
+    }
 
-            // Yボタンを押した回数を1増やす
-            yButtonPressCount++;
-        }
+    private void OnDisplaySwitching(InputAction.CallbackContext callbackContext)
+    {
+        yButtonPressCount++;
+        Debug.Log(yButtonPressCount);
+        //if (this.pad.buttonNorth.wasPressedThisFrame)
+        //{
+        //    // ゲームパッドのYボタンを押すと処理開始
+
+        //    // Yボタンを押した回数を1増やす
+        //    yButtonPressCount++;
+        //}
 
         switch (yButtonPressCount)
         {
@@ -177,6 +184,57 @@ public class MenuPlayerController : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    /// <summary>
+    /// キャラ表示とキャラ詳細説明文の表示管理メソッド
+    /// </summary>
+    private void Start()
+    {
+        pad = playerInput.devices[0] as Gamepad;
+        playerNum = playerInput.playerIndex;
+
+        Debug.Log($"Player {playerNum + 1} connected : {pad.displayName}");
+
+        // キャラクター決定のテキストを非表示にする
+        characterDecidedText.SetActive(false);
+
+        // キャラ詳細の二つ目の文を非表示にする
+        charactorsState[1].gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// キャラ切り替えと説明文切り替えのメソッド
+    /// </summary>
+    private void Update()
+    {
+        // コントローラーがつながってないときは通さない
+        //if (pad == null || charactors.Length == 0) return;
+        if (pad == null)
+        {
+            return;
+        }
+
+        //Debug.Log(input.x);
+
+        // 最初のキャラクターだけ表示
+        //UpdateCharactorDisplay();
+
+        // 左スティック受け取り
+        //input = new Vector2(Gamepad.all[playerNum].leftStick.ReadValue().x, Gamepad.all[playerNum].leftStick.ReadValue().y);
+
+        //左スティック入力の更新
+        //左スティック入力の値が入る
+        Vector2 stick = pad.leftStick.ReadValue();
+        //Debug.Log(moveInput.x);
+
+
+        // 上下操作の変数
+        //float vertical = Gamepad.all[playerNum].leftStick.ReadValue().y;
+
+        // 左右操作の変数
+        //float horizontal = Gamepad.all[playerNum].leftStick.ReadValue().x;
+
 
         // 左右の入力でキャラクター切り替え
         // 最後に入力された時間がクールタイムを上回ったら処理開始
@@ -187,7 +245,8 @@ public class MenuPlayerController : MonoBehaviour
                 return;
             }
 
-            if (leftStickInputThreshold <= input.x)
+            //if (leftStickInputThreshold <= input.x)
+            if (moveInput.x >= leftStickInputThreshold)
             {
                 //右入力でインデックスを増やして、配列の範囲を超えたら0に戻す
                 currentIndex = (currentIndex + 1) % charactors.Length;
@@ -198,7 +257,8 @@ public class MenuPlayerController : MonoBehaviour
                 // 入力した時間を変数に入れる
                 lastInputTime = Time.time;
             }
-            else if (input.x < leftStickInputThresholdNegative)
+            //else if (input.x < leftStickInputThresholdNegative)
+            else if (moveInput.x <= leftStickInputThresholdNegative)
             {
                 // 左入力でインデックスを減らして、配列の範囲を超えたら最後のインデックスに戻す
                 currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Singleton : MonoBehaviour
@@ -27,6 +28,37 @@ public class Singleton : MonoBehaviour
     // シーン遷移用の変数
     // リザルトシーンを入力する
     public string resultScene = "";
+
+    //プレイヤー番号
+    //public int playerNum = 0;
+    //public MenuPlayerController menuPlayerController = null;
+
+    [Header("MenuPlayerControllerを取得して配列にする")]
+    [SerializeField] private MenuPlayerController[] menuPlayerController;
+
+    public void Connection()
+    {
+        //// プレイヤーの数だけループして、どのコントローラーがどのプレイヤーとして割り当てられているかを確定させる
+        //for (int i = 0; i < menuPlayerController.Length; i++)
+        //{
+
+        //    if (i < Gamepad.all.Count)
+        //    {
+        //        // i番目のコントローラーより大きいときに処理
+        //        Debug.Log("jvidfskoa");
+        //        // 接続順にpadへ情報を入れる
+        //        menuPlayerController[i].pad = Gamepad.all[i];
+        //    }
+        //    else
+        //    {
+        //        // i番目未満の時はnullを入れる
+        //        menuPlayerController[i].pad = null;
+        //    }
+
+        //    // プレイヤー番号をセット
+        //    menuPlayerController[i].playerNum = i;
+        //}
+    }
 
     /// <summary>
     /// タイトルシーンへ遷移するメソッド
@@ -72,6 +104,17 @@ public class Singleton : MonoBehaviour
     {
         winnerTeamName = winnerName;
     }
+
+    //public int GeyPlayerNum()
+    //{
+    //    menuPlayerController = GetComponent<MenuPlayerController>();
+    //    return menuPlayerController.playerNum;
+    //}
+
+    //public void PlayerNum(int playerNum)
+    //{
+    //    playerNum = menuPlayerController.playerNum;
+    //}
 
     private void Awake()
     {

@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PrefabPlayerController : MonoBehaviour
 {
+    [SerializeField] private PlayerInput playerInput;
     private Vector2 moveInput;
     private Rigidbody rb;
     private Camera playerCamera;
