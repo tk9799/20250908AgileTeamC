@@ -5,18 +5,21 @@ public class PrefabPlayerMove : MonoBehaviour
 {
     private Rigidbody rigidbody;
 
+    //カメラのTransform
     [SerializeField] private Transform cameraTransform;
 
-    [SerializeField] private PlayerInput playerInput;
+    //プレイヤーの回転速度
+    [SerializeField] private float rotationSpeed = 10f;
 
-    private InputAction moveAction;
+    //プレイヤーの移動速度
+    [SerializeField] private float moveSpeed = 10f;
 
-    //ゲームパッドの取得
-    private Gamepad gamepad;
+    private Vector2 playerMoveInput;
 
-    private void OnEnable()
+
+    public void SetMoveInput(Vector2 input)
     {
-        moveAction = playerInput.actions["Move"];
+        playerMoveInput = input;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,9 +29,9 @@ public class PrefabPlayerMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
-        Vector2 leftStickInput = moveAction.ReadValue<Vector2>();
+        //Vector2 leftStickInput = moveAction.ReadValue<Vector2>();
         //Vector3 playerMove = new Vector3(leftStickInput.x, leftStickInput.y, 0);
 
         Vector3 forward = cameraTransform.forward;
@@ -38,6 +41,11 @@ public class PrefabPlayerMove : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDir = forward * leftStickInput.y + right * leftStickInput.x;
+        Vector3 moveDir = forward * playerMoveInput.y + right * playerMoveInput.x;
+        Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+
+        rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+
+        rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
     }
 }
