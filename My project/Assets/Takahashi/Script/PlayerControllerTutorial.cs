@@ -125,7 +125,10 @@ public class PlayerControllerTutorial : MonoBehaviour
         if (playerInput.devices.Count > 0)
         {
             gamepad = playerInput.devices[0] as Gamepad;
-            Debug.Log("ê⁄ë±Ç≥ÇÍÇ‹ÇµÇΩ");
+            //Debug.Log("ê⁄ë±Ç≥ÇÍÇ‹ÇµÇΩ");
+
+
+
         }
     }
 
@@ -255,8 +258,6 @@ public class PlayerControllerTutorial : MonoBehaviour
     {
 
         whiteScreenObject.SetActive(false);
-
-
 
         isDush = false;
         GenerateKnife();

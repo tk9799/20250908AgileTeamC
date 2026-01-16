@@ -795,6 +795,7 @@ MonoBehaviour:
   tutorialScene: TutorialScene
   mainGameScene: MainGameScene
   resultScene: ResultScene
+  menuPlayerController: []
 --- !u!4 &1910607581
 Transform:
   m_ObjectHideFlags: 0
@@ -821,6 +822,7 @@ GameObject:
   - component: {fileID: 2113153528}
   - component: {fileID: 2113153527}
   - component: {fileID: 2113153529}
+  - component: {fileID: 2113153530}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -840,6 +842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0155b95d0a87c4e8f1e9a265e983f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 2113153529}
+  playerNumber: 0
 --- !u!4 &2113153528
 Transform:
   m_ObjectHideFlags: 0
@@ -868,7 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3ef4e24396054a343a715695a95ea264, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -879,12 +883,73 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e6727e9-d4c2-42cf-b29e-1ec002d542ed
+    m_ActionName: 'Player/Move[/XInputControllerWindows/leftStick]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 305f8328-1cf5-4d66-8626-781017dd5219
+    m_ActionName: 'Player/Look[/XInputControllerWindows/rightStick]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 779911b4-4749-4af9-9eab-2d272d060b0c
+    m_ActionName: 'Player/Jump[/XInputControllerWindows/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 734cc3cc-0b07-40bf-970b-c0fc349e9115
+    m_ActionName: 'Player/NomalAttack[/XInputControllerWindows/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c204aa9f-a830-4b2a-b3f5-fe00146feb1d
+    m_ActionName: 'Player/WeakSkill[/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ab96d87d-3116-4839-b864-f701aadc2b67
+    m_ActionName: 'Player/StrongSkill[/XInputControllerWindows/leftShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 458919cf-04d6-4849-a028-1e0f3361ac67
+    m_ActionName: 'Player/TitleSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 98f5d6b9-c8c6-4fba-abc1-361976a1a267
+    m_ActionName: 'Player/TutorialSceneMove[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e77a07dd-9b98-4323-9f30-36db7f9774bc
+    m_ActionName: 'Player/DecisionButton[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0cfc1ea5-9efd-4b4a-9b55-bb5aad1d3740
+    m_ActionName: 'Player/CancelButton[/XInputControllerWindows/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d239ab9e-e396-40df-86e2-a7a35c24ddc9
+    m_ActionName: 'Player/DisplaySwitching[/XInputControllerWindows/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82d1c3b0-5848-4dfc-87c8-48ea38305032
+    m_ActionName: 'Player/ChoseCharactorSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2113153530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113153526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38c7f14947e7744aa07639a9c237163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuPlayers: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
