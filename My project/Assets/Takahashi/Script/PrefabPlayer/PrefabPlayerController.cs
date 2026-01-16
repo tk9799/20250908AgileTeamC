@@ -3,11 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PrefabPlayerController : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput;
+    //[SerializeField] private PlayerInput playerInput;
+
+    private PrefabPlayerMove prefabPlayerMove;
+
+    private PrefabPlayerCameraController prefabPlayerCameraController;
     private Vector2 moveInput;
-    private Rigidbody rb;
-    private Camera playerCamera;
-    private Gamepad gamepad;
 
     private static int playerCount = 0;//生成されたプレイヤー数をカウント
 
@@ -16,32 +17,21 @@ public class PrefabPlayerController : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        //プレイヤーごとにカメラを生成
-        GameObject cameraObject = new GameObject("PlayerCamera");
-        playerCamera = cameraObject.AddComponent<Camera>();
-        //生成したカメラを子オブジェクトにする
-        cameraObject.transform.SetParent(transform);
+        prefabPlayerMove = GetComponent<PrefabPlayerMove>();
+        prefabPlayerCameraController = GetComponentInChildren<PrefabPlayerCameraController>();
     }
 
     // Move入力を受け取る
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue value)
     {
-        moveInput = context.ReadValue<Vector2>();
+        moveInput = value.Get<Vector2>();
+        prefabPlayerMove.SetMoveInput(moveInput);
     }
 
-    // Jump入力を受け取る
-    public void OnJump(InputAction.CallbackContext context)
+    public void OnLook(InputValue value)
     {
-        if (context.performed)
-        {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
-        }
+        Vector2 lookInput = value.Get<Vector2>();
+
     }
 
-    void FixedUpdate()
-    {
-        //移動処理
-        rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
-    }
 }
