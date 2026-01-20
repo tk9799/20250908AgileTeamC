@@ -1337,7 +1337,7 @@ MonoBehaviour:
   titleScene: TitleScene
   choseCharactorScene: ChoseCharactorScene
   tutorialScene: TutorialScene
-  mainGameScene: MainGameScene
+  mainGameScene: MainGameSceneSecond
   resultScene: ResultScene
   menuPlayerController: []
 --- !u!4 &1910607581
