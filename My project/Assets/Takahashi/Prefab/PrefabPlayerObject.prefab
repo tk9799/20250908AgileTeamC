@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3882040702803835572}
   m_Layer: 0
   m_Name: PlayerFollowCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6246562927414680522}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &3882040702803835572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,50 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 3305930129641819319}
---- !u!1 &6271264625030499036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5537743290289585044}
-  - component: {fileID: 4329068231505523114}
-  m_Layer: 0
-  m_Name: cm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5537743290289585044
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6271264625030499036}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7522299, y: -1.8493052, z: -0.22104639}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3305930129641819319}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4329068231505523114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6271264625030499036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  cameraRotationSpeed: 300
+  distance: 5
 --- !u!1 &7965511449070765059
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +177,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8462929381042500655}
-  - {fileID: 5537743290289585044}
   - {fileID: 3320769011835184605}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -254,7 +211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6b92a817b1a275d43a9a73246cb97fd1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -311,7 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bfadb9c4b64b84c88d8382e6b1985f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 7993187357458554957}
   moveSpeed: 5
   jumpForce: 5
 --- !u!114 &109818705819184542
@@ -326,9 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd78297d75889442b693b4d8a90d138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 3320769011835184605}
-  playerInput: {fileID: 7993187357458554957}
-  rotationSpeed: 10
+  cameraTransform: {fileID: 8462929381042500655}
+  rotationSpeed: 2
   moveSpeed: 10
 --- !u!114 &7993187357458554957
 MonoBehaviour:
@@ -356,11 +311,35 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2753298180999779025}
+        m_TargetAssemblyTypeName: PrefabPlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5e6727e9-d4c2-42cf-b29e-1ec002d542ed
     m_ActionName: 'Player/Move[/XInputControllerWindows/leftStick]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2753298180999779025}
+        m_TargetAssemblyTypeName: PrefabPlayerController, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 305f8328-1cf5-4d66-8626-781017dd5219
     m_ActionName: 'Player/Look[/XInputControllerWindows/rightStick]'
   - m_PersistentCalls:
@@ -432,9 +411,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!1 &8780949630614864416
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PrefabPlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PrefabPlayerController : MonoBehaviour
 
     private PrefabPlayerCameraController prefabPlayerCameraController;
     private Vector2 moveInput;
+    private Vector2 lookInput;
 
     private static int playerCount = 0;//生成されたプレイヤー数をカウント
 
@@ -22,15 +24,32 @@ public class PrefabPlayerController : MonoBehaviour
     }
 
     // Move入力を受け取る
-    public void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = value.Get<Vector2>();
+        if (context.performed)
+        {
+            moveInput = context.ReadValue<Vector2>();
+            //return;
+        }
+        else if (context.canceled)
+        {
+            moveInput = Vector2.zero;
+        }
+
+        Debug.Log($"Move Input: {moveInput}");
         prefabPlayerMove.SetMoveInput(moveInput);
     }
 
-    public void OnLook(InputValue value)
+    public void OnLook(InputAction.CallbackContext context)
     {
-        Vector2 lookInput = value.Get<Vector2>();
+        if (context.performed)
+        {
+            
+            return;
+        }
+
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        prefabPlayerCameraController.SetLookInput(lookInput);
 
     }
 

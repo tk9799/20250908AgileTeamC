@@ -32,6 +32,10 @@ public class PrefabPlayerCameraController : MonoBehaviour
     void Start()
     {
         playerDistance = transform.position - targetTransform.position;
+
+        Vector3 angles = transform.eulerAngles;
+        yaw = angles.y;
+        pitch = angles.x;
     }
 
     public void SetLookInput(Vector2 input)
@@ -41,33 +45,24 @@ public class PrefabPlayerCameraController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        transform.position = targetTransform.position + playerDistance;
-
-        // 入力されている場合、プレイヤーとカメラの距離を回転させる
-        if (playerLookInput != Vector2.zero)
+        if(playerLookInput.sqrMagnitude < 0.01f)
         {
-            Quaternion cameraRotation = Quaternion.Euler(0, playerLookInput.x * cameraRotationSpeed, 0);
-            playerDistance = cameraRotation * playerDistance;
+            return;
         }
 
-        //// 回転を更新
-        //yaw += playerLookInput.x * cameraRotationSpeed * Time.deltaTime;
-        //pitch -= playerLookInput.y * cameraRotationSpeed * Time.deltaTime;
-        //pitch = Mathf.Clamp(pitch, -minRotate, maxRotate);
+        yaw += playerLookInput.x * cameraRotationSpeed * Time.deltaTime;
 
-        //// カメラの回転と位置
-        //Quaternion cameraRot = Quaternion.Euler(pitch, yaw, cameraZCoordinate);
+        pitch -= playerLookInput.y * cameraRotationSpeed * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, minRotate, maxRotate);
 
-        ////プレイヤーの高さを調整
-        //Vector3 playerCenter = targetTransform.position + Vector3.up * height;
+        Quaternion rotation=Quaternion.Euler(pitch, yaw, cameraZCoordinate);
 
-        ////カメラの位置
-        //Vector3 targetPosition = playerCenter - cameraRot * Vector3.forward * distance;
+        Vector3 targetPosition = targetTransform.position + Vector3.up * height - rotation * Vector3.forward * distance;
 
-        ////カメラをプレイヤーに即座に追従
-        //transform.position = targetPosition;
-        //transform.rotation = cameraRot;
+        transform.position = targetPosition;
+        transform.rotation = rotation;
+
     }
 }
