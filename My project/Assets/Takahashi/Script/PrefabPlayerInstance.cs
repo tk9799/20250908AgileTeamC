@@ -18,18 +18,19 @@ public class PrefabPlayerInstance : MonoBehaviour
     private float offsetPosition = 0.0f;
 
     
-    private void Update()
+    private void Start()
     {
         //
         for(int i=0; i<InstanceNum; i++)
         {
             //プレイヤーの生成
             Instantiate(prefabPlayer,InstanceTransform);
-            InstanceTransform.position = new Vector3(offsetPosition, 0.0f, 0.0f);
+            //InstanceTransform.position = new Vector3(offsetPosition, 0.0f, 0.0f);
 
             //生成する座標を変更
             //生成する座標はプレイヤーごとに固定するため仮の状態で作っている
             offsetPosition += 1.0f;
+            return;
         }
     }
 }
