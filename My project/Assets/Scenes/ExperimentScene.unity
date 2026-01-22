@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 408027952}
   - component: {fileID: 408027951}
+  - component: {fileID: 408027953}
   m_Layer: 0
   m_Name: PlayerInputManager
   m_TagString: Untagged
@@ -257,10 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -304,6 +305,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &408027953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408027950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166e4d6b80c3c4c4d85c26e3c4b80cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerJoinInputAction:
+    m_Name: Player Join Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2cb87227-90ae-47dc-bfeb-8211855f3652
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 4f4265d8-6773-4514-bd2e-d0cdc8983dba
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Join Input
+      m_Flags: 0
+    m_Flags: 0
+  playerInputManager: {fileID: 0}
+  playerPrefab: {fileID: 7993187357458554957, guid: 0e92129535dd7624795d1ca141d872ce, type: 3}
+  maxPlayerCount: 4
 --- !u!1 &769925480
 GameObject:
   m_ObjectHideFlags: 0
