@@ -10,9 +10,6 @@ public class PrefabPlayerController : MonoBehaviour
 
     private PrefabPlayerCameraController prefabPlayerCameraController;
     private Vector2 moveInput;
-    private Vector2 lookInput;
-
-    private static int playerCount = 0;//生成されたプレイヤー数をカウント
 
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
@@ -29,7 +26,6 @@ public class PrefabPlayerController : MonoBehaviour
         if (context.performed)
         {
             moveInput = context.ReadValue<Vector2>();
-            //return;
         }
         else if (context.canceled)
         {
@@ -44,7 +40,6 @@ public class PrefabPlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            
             return;
         }
 
