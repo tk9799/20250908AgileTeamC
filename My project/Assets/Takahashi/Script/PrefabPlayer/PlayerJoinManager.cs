@@ -17,7 +17,7 @@ public class PlayerJoinManager : MonoBehaviour
     [SerializeField] private PlayerInput playerPrefab = null;
 
     //最大参加人数
-    [SerializeField] private int maxPlayerCount = 0;
+    //[SerializeField] private int maxPlayerCount = 0;
 
     //Join済みのデバイス情報
     //private InputDevice[] joinedDevices = default;
@@ -34,14 +34,12 @@ public class PlayerJoinManager : MonoBehaviour
         //InputActionを有効化
         playerJoinInputAction.Enable();
 
-        //InputAction入力時のコールバックを設定
-        playerJoinInputAction.performed += OnJoin;
     }
 
     private void OnEnable()
     {
         playerJoinInputAction.Enable();
-        //playerJoinInputAction
+        playerJoinInputAction.performed += OnJoin;
     }
 
     private void OnDisable()
@@ -55,7 +53,7 @@ public class PlayerJoinManager : MonoBehaviour
         InputDevice inputDevice = context.control.device;
 
         //プレイヤー数が最大数に達していたら処理を終了
-        if (currentPlayerCount >= maxPlayerCount)
+        if (playerInputManager.playerCount >= playerInputManager.maxPlayerCount)
         {
             return;
         }
@@ -71,13 +69,17 @@ public class PlayerJoinManager : MonoBehaviour
 
         //PlayerInputを保持した仮想のプレイヤーをインスタンス化
         //Join要求元のデバイス情報を紐づけてインスタンスを生成する
-        PlayerInput.Instantiate(prefab: playerPrefab.gameObject, playerIndex: currentPlayerCount,
-            pairWithDevice: context.control.device);
+        PlayerInput playerInput = PlayerInput.Instantiate(prefab: playerPrefab.gameObject,
+            playerIndex: currentPlayerCount, pairWithDevice: context.control.device);
+
+        joinedDevices.Add(inputDevice);
+
+        //Debug.Log($"Player {playerInput.playerIndex + 1} joined with {playerInput.displayName}");
 
         //Joinしたデバイス情報を保存
-        joinedDevices[currentPlayerCount] = context.control.device;
+        //joinedDevices[currentPlayerCount] = context.control.device;
 
-        currentPlayerCount++;
+        //currentPlayerCount++;
 
         //InputActionを入力したデバイス情報を取得
         //InputDevice inputDevice = context.control.device;
