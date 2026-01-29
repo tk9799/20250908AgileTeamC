@@ -28,8 +28,7 @@ public class PrefabPlayerCameraController : MonoBehaviour
     //ƒJƒƒ‰‚ÌzÀ•W”’l
     private float cameraZCoordinate = 0.0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         playerDistance = transform.position - targetTransform.position;
 
