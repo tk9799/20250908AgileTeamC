@@ -168,6 +168,9 @@ GameObject:
   - component: {fileID: 2753298180999779025}
   - component: {fileID: 109818705819184542}
   - component: {fileID: 7993187357458554957}
+  - component: {fileID: 3560412347207713073}
+  - component: {fileID: 3381633559616516859}
+  - component: {fileID: 2875245854379899904}
   - component: {fileID: -862389877717418890}
   - component: {fileID: -3294748814588448304}
   m_Layer: 0
@@ -283,6 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: -3294748814588448304}
+  prefabPlayerJumpScript: {fileID: 3560412347207713073}
+  prefabPlayerNomalAttack: {fileID: 3381633559616516859}
   moveSpeed: 5
   jumpForce: 5
 --- !u!114 &109818705819184542
@@ -358,11 +363,35 @@ MonoBehaviour:
     m_ActionId: 305f8328-1cf5-4d66-8626-781017dd5219
     m_ActionName: 'Player/Look[/XInputControllerWindows/rightStick]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2753298180999779025}
+        m_TargetAssemblyTypeName: PrefabPlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 779911b4-4749-4af9-9eab-2d272d060b0c
     m_ActionName: 'Player/Jump[/XInputControllerWindows/buttonEast]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2753298180999779025}
+        m_TargetAssemblyTypeName: PrefabPlayerController, Assembly-CSharp
+        m_MethodName: OnNomalAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 734cc3cc-0b07-40bf-970b-c0fc349e9115
     m_ActionName: 'Player/NomalAttack[/XInputControllerWindows/rightTrigger]'
   - m_PersistentCalls:
@@ -402,6 +431,57 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3560412347207713073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965511449070765059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1263f6b6028a911488d819f1707ef695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabPlayerController: {fileID: 2753298180999779025}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  rayLength: 1.1
+  playerJumpPower: 5
+--- !u!114 &3381633559616516859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965511449070765059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd67ee5af6ad0354b9ec3c59a82c68ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeSpawnDistance: 1
+  tlanslateSpoeed: 5
+  prefabPlayerKnifeList: {fileID: 2875245854379899904}
+  knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
+--- !u!114 &2875245854379899904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965511449070765059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2f97a698ec30646966f8fbee56949d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
+  knifePossessionList: []
+  initialKnifeNumber: 5
+  maxKnifePossessionNumber: 5
+  collectionRangeNumber: 2
 --- !u!114 &-862389877717418890
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,9 @@ public class PrefabPlayerController : MonoBehaviour
 
     private PrefabPlayerCameraController prefabPlayerCameraController;
 
-    private PrefabPlayerJumpScript prefabPlayerJumpScript;
+    [SerializeField] private PrefabPlayerJumpScript prefabPlayerJumpScript;
+
+    [SerializeField] private PrefabPlayerNomalAttack prefabPlayerNomalAttack;
     private Vector2 moveInput;
 
     public float moveSpeed = 5f;
@@ -21,7 +23,6 @@ public class PrefabPlayerController : MonoBehaviour
     {
         prefabPlayerMove = GetComponent<PrefabPlayerMove>();
         prefabPlayerCameraController = GetComponentInChildren<PrefabPlayerCameraController>();
-        prefabPlayerJumpScript = GetComponent<PrefabPlayerJumpScript>();
     }
 
     // Move入力を受け取る
@@ -54,12 +55,23 @@ public class PrefabPlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!context.performed)
         {
-            Debug.Log("ジャンプ入力");
-            prefabPlayerJumpScript.PlayerJump();
+            return;
         }
-        
+
+        //ジャンプするメソッドを呼ぶ
+        prefabPlayerJumpScript.PlayerJump();
+    }
+
+    public void OnNomalAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+
+        prefabPlayerNomalAttack.NormalAttack();
     }
 
 }
