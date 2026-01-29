@@ -32,8 +32,6 @@ public class PrefabPlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         if (playerMoveInput == Vector2.zero) return;
-        //Vector2 leftStickInput = moveAction.ReadValue<Vector2>();
-        //Vector3 playerMove = new Vector3(leftStickInput.x, leftStickInput.y, 0);
 
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
@@ -44,29 +42,14 @@ public class PrefabPlayerMove : MonoBehaviour
 
         Vector3 moveDir = forward * playerMoveInput.y + right * playerMoveInput.x;
         moveDir.Normalize();
-        //Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-
-        //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-
-        //rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
 
         rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
 
         Quaternion targetRotation=Quaternion.LookRotation(moveDir);
-        //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation,targetRotation,rotationSpeed* Time.fixedDeltaTime));
 
         //rigidbodyを通してプレイヤーの向きを左スティックが入力した方向にゆっくりと回転する
         rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation,targetRotation,rotationSpeed*Time.fixedDeltaTime));
 
-        //if (moveDir.sqrMagnitude > 0.001f)
-        //{
-        //    //rigidbody.MoveRotation(Quaternion.LookRotation(moveDir));
-        //    transform.rotation=Quaternion.LookRotation(moveDir);
-        //    //Quaternion targetRotation=Quaternion.LookRotation(moveDir);
-        //    //rigidbody.MoveRotation(targetRotation);
-        //}
-        //moveDir.y=rigidbody.angularVelocity.y;
-        //rigidbody.angularVelocity = moveDir;
         Debug.Log($"MoveDir: {moveDir}");
         Debug.Log($"Pos Before: {rigidbody.position}");
     }

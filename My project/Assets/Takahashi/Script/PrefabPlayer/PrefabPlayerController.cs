@@ -5,10 +5,13 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class PrefabPlayerController : MonoBehaviour
 {
     //[SerializeField] private PlayerInput playerInput;
+    [SerializeField] public Rigidbody rigidbody;
 
     private PrefabPlayerMove prefabPlayerMove;
 
     private PrefabPlayerCameraController prefabPlayerCameraController;
+
+    private PrefabPlayerJumpScript prefabPlayerJumpScript;
     private Vector2 moveInput;
 
     public float moveSpeed = 5f;
@@ -18,6 +21,7 @@ public class PrefabPlayerController : MonoBehaviour
     {
         prefabPlayerMove = GetComponent<PrefabPlayerMove>();
         prefabPlayerCameraController = GetComponentInChildren<PrefabPlayerCameraController>();
+        prefabPlayerJumpScript = GetComponent<PrefabPlayerJumpScript>();
     }
 
     // Move入力を受け取る
@@ -38,14 +42,24 @@ public class PrefabPlayerController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            return;
-        }
+        //if (context.performed)
+        //{
+        //    return;
+        //}
 
         Vector2 lookInput = context.ReadValue<Vector2>();
         prefabPlayerCameraController.SetLookInput(lookInput);
 
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("ジャンプ入力");
+            prefabPlayerJumpScript.PlayerJump();
+        }
+        
     }
 
 }
