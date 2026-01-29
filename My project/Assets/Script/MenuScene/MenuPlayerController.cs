@@ -131,12 +131,13 @@ public class MenuPlayerController : MonoBehaviour
 
         //if (this.pad.buttonEast.wasPressedThisFrame)
         //{
-            
+
         //}
     }
 
     private void OnDisplaySwitching(InputAction.CallbackContext callbackContext)
     {
+        // Yボタンを入力した回数をインクリメントする
         yButtonPressCount++;
         Debug.Log(yButtonPressCount);
         //if (this.pad.buttonNorth.wasPressedThisFrame)
@@ -246,7 +247,7 @@ public class MenuPlayerController : MonoBehaviour
             }
 
             //if (leftStickInputThreshold <= input.x)
-            if (moveInput.x >= leftStickInputThreshold)
+            if (stick.x >= leftStickInputThreshold)
             {
                 //右入力でインデックスを増やして、配列の範囲を超えたら0に戻す
                 currentIndex = (currentIndex + 1) % charactors.Length;
@@ -258,7 +259,7 @@ public class MenuPlayerController : MonoBehaviour
                 lastInputTime = Time.time;
             }
             //else if (input.x < leftStickInputThresholdNegative)
-            else if (moveInput.x <= leftStickInputThresholdNegative)
+            else if (stick.x <= leftStickInputThresholdNegative)
             {
                 // 左入力でインデックスを減らして、配列の範囲を超えたら最後のインデックスに戻す
                 currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;
