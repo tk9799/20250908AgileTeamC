@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
+
     //private Vector2 inputMove;
     [Header("ナイフの初期値")]
     [SerializeField] public int possessionNumber = 5;
@@ -47,6 +49,8 @@ public class PlayerController : MonoBehaviour
     //プレイヤーの移動入力(moveInput)と視点回転入力(lookValue)
     private Vector2 moveInput;
     private Vector2 lookValue;
+
+    private ResultSceneManager resultSceneManager = new ResultSceneManager();
 
     //地面についているかの判定
     public bool onGround = true;
@@ -124,6 +128,8 @@ public class PlayerController : MonoBehaviour
 
     //カメラのz座標数値
     private float cameraZCoordinate = 0.0f;
+
+    private float currentPlayerRotationY = 0.0f;
 
     /// <summary>
     /// それぞれのプレイヤーをチームごとに割り当てる
@@ -233,7 +239,7 @@ public class PlayerController : MonoBehaviour
     private void OnLB(InputAction.CallbackContext callbackContext)
     {
         // true/false 自動で更新
-        isInputLB = callbackContext.performed; 
+        isInputLB = callbackContext.performed;
         Debug.Log(isInputLB);
 
         //強スキルコマンドを押したとき
@@ -287,12 +293,12 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("hit");
             if (lbPressed)
             {
-                
+
             }
             else
             {
                 // 単発なら通常攻撃
-                normalAttack(); 
+                normalAttack();
                 Debug.Log("normalAttack");
             }
         }
@@ -359,6 +365,10 @@ public class PlayerController : MonoBehaviour
 
         //ナイフを回収するメソッド
         CheckKnifePickup();
+
+        
+            
+        
     }
 
     /// <summary>
@@ -388,16 +398,21 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+
         //進行方向に回転する情報
         Quaternion targetRot = Quaternion.LookRotation(moveDir);
 
         //進行方向にプレイヤーの体を向ける
-        playerRigidbody.MoveRotation(Quaternion.Slerp(playerRigidbody.rotation, 
+        playerRigidbody.MoveRotation(Quaternion.Slerp(playerRigidbody.rotation,
             targetRot, speed * Time.fixedDeltaTime));
 
         //位置の更新・移動
         playerRigidbody.MovePosition(playerRigidbody.position + moveDir *
             speed * Time.fixedDeltaTime);
+
+
+
+
         if (gamepad == null)
         {
             Debug.Log("gamepadがnullです");
@@ -447,7 +462,7 @@ public class PlayerController : MonoBehaviour
     {
         // SceneビューでRayを可視化
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(playerTransform.position, playerTransform.position + 
+        Gizmos.DrawLine(playerTransform.position, playerTransform.position +
             Vector3.down * rayLength);
     }
 
@@ -519,7 +534,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("強スキル");
     }
 
-    
+
     /// <summary>
     /// ナイフを回収・所持数を増やす
     /// </summary>
@@ -527,11 +542,11 @@ public class PlayerController : MonoBehaviour
     {
         //当たり判定はtagを使ってhitしたらrayを飛ばして当たり判定を使う
         // 半径2.0の範囲を調べる
-        Collider[] hits = Physics.OverlapSphere(transform.position, knifeCollectRange); 
+        Collider[] hits = Physics.OverlapSphere(transform.position, knifeCollectRange);
         foreach (var hit in hits)
         {
             //ナイフの所持者が誰のものでもなく所持数が上限未満の場合ナイフを追加する
-            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count < 
+            if (hit.CompareTag("NotPossessionKnife") && knifeObjectList.Count <
                 maxKnifePossessionsCount)
             {
                 Debug.Log("ナイフを回収");
