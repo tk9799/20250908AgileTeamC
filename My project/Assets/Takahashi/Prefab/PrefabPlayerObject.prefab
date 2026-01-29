@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2600762164747693931}
   - component: {fileID: 5509908357115856235}
   - component: {fileID: 3882040702803835572}
+  - component: {fileID: 8317885845434159053}
   m_Layer: 0
   m_Name: PlayerFollowCamera
   m_TagString: MainCamera
@@ -140,6 +141,18 @@ MonoBehaviour:
   targetTransform: {fileID: 3305930129641819319}
   cameraRotationSpeed: 300
   distance: 5
+--- !u!114 &8317885845434159053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6246562927414680522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb413ca61c1ef2841b6d76b6965ad1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7965511449070765059
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +168,7 @@ GameObject:
   - component: {fileID: 2753298180999779025}
   - component: {fileID: 109818705819184542}
   - component: {fileID: 7993187357458554957}
+  - component: {fileID: -862389877717418890}
   - component: {fileID: -3294748814588448304}
   m_Layer: 0
   m_Name: PrefabPlayerObject
@@ -387,6 +401,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-862389877717418890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965511449070765059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7cdbd09d343b5646b10324e51a48acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &-3294748814588448304
 Rigidbody:
   m_ObjectHideFlags: 0

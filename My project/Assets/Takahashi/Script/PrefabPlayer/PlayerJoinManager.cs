@@ -33,6 +33,7 @@ public class PlayerJoinManager : MonoBehaviour
 
         //InputActionを有効化
         playerJoinInputAction.Enable();
+        Debug.Log($"Player spawned: {gameObject.name}");
 
     }
 
@@ -48,8 +49,13 @@ public class PlayerJoinManager : MonoBehaviour
         playerJoinInputAction.Disable();
     }
 
+    /// <summary>
+    /// InputActionで設定した入力をすると追加で参加できるメソッド
+    /// インスペクターのplayerJoinInputActionの項目に設定してある
+    /// </summary>
     private void OnJoin(InputAction.CallbackContext context)
     {
+        //Debug.Log("参加");
         InputDevice inputDevice = context.control.device;
 
         //プレイヤー数が最大数に達していたら処理を終了
@@ -67,14 +73,20 @@ public class PlayerJoinManager : MonoBehaviour
             }
         }
 
+        if (context.performed)
+        {
+            PlayerInputManager.instance.JoinPlayer();
+        }
+
+        //Debug.Log($"JOIN request → currentPlayerCount = {currentPlayerCount}");
         //PlayerInputを保持した仮想のプレイヤーをインスタンス化
         //Join要求元のデバイス情報を紐づけてインスタンスを生成する
-        PlayerInput playerInput = PlayerInput.Instantiate(prefab: playerPrefab.gameObject,
-            playerIndex: currentPlayerCount, pairWithDevice: context.control.device);
+        //PlayerInput playerInput = PlayerInput.Instantiate(prefab: playerPrefab.gameObject,
+        //    playerIndex: currentPlayerCount, pairWithDevice: context.control.device);
 
         joinedDevices.Add(inputDevice);
 
-        //Debug.Log($"Player {playerInput.playerIndex + 1} joined with {playerInput.displayName}");
+        //Debug.Log($"Player {playerInput.playerIndex + 1} joined with {inputDevice.displayName}");
 
         //Joinしたデバイス情報を保存
         //joinedDevices[currentPlayerCount] = context.control.device;
