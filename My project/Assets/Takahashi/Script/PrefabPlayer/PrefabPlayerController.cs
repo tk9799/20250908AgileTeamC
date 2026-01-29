@@ -11,7 +11,11 @@ public class PrefabPlayerController : MonoBehaviour
 
     private PrefabPlayerCameraController prefabPlayerCameraController;
 
-    private PrefabPlayerJumpScript prefabPlayerJumpScript;
+    [SerializeField] private PrefabPlayerJumpScript prefabPlayerJumpScript;
+
+    [SerializeField] private PrefabPlayerNomalAttack prefabPlayernomalAttack;
+
+    //[SerializeField] 
     private Vector2 moveInput;
 
     public float moveSpeed = 5f;
@@ -40,18 +44,19 @@ public class PrefabPlayerController : MonoBehaviour
         prefabPlayerMove.SetMoveInput(moveInput);
     }
 
+    /// <summary>
+    /// InputActionのLookの入力を受け取った時に処理するメソッド
+    /// </summary>
     public void OnLook(InputAction.CallbackContext context)
     {
-        //if (context.performed)
-        //{
-        //    return;
-        //}
-
         Vector2 lookInput = context.ReadValue<Vector2>();
         prefabPlayerCameraController.SetLookInput(lookInput);
 
     }
 
+    /// <summary>
+    /// InputActionのJumpの入力を受け取った時に処理するメソッド
+    /// </summary>
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -60,6 +65,14 @@ public class PrefabPlayerController : MonoBehaviour
             prefabPlayerJumpScript.PlayerJump();
         }
         
+    }
+
+    public void OnNomalAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            prefabPlayernomalAttack.NormalAttack();
+        }
     }
 
 }

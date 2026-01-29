@@ -15,9 +15,20 @@ public class LocalPlayerInputHandler : MonoBehaviour
     {
         gamepad = playerInput.devices[0] as Gamepad;
 
-        //Debug.Log($"Player {playerInput.playerIndex + 1} ready " +
-        //    $"({gamepad.displayName})"
-        //);
+        if (playerInput.playerIndex >= 0||playerInput.playerIndex <= 1)
+        {
+            Debug.Log("このプレイヤーは赤チームです");
+            gameObject.tag = "RedPlayer";
+        }
+        else if (playerInput.playerIndex >= 2 || playerInput.playerIndex <= 3)
+        {
+            Debug.Log("このプレイヤーは青チームです");
+            gameObject.tag = "BluePlayer";
+        }
+
+        Debug.Log($"Player {playerInput.playerIndex + 1} ready " +
+            $"({gamepad.displayName})"
+        );
     }
 
     // Update is called once per frame

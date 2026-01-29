@@ -4,7 +4,7 @@ public class PrefabPlayerJumpScript : MonoBehaviour
 {
     [SerializeField] PrefabPlayerController prefabPlayerController = null;
 
-    private LayerMask groundLayer;
+    [SerializeField] private LayerMask groundLayer;
 
     //ray‚Ì’·‚³
     [Header("ray‚Ì’·‚³")]
@@ -13,17 +13,6 @@ public class PrefabPlayerJumpScript : MonoBehaviour
     [Header("ƒWƒƒƒ“ƒv—Í")]
     [SerializeField] private float playerJumpPower = 0.0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        groundLayer = GetComponent<LayerMask>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void PlayerJump()
     {
