@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd78297d75889442b693b4d8a90d138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 8462929381042500655}
+  cameraTransform: {fileID: 3320769011835184605}
   rotationSpeed: 2
   moveSpeed: 10
 --- !u!114 &7993187357458554957
@@ -479,9 +479,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
   knifePossessionList: []
-  initialKnifeNumber: 0
-  maxKnifePossessionNumber: 0
-  collectionRangeNumber: 0
+  initialKnifeNumber: 5
+  maxKnifePossessionNumber: 5
+  collectionRangeNumber: 2
 --- !u!114 &-862389877717418890
 MonoBehaviour:
   m_ObjectHideFlags: 0

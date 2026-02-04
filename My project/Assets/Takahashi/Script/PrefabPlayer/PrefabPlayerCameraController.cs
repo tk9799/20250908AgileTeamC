@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class PrefabPlayerCameraController : MonoBehaviour
 {
+    [Header("追従するオブジェクト")]
     [SerializeField] private Transform targetTransform;
 
+    [Header("カメラの回転速度")]
     [SerializeField] private float cameraRotationSpeed = 5f;
 
     private Vector2 playerLookInput;
@@ -44,7 +46,7 @@ public class PrefabPlayerCameraController : MonoBehaviour
 
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
         if(playerLookInput.sqrMagnitude < 0.01f)
         {

@@ -9,12 +9,15 @@ public class PrefabPlayerKnifeList : MonoBehaviour
     public List<GameObject>knifePossessionList= new List<GameObject>();
 
     //ナイフを初期生成する数値
+    [Header("ナイフ初期生成数")]
     [SerializeField] private int initialKnifeNumber = 0;
 
     //ナイフを所持できる最大値
+    [Header("ナイフ所持最大数")]
     [SerializeField] private int maxKnifePossessionNumber = 0;
 
     //ナイフを回収できる範囲
+    [Header("ナイフ回収範囲")]
     [SerializeField] private float collectionRangeNumber=0.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

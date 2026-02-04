@@ -22,8 +22,7 @@ public class PrefabPlayerMove : MonoBehaviour
         playerMoveInput = input;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();   
     }
@@ -33,6 +32,7 @@ public class PrefabPlayerMove : MonoBehaviour
     {
         if (playerMoveInput == Vector2.zero) return;
 
+        //カメラの向きを基準にした移動方向を計算
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
         forward.y = 0f;
@@ -40,17 +40,21 @@ public class PrefabPlayerMove : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
+        //左スティックの入力に基づいて移動方向を計算
         Vector3 moveDir = forward * playerMoveInput.y + right * playerMoveInput.x;
         moveDir.Normalize();
 
-        rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        //移動方向に向けた回転を計算
+        Quaternion targetRotation = Quaternion.LookRotation(moveDir);
 
-        Quaternion targetRotation=Quaternion.LookRotation(moveDir);
+        //rigidbodyを通してカメラの向きを基準にプレイヤーを移動させる
+        rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
 
         //rigidbodyを通してプレイヤーの向きを左スティックが入力した方向にゆっくりと回転する
         rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation,targetRotation,rotationSpeed*Time.fixedDeltaTime));
 
-        Debug.Log($"MoveDir: {moveDir}");
-        Debug.Log($"Pos Before: {rigidbody.position}");
+        //Debug.Log($"MoveDir: {moveDir}");
+        //Debug.Log($"Pos Before: {rigidbody.position}");
     }
 }

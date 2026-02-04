@@ -26,6 +26,7 @@ public class PrefabPlayerNomalAttack : MonoBehaviour
             }
 
             prefabPlayerKnifeList.knifePossessionList.RemoveAt(0);
+            Debug.Log("ƒiƒCƒtUŒ‚");
         }
         else
         {

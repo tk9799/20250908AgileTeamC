@@ -7,6 +7,8 @@ using System.Collections.Generic;
 /// </summary>
 public class PlayerJoinManager : MonoBehaviour
 {
+    private static PlayerJoinManager playerJoinManagerInstance = null;
+
     //プレイヤーがゲームにJoinするためのInputAction
     [SerializeField] private InputAction playerJoinInputAction = null;
 
@@ -30,6 +32,15 @@ public class PlayerJoinManager : MonoBehaviour
     {
         //最大参加可能数で配列を初期化
         //joinedDevices=new InputDevice[maxPlayerCount];
+
+        if (playerJoinManagerInstance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        playerJoinManagerInstance = this;
+        DontDestroyOnLoad(gameObject);
 
         //InputActionを有効化
         playerJoinInputAction.Enable();
