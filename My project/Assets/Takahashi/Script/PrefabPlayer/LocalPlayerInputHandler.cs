@@ -38,18 +38,18 @@ public class LocalPlayerInputHandler : MonoBehaviour
 
         Vector2 move = gamepad.leftStick.ReadValue();
 
-        if (move.x > 0.5f)
-        {
-            Debug.Log($"P{playerInput.playerIndex + 1} Right");
-        }
-        else if (move.x < -0.5f)
-        {
-            Debug.Log($"P{playerInput.playerIndex + 1} Left");
-        }
+        //if (move.x > 0.5f)
+        //{
+        //    Debug.Log($"P{playerInput.playerIndex + 1} Right");
+        //}
+        //else if (move.x < -0.5f)
+        //{
+        //    Debug.Log($"P{playerInput.playerIndex + 1} Left");
+        //}
 
-        if (gamepad.buttonSouth.wasPressedThisFrame)
-        {
-            Debug.Log($"P{playerInput.playerIndex + 1} A pressed");
-        }
+        //if (gamepad.buttonSouth.wasPressedThisFrame)
+        //{
+        //    Debug.Log($"P{playerInput.playerIndex + 1} A pressed");
+        //}
     }
 }

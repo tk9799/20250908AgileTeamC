@@ -40,7 +40,7 @@ public class PrefabPlayerController : MonoBehaviour
             moveInput = Vector2.zero;
         }
 
-        Debug.Log($"Move Input: {moveInput}");
+        //Debug.Log($"Move Input: {moveInput}");
         prefabPlayerMove.SetMoveInput(moveInput);
     }
 
