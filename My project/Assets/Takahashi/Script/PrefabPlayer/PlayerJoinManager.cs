@@ -1,21 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// プレイヤーに紐づけるデバイス情報を取得するクラス
 /// </summary>
 public class PlayerJoinManager : MonoBehaviour
 {
-    private static PlayerJoinManager playerJoinManagerInstance = null;
+    //自身のスクリプトを格納し、どこからでもアクセスできるようにする
+    public static PlayerJoinManager playerJoinManagerInstance = null;
 
     //プレイヤーがゲームにJoinするためのInputAction
     [SerializeField] private InputAction playerJoinInputAction = null;
 
-    //
+    [Header("PlayerInputManagerがコンポーネントにあるオブジェクト")]
     [SerializeField] private PlayerInputManager playerInputManager = null;
 
     //PlayerInputがアタッチされているプレイヤーオブジェクト
+    [Header("PlayerInputがアタッチされているプレイヤープレハブ")]
     [SerializeField] private PlayerInput playerPrefab = null;
 
     //最大参加人数
@@ -23,7 +26,7 @@ public class PlayerJoinManager : MonoBehaviour
 
     //Join済みのデバイス情報
     //private InputDevice[] joinedDevices = default;
-    private List<InputDevice> joinedDevices = new List<InputDevice>();
+    [SerializeField] private List<InputDevice> joinedDevices = new List<InputDevice>();
 
     //現在のプレイヤー数
     private int currentPlayerCount = 0;
@@ -40,12 +43,16 @@ public class PlayerJoinManager : MonoBehaviour
         }
 
         playerJoinManagerInstance = this;
+
+        //Sceneが切り替わってもデバイス情報を保持するために破棄しない
         DontDestroyOnLoad(gameObject);
 
         //InputActionを有効化
         playerJoinInputAction.Enable();
         Debug.Log($"Player spawned: {gameObject.name}");
 
+        //Scene移動後に RespawnPlayers()が呼ばれるようになる
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnEnable()
@@ -60,13 +67,28 @@ public class PlayerJoinManager : MonoBehaviour
         playerJoinInputAction.Disable();
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// Scene遷移後nullになっているPlayerInputManagerを再取得し、
+    /// 登録されているデバイス情報をもとにプレイヤーを生成するメソッド
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        playerInputManager=FindAnyObjectByType<PlayerInputManager>();
+        RespawnPlayers();
+    }
+
     /// <summary>
     /// InputActionで設定した入力をすると追加で参加できるメソッド
     /// インスペクターのplayerJoinInputActionの項目に設定してある
     /// </summary>
     private void OnJoin(InputAction.CallbackContext context)
     {
-        //Debug.Log("参加");
+        Debug.Log("参加");
         InputDevice inputDevice = context.control.device;
 
         //プレイヤー数が最大数に達していたら処理を終了
@@ -84,27 +106,44 @@ public class PlayerJoinManager : MonoBehaviour
             }
         }
 
-        if (context.performed)
-        {
-            PlayerInputManager.instance.JoinPlayer();
-        }
-
-        //Debug.Log($"JOIN request → currentPlayerCount = {currentPlayerCount}");
-        //PlayerInputを保持した仮想のプレイヤーをインスタンス化
-        //Join要求元のデバイス情報を紐づけてインスタンスを生成する
-        //PlayerInput playerInput = PlayerInput.Instantiate(prefab: playerPrefab.gameObject,
-        //    playerIndex: currentPlayerCount, pairWithDevice: context.control.device);
-
+        //List（デバイス情報）に登録
         joinedDevices.Add(inputDevice);
 
-        //Debug.Log($"Player {playerInput.playerIndex + 1} joined with {inputDevice.displayName}");
+        //登録したプレイヤーを生成するために呼び出す
+        RespawnPlayers();
 
-        //Joinしたデバイス情報を保存
-        //joinedDevices[currentPlayerCount] = context.control.device;
+    }
 
-        //currentPlayerCount++;
+    /// <summary>
+    /// 登録されているデバイス情報をもとにプレイヤーをまとめて生成するメソッド
+    /// </summary>
+    public void RespawnPlayers()
+    {
+        if (playerInputManager == null)
+        {
+            Debug.LogWarning("PlayerInputManager がシーン内に見つかりません");
+            return;
+        }
 
-        //InputActionを入力したデバイス情報を取得
-        //InputDevice inputDevice = context.control.device;
+        //既存のプレイヤーオブジェクトを全て破棄する
+        //この処理があることで、Scene遷移した際に重複して生成されることを防ぐ
+        foreach (var player in PlayerInput.all)
+        {
+            Destroy(player.gameObject);
+        }
+
+        int index = 0;
+
+        foreach (var device in joinedDevices)
+        {
+            //Scene遷移した先で生成しないためここで生成する
+            var player = PlayerInput.Instantiate(prefab: playerPrefab.gameObject, playerIndex: index, pairWithDevice: device);
+
+            //player.transform.SetParent(playerInputManager.transform);
+        }
+
+        //プレイヤー数を更新
+        index++;
+
     }
 }

@@ -15,6 +15,8 @@ public class PrefabPlayerController : MonoBehaviour
 
     [SerializeField] private PrefabPlayerNomalAttack prefabPlayernomalAttack;
 
+    [SerializeField] private SceneTransitionManager sceneTransitionManager;
+
     //[SerializeField] 
     private Vector2 moveInput;
 
@@ -73,6 +75,17 @@ public class PrefabPlayerController : MonoBehaviour
         {
             prefabPlayernomalAttack.NormalAttack();
         }
+    }
+
+    public void OnSceneChange(InputAction.CallbackContext context)
+    {
+        Debug.Log("SceneChangeInput");
+        if (context.performed)
+        {
+            Debug.Log("SceneChangeInput");
+            sceneTransitionManager.SceneMove();
+        }
+        
     }
 
 }

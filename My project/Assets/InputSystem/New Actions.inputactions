@@ -113,6 +113,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SceneChange",
+                    "type": "Button",
+                    "id": "924394ba-2b1a-4244-b304-54ae7d210f69",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -291,6 +300,17 @@
                     "action": "ChoseCharactorSceneMove",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "32f96c45-69d4-4cd6-85f7-27baebc63c2e",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamePad",
+                    "action": "SceneChange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
