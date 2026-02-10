@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 7993187357458554957}
   - component: {fileID: 9089513031499224051}
   - component: {fileID: 279683200824004518}
+  - component: {fileID: 3007094656250602041}
   - component: {fileID: 6526948819330369926}
   - component: {fileID: -862389877717418890}
   - component: {fileID: -3294748814588448304}
@@ -288,6 +289,7 @@ MonoBehaviour:
   rigidbody: {fileID: -3294748814588448304}
   prefabPlayerJumpScript: {fileID: 9089513031499224051}
   prefabPlayernomalAttack: {fileID: 279683200824004518}
+  sceneTransitionManager: {fileID: 3007094656250602041}
   moveSpeed: 5
   jumpForce: 5
 --- !u!114 &109818705819184542
@@ -426,6 +428,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82d1c3b0-5848-4dfc-87c8-48ea38305032
     m_ActionName: 'Player/ChoseCharactorSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2753298180999779025}
+        m_TargetAssemblyTypeName: PrefabPlayerController, Assembly-CSharp
+        m_MethodName: OnSceneChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
+    m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -465,6 +483,18 @@ MonoBehaviour:
   tlanslateSpeed: 5
   prefabPlayerKnifeList: {fileID: 6526948819330369926}
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
+--- !u!114 &3007094656250602041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965511449070765059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b064d2c17d98ba4e991835376513561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6526948819330369926
 MonoBehaviour:
   m_ObjectHideFlags: 0
