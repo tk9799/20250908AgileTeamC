@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PrefabPlayerMove : MonoBehaviour
 {
-    private Rigidbody rigidbody;
+    [SerializeField] private Rigidbody rigidbody;
 
     //カメラのTransform
     [SerializeField] private Transform cameraTransform;
@@ -24,7 +24,7 @@ public class PrefabPlayerMove : MonoBehaviour
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();   
+        //rigidbody = GetComponent<Rigidbody>();   
     }
 
     // Update is called once per frame
@@ -49,11 +49,14 @@ public class PrefabPlayerMove : MonoBehaviour
 
         //rigidbodyを通してカメラの向きを基準にプレイヤーを移動させる
         rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
-        //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
 
         //rigidbodyを通してプレイヤーの向きを左スティックが入力した方向にゆっくりと回転する
+        //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
         rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation,targetRotation,rotationSpeed*Time.fixedDeltaTime));
+        //transform.rotation = Quaternion.LookRotation(moveDir);
 
+        
+        
         //Debug.Log($"MoveDir: {moveDir}");
         //Debug.Log($"Pos Before: {rigidbody.position}");
     }
