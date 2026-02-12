@@ -1347,9 +1347,7 @@ MonoBehaviour:
   - {fileID: 173914776}
   - {fileID: 944902331}
   - {fileID: 416877740}
-  charactorsState:
-  - {fileID: 112325026}
-  - {fileID: 1617207486}
+  charactorsState: []
   charactorPage: {fileID: 1617207486}
   menuManager: {fileID: 1689522019}
   isDecided: 0
@@ -2673,9 +2671,7 @@ MonoBehaviour:
   - {fileID: 896602090}
   - {fileID: 1386215003}
   - {fileID: 2053170788}
-  charactorsState:
-  - {fileID: 1258244338}
-  - {fileID: 926625625}
+  charactorsState: []
   charactorPage: {fileID: 926625625}
   menuManager: {fileID: 1689522019}
   isDecided: 0
@@ -3229,9 +3225,7 @@ MonoBehaviour:
   - {fileID: 330620077}
   - {fileID: 772245720}
   - {fileID: 59218909}
-  charactorsState:
-  - {fileID: 1748915911}
-  - {fileID: 1650946837}
+  charactorsState: []
   charactorPage: {fileID: 1650946837}
   menuManager: {fileID: 1689522019}
   isDecided: 0
@@ -4960,9 +4954,7 @@ MonoBehaviour:
   - {fileID: 1899298813}
   - {fileID: 1478107256}
   - {fileID: 251674000}
-  charactorsState:
-  - {fileID: 1709424209}
-  - {fileID: 1685418854}
+  charactorsState: []
   charactorPage: {fileID: 1685418854}
   menuManager: {fileID: 1689522019}
   isDecided: 0

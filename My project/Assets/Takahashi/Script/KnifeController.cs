@@ -24,6 +24,19 @@ public class KnifeControllertr : MonoBehaviour
 
     private PlayerLifeController playerLifeController = null;
 
+    private enum KnifeState
+    {
+        // 飛んでいるときのナイフの状態
+        FLYINGKNIFE,
+
+        // 所持している時(待機状態のナイフ)の状態
+        STAYKNIFE
+    }
+
+    // ナイフの状態を初期化
+    private static KnifeState knifeState = KnifeState.STAYKNIFE;
+
+
     /// <summary>
     /// 初期化・宣言
     /// </summary>
@@ -32,6 +45,20 @@ public class KnifeControllertr : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         playerLifeController = GetComponent<PlayerLifeController>();
     }
+
+    private void Update()
+    {
+        if(transform.position.x > 0 || transform.position.z > 0)
+        {
+            knifeState = KnifeState.FLYINGKNIFE;
+        }
+        else
+        {
+            knifeState = KnifeState.STAYKNIFE;
+        }
+    }
+
+
 
     /// <summary>
     /// ナイフを生成した後の敵プレイヤーのダメージを与える、壁に当たった場合くっつくようにさせる＋その状態だと
