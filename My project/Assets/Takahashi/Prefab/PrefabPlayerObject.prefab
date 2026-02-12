@@ -402,6 +402,7 @@ MonoBehaviour:
   sceneTransitionManager: {fileID: 3007094656250602041}
   moveSpeed: 5
   jumpForce: 5
+  isLetTriggerInput: 0
 --- !u!114 &109818705819184542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,6 +419,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 3320769011835184605}
   rotationSpeed: 700
   moveSpeed: 10
+  prefabPlayerController: {fileID: 2753298180999779025}
 --- !u!114 &7993187357458554957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,7 +558,19 @@ MonoBehaviour:
     m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
     m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2753298180999779025}
+        m_TargetAssemblyTypeName: PrefabPlayerController, Assembly-CSharp
+        m_MethodName: OnAimMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
     m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 0

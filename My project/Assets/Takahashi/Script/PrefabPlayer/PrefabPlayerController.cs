@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.iOS;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PrefabPlayerController : MonoBehaviour
@@ -22,6 +23,8 @@ public class PrefabPlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+
+    public bool isLetTriggerInput = false;
 
     void Awake()
     {
@@ -85,7 +88,28 @@ public class PrefabPlayerController : MonoBehaviour
             Debug.Log("SceneChangeInput");
             sceneTransitionManager.SceneMove();
         }
-        
     }
 
+    public void OnAimMode(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            float leftTriggerValue = context.ReadValue<float>();
+
+            if (leftTriggerValue > 0.3f)
+            {
+                isLetTriggerInput = true;
+                Debug.Log("左トリガー入力");
+            }
+            else
+            {
+                isLetTriggerInput = false;
+            }
+        }
+        else if (context.canceled)
+        {
+            isLetTriggerInput = false;
+            Debug.Log("左トリガーを離した");
+        }
+    }
 }

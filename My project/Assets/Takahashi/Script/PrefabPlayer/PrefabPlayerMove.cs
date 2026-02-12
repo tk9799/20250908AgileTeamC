@@ -14,6 +14,8 @@ public class PrefabPlayerMove : MonoBehaviour
     //プレイヤーの移動速度
     [SerializeField] private float moveSpeed = 0.0f;
 
+    [SerializeField] private PrefabPlayerController prefabPlayerController;
+
     private Vector2 playerMoveInput;
 
 
@@ -42,22 +44,60 @@ public class PrefabPlayerMove : MonoBehaviour
 
         //左スティックの入力に基づいて移動方向を計算
         Vector3 moveDir = forward * playerMoveInput.y + right * playerMoveInput.x;
-        moveDir.Normalize();
+        //moveDir.Normalize();
 
         //移動方向に向けた回転を計算
-        Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+        //Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+
+        if (moveDir.sqrMagnitude > 0.01f)
+        {
+            moveDir.Normalize();
+
+            rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        }
 
         //rigidbodyを通してカメラの向きを基準にプレイヤーを移動させる
-        rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        //rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
 
         //rigidbodyを通してプレイヤーの向きを左スティックが入力した方向にゆっくりと回転する
         //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-        rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation,targetRotation,rotationSpeed*Time.fixedDeltaTime));
+        //rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation,targetRotation,rotationSpeed*Time.fixedDeltaTime));
         //transform.rotation = Quaternion.LookRotation(moveDir);
 
-        
-        
         //Debug.Log($"MoveDir: {moveDir}");
         //Debug.Log($"Pos Before: {rigidbody.position}");
+
+        RotatePlayer(moveDir);
+    }
+
+    private void RotatePlayer(Vector3 moveDir)
+    {
+        Debug.Log("処理");
+        Quaternion targetRotation;
+
+        if (prefabPlayerController != null && prefabPlayerController.isLetTriggerInput)
+        {
+            Vector3 cameraForward = cameraTransform.forward;
+            cameraForward.y = 0.0f;
+
+            if (cameraForward.sqrMagnitude < 0.01f)
+            {
+                return;
+            }
+
+            targetRotation = Quaternion.LookRotation(cameraForward);
+        }
+        else
+        {
+            if (moveDir.sqrMagnitude < 0.01f)
+            {
+                return;
+            }
+
+            targetRotation = Quaternion.LookRotation(moveDir);
+        }
+
+        rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation, 
+            targetRotation, rotationSpeed * Time.fixedDeltaTime));
     }
 }

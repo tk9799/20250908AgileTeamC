@@ -125,12 +125,12 @@
                 },
                 {
                     "name": "AimMode",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "eaf15ca5-e26c-42ac-a338-d370ceb3e51b",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
