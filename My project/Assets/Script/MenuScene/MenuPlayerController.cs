@@ -76,21 +76,31 @@ public class MenuPlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        // leftStickのInputActionを取得
         moveAction = playerInput.actions["Move"];
 
+        // AボタンのInputActionを取得
         decisionAction = playerInput.actions["DecisionButton"];
 
+        // BボタンのInputActionを取得
         canselAction = playerInput.actions["CancelButton"];
 
+        // YボタンのInputActionを取得
         displaySwitchingAction = playerInput.actions["DisplaySwitching"];
 
+        // 左スティックのイベント登録
         decisionAction.performed += OnDecision;
 
+        // キャンセルボタンのイベント登録
         canselAction.performed += OnCansel;
 
+        // キャラクター詳細表示切り替えのイベント登録
         displaySwitchingAction.performed += OnDisplaySwitching;
     }
 
+    /// <summary>
+    ///   決定ボタンの入力処理メソッド
+    /// </summary>
     private void OnDecision(InputAction.CallbackContext callbackContext)
     {
         if (/*this.pad.buttonSouth.wasPressedThisFrame &&*/ !isDecided)
@@ -110,6 +120,9 @@ public class MenuPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// キャンセルボタンの入力メソッド
+    /// </summary>
     private void OnCansel(InputAction.CallbackContext callbackContext)
     {
         // キャラクター選択キャンセル処理
@@ -131,12 +144,16 @@ public class MenuPlayerController : MonoBehaviour
 
         //if (this.pad.buttonEast.wasPressedThisFrame)
         //{
-            
+
         //}
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void OnDisplaySwitching(InputAction.CallbackContext callbackContext)
     {
+        // Yボタンを入力した回数をインクリメントする
         yButtonPressCount++;
         Debug.Log(yButtonPressCount);
         //if (this.pad.buttonNorth.wasPressedThisFrame)
@@ -246,7 +263,7 @@ public class MenuPlayerController : MonoBehaviour
             }
 
             //if (leftStickInputThreshold <= input.x)
-            if (moveInput.x >= leftStickInputThreshold)
+            if (stick.x >= leftStickInputThreshold)
             {
                 //右入力でインデックスを増やして、配列の範囲を超えたら0に戻す
                 currentIndex = (currentIndex + 1) % charactors.Length;
@@ -258,7 +275,7 @@ public class MenuPlayerController : MonoBehaviour
                 lastInputTime = Time.time;
             }
             //else if (input.x < leftStickInputThresholdNegative)
-            else if (moveInput.x <= leftStickInputThresholdNegative)
+            else if (stick.x <= leftStickInputThresholdNegative)
             {
                 // 左入力でインデックスを減らして、配列の範囲を超えたら最後のインデックスに戻す
                 currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;
