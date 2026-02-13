@@ -78,7 +78,7 @@ public class PlayerJoinManager : MonoBehaviour
     /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        playerInputManager=FindAnyObjectByType<PlayerInputManager>();
+        playerInputManager = FindAnyObjectByType<PlayerInputManager>();
         RespawnPlayers();
     }
 
@@ -91,6 +91,10 @@ public class PlayerJoinManager : MonoBehaviour
         Debug.Log("参加");
         InputDevice inputDevice = context.control.device;
 
+        // Gamepad以外は参加させない
+        if (!(inputDevice is Gamepad))
+            return;
+
         //プレイヤー数が最大数に達していたら処理を終了
         if (playerInputManager.playerCount >= playerInputManager.maxPlayerCount)
         {
@@ -98,7 +102,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
 
         //Join要求元のデバイスが既に参加済みの時、処理を終了
-        foreach(var device in joinedDevices)
+        foreach (var device in joinedDevices)
         {
             if (context.control.device == device)
             {
@@ -141,9 +145,9 @@ public class PlayerJoinManager : MonoBehaviour
 
             //player.transform.SetParent(playerInputManager.transform);
         }
-
         //プレイヤー数を更新
         index++;
+
 
     }
 }

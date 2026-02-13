@@ -79,20 +79,37 @@ public class MenuPlayerController : MonoBehaviour
     /// <summary>
     /// 初期化処理
     /// </summary>
+    //private void Start()
+    //{
+    //    // コントローラー取得
+    //    pad = playerInput.devices[0] as Gamepad;
+    //    playerNum = playerInput.playerIndex;
+
+    //    // 「決定済み」テキストを非表示
+    //    if (characterDecidedText != null)
+    //        characterDecidedText.SetActive(false);
+
+    //    // 初期表示更新
+    //    UpdateCharactorDisplay();
+    //    UpdateCharactorStateDisplay();
+    //}
+
     private void Start()
     {
-        // コントローラー取得
-        pad = playerInput.devices[0] as Gamepad;
         playerNum = playerInput.playerIndex;
 
-        // 「決定済み」テキストを非表示
+        if (playerInput.devices.Count > 0)
+            pad = playerInput.devices[0] as Gamepad;
+
+        Debug.Log($"Player {playerNum} Device = {pad}");
+
         if (characterDecidedText != null)
             characterDecidedText.SetActive(false);
 
-        // 初期表示更新
         UpdateCharactorDisplay();
         UpdateCharactorStateDisplay();
     }
+
 
     /// <summary>
     /// 毎フレーム更新
@@ -152,6 +169,8 @@ public class MenuPlayerController : MonoBehaviour
             characterDecidedText.SetActive(true);
 
         isDecided = true;
+
+        Debug.Log($"Player {playerNum + 1} がキャラクターを決定しました。");
     }
 
     /// <summary>
