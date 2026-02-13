@@ -15,18 +15,18 @@ public class PlayerJoinManager : MonoBehaviour
     [SerializeField] private InputAction playerJoinInputAction = null;
 
     [Header("PlayerInputManagerがコンポーネントにあるオブジェクト")]
-    [SerializeField] private PlayerInputManager playerInputManager = null;
+    [SerializeField] public PlayerInputManager playerInputManager = null;
 
     //PlayerInputがアタッチされているプレイヤーオブジェクト
     [Header("PlayerInputがアタッチされているプレイヤープレハブ")]
-    [SerializeField] private PlayerInput playerPrefab = null;
+    [SerializeField] public PlayerInput playerPrefab = null;
 
     //最大参加人数
     //[SerializeField] private int maxPlayerCount = 0;
 
     //Join済みのデバイス情報
     //private InputDevice[] joinedDevices = default;
-    [SerializeField] private List<InputDevice> joinedDevices = new List<InputDevice>();
+    [SerializeField] public List<InputDevice> joinedDevices = new List<InputDevice>();
 
     //現在のプレイヤー数
     private int currentPlayerCount = 0;
@@ -81,7 +81,7 @@ public class PlayerJoinManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         playerInputManager = FindAnyObjectByType<PlayerInputManager>();
-        RespawnPlayers();
+
     }
 
     /// <summary>
@@ -94,61 +94,37 @@ public class PlayerJoinManager : MonoBehaviour
         InputDevice inputDevice = context.control.device;
 
         // Gamepad以外は参加させない
-        if (!(inputDevice is Gamepad))
-            return;
-
-        //プレイヤー数が最大数に達していたら処理を終了
-        if (playerInputManager.playerCount >= playerInputManager.maxPlayerCount)
+        if ((inputDevice is Gamepad))
         {
-            return;
-        }
 
-        //Join要求元のデバイスが既に参加済みの時、処理を終了
-        foreach (var device in joinedDevices)
-        {
-            if (context.control.device == device)
+
+            //プレイヤー数が最大数に達していたら処理を終了
+            if (playerInputManager.playerCount >= playerInputManager.maxPlayerCount)
             {
                 return;
             }
+
+            //Join要求元のデバイスが既に参加済みの時、処理を終了
+            foreach (var device in joinedDevices)
+            {
+                if (context.control.device == device)
+                {
+                    return;
+                }
+            }
+        }
+        else
+        {
+            return;
         }
 
         //List（デバイス情報）に登録
         joinedDevices.Add(inputDevice);
 
         //登録したプレイヤーを生成するために呼び出す
-        RespawnPlayers();
+        //RespawnPlayers();
 
     }
 
-    /// <summary>
-    /// 登録されているデバイス情報をもとにプレイヤーをまとめて生成するメソッド
-    /// </summary>
-    public void RespawnPlayers()
-    {
-        if (playerInputManager == null)
-        {
-            Debug.LogWarning("PlayerInputManager がシーン内に見つかりません");
-            return;
-        }
 
-        foreach (var player in new List<PlayerInput>(PlayerInput.all))
-            Destroy(player.gameObject);
-
-        int index = 0;
-
-        foreach (var device in joinedDevices)
-        {
-            var player = PlayerInput.Instantiate(
-                prefab: playerPrefab.gameObject,
-                playerIndex: index,
-                controlScheme: "Gamepad",
-                pairWithDevice: device
-            );
-
-            Debug.Log($"Spawn Player{index} : {device}");
-
-            index++;
-        }
-
-    }
 }

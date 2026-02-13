@@ -13,7 +13,7 @@ public class MenuPlayerController : MonoBehaviour
     [Header("プレイヤー番号")]
     [SerializeField] public int playerNum = 0;
 
-    [Header("接続されているコントローラー")]
+    //[Header("接続されているコントローラー")]
     public Gamepad pad = null;
 
     [Header("キャラクター決定テキスト")]
@@ -115,28 +115,21 @@ public class MenuPlayerController : MonoBehaviour
         playerNum = playerInput.playerIndex;
 
         Debug.Log($"==== Player {playerNum} ====");
-        Debug.Log($"devices count = {playerInput.devices.Count}");
 
-        foreach (var d in playerInput.devices)
-            Debug.Log($"device = {d}");
-
-        // --- ① PlayerInputに紐づいたGamepad取得 ---
-        pad = playerInput.GetDevice<Gamepad>();
-
-        // --- ② 取れなければ全Gamepadから割当 ---
-        if (pad == null && Gamepad.all.Count > playerNum)
+        // --- PlayerJoinManager から割り当て ---
+        if (PlayerJoinManager.playerJoinManagerInstance != null &&
+            PlayerJoinManager.playerJoinManagerInstance.joinedDevices.Count > playerNum)
         {
-            pad = Gamepad.all[playerNum];
-            Debug.LogWarning($"Player{playerNum} に強制Gamepad割当 → {pad}");
+            pad = PlayerJoinManager.playerJoinManagerInstance.joinedDevices[playerNum] as Gamepad;
         }
 
-        // --- ③ それでもnullならエラー ---
         if (pad == null)
-            Debug.LogError($"Player{playerNum} にGamepadが存在しません");
+        {
+            Debug.LogError($"Player{playerNum} にGamepadが割り当てられていません");
+            return;
+        }
 
-        Debug.Log($"pad = {pad}");
-
-        playerInput.ActivateInput();
+        Debug.Log($"Player{playerNum} pad = {pad}");
 
         if (characterDecidedText != null)
             characterDecidedText.SetActive(false);
@@ -144,6 +137,7 @@ public class MenuPlayerController : MonoBehaviour
         UpdateCharactorDisplay();
         UpdateCharactorStateDisplay();
     }
+
 
 
 
