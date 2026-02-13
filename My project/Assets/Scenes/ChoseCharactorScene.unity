@@ -1451,8 +1451,12 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
     m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: GamePad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2779,6 +2783,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
     m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3337,6 +3345,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
     m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5070,6 +5082,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
     m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

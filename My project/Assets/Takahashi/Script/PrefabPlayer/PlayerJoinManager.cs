@@ -42,6 +42,8 @@ public class PlayerJoinManager : MonoBehaviour
             return;
         }
 
+
+
         playerJoinManagerInstance = this;
 
         //Sceneが切り替わってもデバイス情報を保持するために破棄しない
@@ -129,25 +131,24 @@ public class PlayerJoinManager : MonoBehaviour
             return;
         }
 
-        //既存のプレイヤーオブジェクトを全て破棄する
-        //この処理があることで、Scene遷移した際に重複して生成されることを防ぐ
-        foreach (var player in PlayerInput.all)
-        {
+        foreach (var player in new List<PlayerInput>(PlayerInput.all))
             Destroy(player.gameObject);
-        }
 
         int index = 0;
 
         foreach (var device in joinedDevices)
         {
-            //Scene遷移した先で生成しないためここで生成する
-            var player = PlayerInput.Instantiate(prefab: playerPrefab.gameObject, playerIndex: index, pairWithDevice: device);
+            var player = PlayerInput.Instantiate(
+                prefab: playerPrefab.gameObject,
+                playerIndex: index,
+                controlScheme: "Gamepad",
+                pairWithDevice: device
+            );
 
-            //player.transform.SetParent(playerInputManager.transform);
+            Debug.Log($"Spawn Player{index} : {device}");
+
+            index++;
         }
-        //プレイヤー数を更新
-        index++;
-
 
     }
 }

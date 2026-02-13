@@ -71,9 +71,25 @@ public class MenuPlayerController : MonoBehaviour
         canselAction = playerInput.actions["CancelButton"];
         displaySwitchingAction = playerInput.actions["DisplaySwitching"];
 
+        // --- Action を確実に有効化 ---
+        decisionAction.Enable();
+        canselAction.Enable();
+        displaySwitchingAction.Enable();
+
         decisionAction.performed += OnDecision;
         canselAction.performed += OnCansel;
         displaySwitchingAction.performed += OnDisplaySwitching;
+    }
+
+    private void OnDisable()
+    {
+        decisionAction.performed -= OnDecision;
+        canselAction.performed -= OnCansel;
+        displaySwitchingAction.performed -= OnDisplaySwitching;
+
+        decisionAction.Disable();
+        canselAction.Disable();
+        displaySwitchingAction.Disable();
     }
 
     /// <summary>
@@ -98,10 +114,29 @@ public class MenuPlayerController : MonoBehaviour
     {
         playerNum = playerInput.playerIndex;
 
-        if (playerInput.devices.Count > 0)
-            pad = playerInput.devices[0] as Gamepad;
+        Debug.Log($"==== Player {playerNum} ====");
+        Debug.Log($"devices count = {playerInput.devices.Count}");
 
-        Debug.Log($"Player {playerNum} Device = {pad}");
+        foreach (var d in playerInput.devices)
+            Debug.Log($"device = {d}");
+
+        // --- ① PlayerInputに紐づいたGamepad取得 ---
+        pad = playerInput.GetDevice<Gamepad>();
+
+        // --- ② 取れなければ全Gamepadから割当 ---
+        if (pad == null && Gamepad.all.Count > playerNum)
+        {
+            pad = Gamepad.all[playerNum];
+            Debug.LogWarning($"Player{playerNum} に強制Gamepad割当 → {pad}");
+        }
+
+        // --- ③ それでもnullならエラー ---
+        if (pad == null)
+            Debug.LogError($"Player{playerNum} にGamepadが存在しません");
+
+        Debug.Log($"pad = {pad}");
+
+        playerInput.ActivateInput();
 
         if (characterDecidedText != null)
             characterDecidedText.SetActive(false);
@@ -111,16 +146,22 @@ public class MenuPlayerController : MonoBehaviour
     }
 
 
+
+
+
     /// <summary>
     /// 毎フレーム更新
     /// ・左右入力でキャラ切替
     /// </summary>
     private void Update()
     {
-        // コントローラー未接続またキャラ無しなら処理しない
-        if (pad == null || charactors.Length == 0) return;
+        // --- Gamepad未接続 ---
+        if (pad == null) return;
 
-        // 決定済みならキャラ変更禁止
+        // --- キャラ未設定 ---
+        if (charactors == null || charactors.Length == 0) return;
+
+        // --- 決定済み ---
         if (isDecided) return;
 
         Vector2 stick = pad.leftStick.ReadValue();
@@ -128,12 +169,10 @@ public class MenuPlayerController : MonoBehaviour
         // 入力クールタイム中は処理しない
         if (Time.time - lastInputTime < inputCooldown) return;
 
-        // 右入力から次のキャラ
+        // 右入力
         if (stick.x >= leftStickInputThreshold)
         {
             currentIndex = (currentIndex + 1) % charactors.Length;
-
-            // キャラ変えたらページは1ページ目へ戻す
             currentPage = 0;
 
             UpdateCharactorDisplay();
@@ -141,11 +180,10 @@ public class MenuPlayerController : MonoBehaviour
 
             lastInputTime = Time.time;
         }
-        // 左入力から前のキャラ
+        // 左入力
         else if (stick.x <= leftStickInputThresholdNegative)
         {
             currentIndex = (currentIndex - 1 + charactors.Length) % charactors.Length;
-
             currentPage = 0;
 
             UpdateCharactorDisplay();
@@ -154,6 +192,7 @@ public class MenuPlayerController : MonoBehaviour
             lastInputTime = Time.time;
         }
     }
+
 
     /// <summary>
     /// 決定ボタン（A）
