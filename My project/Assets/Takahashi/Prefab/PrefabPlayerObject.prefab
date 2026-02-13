@@ -248,6 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 3305930129641819319}
   cameraRotationSpeed: 300
+  offset: 1
   distance: 5
 --- !u!114 &8317885845434159053
 MonoBehaviour:
@@ -612,6 +613,8 @@ MonoBehaviour:
   tlanslateSpeed: 5
   prefabPlayerKnifeList: {fileID: 6526948819330369926}
   knifeObject: {fileID: 593837249679426983, guid: f6e6a94e3a480364485f5eca6281bc69, type: 3}
+  prefabPlayerController: {fileID: 2753298180999779025}
+  cameraTransform: {fileID: 3320769011835184605}
 --- !u!114 &3007094656250602041
 MonoBehaviour:
   m_ObjectHideFlags: 0

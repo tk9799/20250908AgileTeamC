@@ -51,6 +51,7 @@ public class PrefabPlayerMove : MonoBehaviour
             rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
         }
 
+        //プレイヤーの状態で移動方法を切り替えるメソッドを呼び出す
         RotatePlayer(moveDir);
     }
 
@@ -64,6 +65,7 @@ public class PrefabPlayerMove : MonoBehaviour
 
         if (prefabPlayerController != null && prefabPlayerController.isLetTriggerInput)
         {
+            //カメラの正面方向を取得
             Vector3 cameraForward = cameraTransform.forward;
             cameraForward.y = 0.0f;
 
