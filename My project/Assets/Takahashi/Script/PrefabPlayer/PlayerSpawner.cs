@@ -7,7 +7,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         if (PlayerJoinManager.playerJoinManagerInstance != null)
         {
-            PlayerJoinManager.playerJoinManagerInstance.RespawnPlayers();
+            //PlayerJoinManager.playerJoinManagerInstance.RespawnPlayers();
         }
         //PlayerJoinManager.Instantiate.RespawnPlayers();
     }

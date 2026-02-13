@@ -16,8 +16,7 @@ public class TitleScript : MonoBehaviour
     //InputActionを自動で読み込むコンポーネントを取得
     [SerializeField] private PlayerInput playerInput;
 
-    //ゲームパッドの取得
-    public Gamepad gamepad;
+    
 
     private InputAction ChoseCharactorScenemove;
 
@@ -95,11 +94,11 @@ public class TitleScript : MonoBehaviour
     void Update()
     {
         // コントローラーが接続されいるかつABXYのいずれかのボタンが押されたらシーン遷移
-        //if (Gamepad.current.leftShoulder.wasPressedThisFrame && Gamepad.current.rightShoulder.wasPressedThisFrame)
-        //{
-        //    Singleton.instance.TransitionChoseCharactorScene();
+        if (Gamepad.current.leftShoulder.IsPressed() && Gamepad.current.rightShoulder.IsPressed())
+        {
+            Singleton.instance.TransitionChoseCharactorScene();
 
-        //}
+        }
 
     }
 }
