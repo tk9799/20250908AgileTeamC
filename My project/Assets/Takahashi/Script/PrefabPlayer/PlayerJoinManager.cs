@@ -42,6 +42,8 @@ public class PlayerJoinManager : MonoBehaviour
             return;
         }
 
+
+
         playerJoinManagerInstance = this;
 
         //Sceneが切り替わってもデバイス情報を保持するために破棄しない
@@ -78,7 +80,7 @@ public class PlayerJoinManager : MonoBehaviour
     /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        playerInputManager=FindAnyObjectByType<PlayerInputManager>();
+        playerInputManager = FindAnyObjectByType<PlayerInputManager>();
         RespawnPlayers();
     }
 
@@ -91,6 +93,10 @@ public class PlayerJoinManager : MonoBehaviour
         Debug.Log("参加");
         InputDevice inputDevice = context.control.device;
 
+        // Gamepad以外は参加させない
+        if (!(inputDevice is Gamepad))
+            return;
+
         //プレイヤー数が最大数に達していたら処理を終了
         if (playerInputManager.playerCount >= playerInputManager.maxPlayerCount)
         {
@@ -98,7 +104,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
 
         //Join要求元のデバイスが既に参加済みの時、処理を終了
-        foreach(var device in joinedDevices)
+        foreach (var device in joinedDevices)
         {
             if (context.control.device == device)
             {
@@ -125,25 +131,24 @@ public class PlayerJoinManager : MonoBehaviour
             return;
         }
 
-        //既存のプレイヤーオブジェクトを全て破棄する
-        //この処理があることで、Scene遷移した際に重複して生成されることを防ぐ
-        foreach (var player in PlayerInput.all)
-        {
+        foreach (var player in new List<PlayerInput>(PlayerInput.all))
             Destroy(player.gameObject);
-        }
 
         int index = 0;
 
         foreach (var device in joinedDevices)
         {
-            //Scene遷移した先で生成しないためここで生成する
-            var player = PlayerInput.Instantiate(prefab: playerPrefab.gameObject, playerIndex: index, pairWithDevice: device);
+            var player = PlayerInput.Instantiate(
+                prefab: playerPrefab.gameObject,
+                playerIndex: index,
+                controlScheme: "Gamepad",
+                pairWithDevice: device
+            );
 
-            //player.transform.SetParent(playerInputManager.transform);
+            Debug.Log($"Spawn Player{index} : {device}");
+
+            index++;
         }
-
-        //プレイヤー数を更新
-        index++;
 
     }
 }

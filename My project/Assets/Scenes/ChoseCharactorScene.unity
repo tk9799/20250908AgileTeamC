@@ -1347,15 +1347,13 @@ MonoBehaviour:
   - {fileID: 173914776}
   - {fileID: 944902331}
   - {fileID: 416877740}
-  charactorsState:
-  - {fileID: 112325026}
-  - {fileID: 1617207486}
+  charactorsState: []
   charactorPage: {fileID: 1617207486}
   menuManager: {fileID: 1689522019}
   isDecided: 0
   isStateDisplay: 0
   currentIndex: 0
-  yButtonPressCount: 0
+  currentPage: 0
   inputCooldown: 0.4
   lastInputTime: 0
   leftStickInputThreshold: 0.1
@@ -1449,8 +1447,16 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82d1c3b0-5848-4dfc-87c8-48ea38305032
     m_ActionName: 'Player/ChoseCharactorSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
+    m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: GamePad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2673,15 +2679,13 @@ MonoBehaviour:
   - {fileID: 896602090}
   - {fileID: 1386215003}
   - {fileID: 2053170788}
-  charactorsState:
-  - {fileID: 1258244338}
-  - {fileID: 926625625}
+  charactorsState: []
   charactorPage: {fileID: 926625625}
   menuManager: {fileID: 1689522019}
   isDecided: 0
   isStateDisplay: 0
   currentIndex: 0
-  yButtonPressCount: 0
+  currentPage: 0
   inputCooldown: 0.4
   lastInputTime: 0
   leftStickInputThreshold: 0.1
@@ -2775,7 +2779,15 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82d1c3b0-5848-4dfc-87c8-48ea38305032
     m_ActionName: 'Player/ChoseCharactorSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
+    m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -3229,15 +3241,13 @@ MonoBehaviour:
   - {fileID: 330620077}
   - {fileID: 772245720}
   - {fileID: 59218909}
-  charactorsState:
-  - {fileID: 1748915911}
-  - {fileID: 1650946837}
+  charactorsState: []
   charactorPage: {fileID: 1650946837}
   menuManager: {fileID: 1689522019}
   isDecided: 0
   isStateDisplay: 0
   currentIndex: 0
-  yButtonPressCount: 0
+  currentPage: 0
   inputCooldown: 0.4
   lastInputTime: 0
   leftStickInputThreshold: 0.1
@@ -3331,7 +3341,15 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82d1c3b0-5848-4dfc-87c8-48ea38305032
     m_ActionName: 'Player/ChoseCharactorSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
+    m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -4960,15 +4978,13 @@ MonoBehaviour:
   - {fileID: 1899298813}
   - {fileID: 1478107256}
   - {fileID: 251674000}
-  charactorsState:
-  - {fileID: 1709424209}
-  - {fileID: 1685418854}
+  charactorsState: []
   charactorPage: {fileID: 1685418854}
   menuManager: {fileID: 1689522019}
   isDecided: 0
   isStateDisplay: 0
   currentIndex: 0
-  yButtonPressCount: 0
+  currentPage: 0
   inputCooldown: 0.4
   lastInputTime: 0
   leftStickInputThreshold: 0.1
@@ -5062,7 +5078,15 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 82d1c3b0-5848-4dfc-87c8-48ea38305032
     m_ActionName: 'Player/ChoseCharactorSceneMove[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 924394ba-2b1a-4244-b304-54ae7d210f69
+    m_ActionName: 'Player/SceneChange[/XInputControllerWindows/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows3/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eaf15ca5-e26c-42ac-a338-d370ceb3e51b
+    m_ActionName: 'Player/AimMode[/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger]'
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
