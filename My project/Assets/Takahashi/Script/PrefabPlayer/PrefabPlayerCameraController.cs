@@ -50,7 +50,6 @@ public class PrefabPlayerCameraController : MonoBehaviour
     }
 
 
-    // Update is called once per frame
     private void LateUpdate()
     {
         //右スティック入力がある場合のみ回転を更新する
@@ -65,11 +64,11 @@ public class PrefabPlayerCameraController : MonoBehaviour
         }
 
         //カメラの位置と回転を毎フレーム更新する
-        //カメラの計算した縦横回転数値分カメラを回転する
         Quaternion rotation=Quaternion.Euler(pitch, yaw, cameraZCoordinate);
 
+        //カメラの計算した縦横回転数値分カメラを回転する
         Vector3 targetPosition = targetTransform.position + Vector3.up * height - rotation *
-            Vector3.forward * distance+rotation*Vector3.right*offset;
+            Vector3.forward * distance + rotation * Vector3.right * offset;
 
         transform.position = targetPosition;
         transform.rotation = rotation;

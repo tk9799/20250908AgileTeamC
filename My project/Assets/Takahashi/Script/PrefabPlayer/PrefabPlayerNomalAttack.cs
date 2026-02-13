@@ -10,6 +10,10 @@ public class PrefabPlayerNomalAttack : MonoBehaviour
 
     [SerializeField] private GameObject knifeObject = null;
 
+    [SerializeField] private PrefabPlayerController prefabPlayerController;
+
+    [SerializeField] private Transform cameraTransform = null;
+
     public void NormalAttack()
     {
         Vector3 knifeTranslatePossition = transform.position + transform.forward * knifeSpawnDistance;
@@ -31,6 +35,29 @@ public class PrefabPlayerNomalAttack : MonoBehaviour
         else
         {
             Debug.LogError("ナイフを持っていません");
+        }
+    }
+
+    public void AimNormalAttack()
+    {
+        Vector3 knifeTranslatePossition = transform.position + transform.forward * knifeSpawnDistance;
+
+        if (prefabPlayerKnifeList != null && prefabPlayerKnifeList.knifePossessionList.Count > 0)
+        {
+            GameObject generateKnife = Instantiate(knifeObject, knifeTranslatePossition, Quaternion.identity);
+
+            //Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+            Vector3 throwDirection = cameraTransform.forward;
+
+            generateKnife.transform.forward = throwDirection;
+
+            Rigidbody rigidbody = generateKnife.GetComponent<Rigidbody>();
+
+            if (rigidbody != null)
+            {
+                //Rayの方向（カメラの中央）に向けてナイフを投げる
+                rigidbody.AddForce(throwDirection * tlanslateSpeed, ForceMode.Impulse);
+            }
         }
     }
 }
