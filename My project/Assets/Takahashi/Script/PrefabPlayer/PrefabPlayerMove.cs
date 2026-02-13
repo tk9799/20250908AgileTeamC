@@ -24,12 +24,7 @@ public class PrefabPlayerMove : MonoBehaviour
         playerMoveInput = input;
     }
 
-    private void Start()
-    {
-        //rigidbody = GetComponent<Rigidbody>();   
-    }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
         if (playerMoveInput == Vector2.zero) return;
@@ -56,20 +51,12 @@ public class PrefabPlayerMove : MonoBehaviour
             rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
         }
 
-        //rigidbodyを通してカメラの向きを基準にプレイヤーを移動させる
-        //rigidbody.MovePosition(rigidbody.position + moveDir * moveSpeed * Time.fixedDeltaTime);
-
-        //rigidbodyを通してプレイヤーの向きを左スティックが入力した方向にゆっくりと回転する
-        //rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
-        //rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation,targetRotation,rotationSpeed*Time.fixedDeltaTime));
-        //transform.rotation = Quaternion.LookRotation(moveDir);
-
-        //Debug.Log($"MoveDir: {moveDir}");
-        //Debug.Log($"Pos Before: {rigidbody.position}");
-
         RotatePlayer(moveDir);
     }
 
+    /// <summary>
+    /// プレイヤーが移動状態を切り替える処理
+    /// </summary>
     private void RotatePlayer(Vector3 moveDir)
     {
         Debug.Log("処理");
@@ -85,6 +72,7 @@ public class PrefabPlayerMove : MonoBehaviour
                 return;
             }
 
+            //プレイヤーが常にカメラの正面を向くように回転する
             targetRotation = Quaternion.LookRotation(cameraForward);
         }
         else
@@ -94,6 +82,7 @@ public class PrefabPlayerMove : MonoBehaviour
                 return;
             }
 
+            //プレイヤーが左スティック入力の方向に回転
             targetRotation = Quaternion.LookRotation(moveDir);
         }
 

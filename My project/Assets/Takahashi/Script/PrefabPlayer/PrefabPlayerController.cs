@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.iOS;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PrefabPlayerController : MonoBehaviour
 {
-    //[SerializeField] private PlayerInput playerInput;
     [SerializeField] public Rigidbody rigidbody;
 
     private PrefabPlayerMove prefabPlayerMove;
@@ -34,6 +31,9 @@ public class PrefabPlayerController : MonoBehaviour
     }
 
     // Move入力を受け取る
+    /// <summary>
+    /// プレイヤーの移動メソッド
+    /// </summary>
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -72,11 +72,24 @@ public class PrefabPlayerController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// 通常攻撃メソッド
+    /// </summary>
     public void OnNomalAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            prefabPlayernomalAttack.NormalAttack();
+            //エイム中ではない場合
+            if (!isLetTriggerInput)
+            {
+                prefabPlayernomalAttack.NormalAttack();
+            }
+            //エイム中の場合
+            else if (isLetTriggerInput)
+            {
+                Debug.Log("エイム中のナイフ投げ");
+                prefabPlayernomalAttack.AimNormalAttack();
+            }
         }
     }
 
@@ -90,22 +103,29 @@ public class PrefabPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 左トリガー入力でエイム状態を切り替えるメソッド
+    /// </summary>
     public void OnAimMode(InputAction.CallbackContext context)
     {
+        //左トリガー入力を検知した場合
         if (context.performed)
         {
             float leftTriggerValue = context.ReadValue<float>();
 
+            //トリガー入力が0.3より多いの場合
             if (leftTriggerValue > 0.3f)
             {
                 isLetTriggerInput = true;
                 Debug.Log("左トリガー入力");
             }
+            //トリガー入力が0.3未満の場合
             else
             {
                 isLetTriggerInput = false;
             }
         }
+        //左トリガーを離した場合
         else if (context.canceled)
         {
             isLetTriggerInput = false;
