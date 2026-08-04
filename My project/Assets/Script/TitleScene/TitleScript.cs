@@ -9,16 +9,10 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class TitleScript : MonoBehaviour
 {
-    //[Header("MenuPlayerControllerを取得して配列にする")]
-    //[SerializeField] public MenuPlayerController[] menuPlayerController;
-
-
     //InputActionを自動で読み込むコンポーネントを取得
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput = null;
 
-    
-
-    private InputAction ChoseCharactorScenemove;
+    private InputAction ChoseCharactorScenemove= null;
 
     //複数人でやる際のプレイヤーの番号割り当てに使う変数
     public int playerNumber = 0;
@@ -34,59 +28,6 @@ public class TitleScript : MonoBehaviour
     {
         Singleton.instance.TransitionChoseCharactorScene();
     }
-
-    private void Start()
-    {
-        //if (playerInput.devices.Count > 0)
-        //{
-        //    gamepad = playerInput.devices[0] as Gamepad;
-        //    playerNumber = playerInput.playerIndex;
-        //}
-            
-        // プレイヤーの数だけループして、どのコントローラーがどのプレイヤーとして割り当てられているかを確定させる
-        //for (int i = 0; i < menuPlayerController.Length; i++)
-        //{
-            
-
-        //    if (i < Gamepad.all.Count)
-        //    {
-        //        // i番目のコントローラーより大きいときに処理
-        //        // 接続順にpadへ情報を入れる
-        //        //menuPlayerController[i].pad = Gamepad.all[i];
-        //        //gamepad = playerInput.devices[0] as Gamepad;
-        //        //playerNumber = playerInput.playerIndex;
-        //    }
-        //    else
-        //    {
-        //        // i番目未満の時はnullを入れる
-        //        menuPlayerController[i].pad = null;
-        //    }
-
-        //    // プレイヤー番号をセット
-        //    //menuPlayerController[i].playerNum = i;
-        //    //playerNumber = menuPlayerController[i].playerNum;
-        //    //gamepad = menuPlayerController[i].pad;
-        //}
-
-        //if (playerInput != null && menuPlayerController.Length > 0)
-        //{
-        //    gamepad = playerInput.devices[0] as Gamepad;
-        //    if (gamepad != null)
-        //    {
-        //        Debug.Log($"Player {playerNumber + 1} が {gamepad.displayName} を使用中");
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning($"Player {playerNumber + 1}: デバイスはあるがGamepadではありません。");
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.LogWarning($"Player {playerNumber + 1}: PlayerInputにデバイスが割り当てられていません。");
-        //}
-    }
-
-
 
     /// <summary>
     /// いずれかのボタンを押してシーン遷移するメソッド

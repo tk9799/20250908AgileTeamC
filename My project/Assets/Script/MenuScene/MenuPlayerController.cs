@@ -4,9 +4,6 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// メニュー画面においてのプレイヤーの操作を管理するスクリプト
-/// ・キャラクター切替
-/// ・ステータスUIのページ切替
-/// ・決定 / キャンセル処理
 /// </summary>
 public class MenuPlayerController : MonoBehaviour
 {
@@ -19,13 +16,13 @@ public class MenuPlayerController : MonoBehaviour
     [Header("キャラクター決定テキスト")]
     [SerializeField] private GameObject characterDecidedText = null;
 
-    [Header("キャラクター配列（表示用モデルなど）")]
+    [Header("キャラクター配列")]
     [SerializeField] public GameObject[] charactors = null;
 
     [Header("キャラクター詳細UI (0=ステータス / 1=スキル)")]
     [SerializeField] private TextMeshProUGUI[] charactorsState = null;
 
-    [Header("ページ表記 例：1/2")]
+    [Header("ページ表記")]
     [SerializeField] private TextMeshProUGUI charactorPage = null;
 
     [Header("メニューマネージャー")]
@@ -55,12 +52,12 @@ public class MenuPlayerController : MonoBehaviour
     [Header("左入力のしきい値")]
     [SerializeField] private float leftStickInputThresholdNegative = -0.5f;
 
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput = null;
 
     // InputSystemアクション
-    private InputAction decisionAction;
-    private InputAction canselAction;
-    private InputAction displaySwitchingAction;
+    private InputAction decisionAction = null;
+    private InputAction canselAction = null;
+    private InputAction displaySwitchingAction = null;
 
     /// <summary>
     /// InputActionの登録
@@ -71,7 +68,7 @@ public class MenuPlayerController : MonoBehaviour
         canselAction = playerInput.actions["CancelButton"];
         displaySwitchingAction = playerInput.actions["DisplaySwitching"];
 
-        // --- Action を確実に有効化 ---
+        // Actionを有効化
         decisionAction.Enable();
         canselAction.Enable();
         displaySwitchingAction.Enable();
@@ -81,6 +78,9 @@ public class MenuPlayerController : MonoBehaviour
         displaySwitchingAction.performed += OnDisplaySwitching;
     }
 
+    /// <summary>
+    /// InputActionの解除
+    /// </summary>
     private void OnDisable()
     {
         decisionAction.performed -= OnDecision;
@@ -92,31 +92,12 @@ public class MenuPlayerController : MonoBehaviour
         displaySwitchingAction.Disable();
     }
 
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    //private void Start()
-    //{
-    //    // コントローラー取得
-    //    pad = playerInput.devices[0] as Gamepad;
-    //    playerNum = playerInput.playerIndex;
-
-    //    // 「決定済み」テキストを非表示
-    //    if (characterDecidedText != null)
-    //        characterDecidedText.SetActive(false);
-
-    //    // 初期表示更新
-    //    UpdateCharactorDisplay();
-    //    UpdateCharactorStateDisplay();
-    //}
 
     private void Start()
     {
         playerNum = playerInput.playerIndex;
 
-        Debug.Log($"==== Player {playerNum} ====");
-
-        // --- PlayerJoinManager から割り当て ---
+        // PlayerJoinManager から割り当て
         if (PlayerJoinManager.playerJoinManagerInstance != null &&
             PlayerJoinManager.playerJoinManagerInstance.joinedDevices.Count > playerNum)
         {
@@ -125,43 +106,50 @@ public class MenuPlayerController : MonoBehaviour
 
         if (pad == null)
         {
-            Debug.LogError($"Player{playerNum} にGamepadが割り当てられていません");
             return;
         }
 
-        Debug.Log($"Player{playerNum} pad = {pad}");
 
         if (characterDecidedText != null)
+        {
             characterDecidedText.SetActive(false);
+        }
 
         UpdateCharactorDisplay();
         UpdateCharactorStateDisplay();
     }
 
-
-
-
-
-
     /// <summary>
     /// 毎フレーム更新
-    /// ・左右入力でキャラ切替
+    /// 左右入力でキャラ切替
     /// </summary>
     private void Update()
     {
-        // --- Gamepad未接続 ---
-        if (pad == null) return;
+        // Gamepad未接続
+        if (pad == null)
+        {
+            return;
+        }
 
-        // --- キャラ未設定 ---
-        if (charactors == null || charactors.Length == 0) return;
+        // キャラ未設定
+        if (charactors == null || charactors.Length == 0)
+        {
+            return;
+        }
 
-        // --- 決定済み ---
-        if (isDecided) return;
+        // 決定済み
+        if (isDecided)
+        {
+            return;
+        }
 
         Vector2 stick = pad.leftStick.ReadValue();
 
         // 入力クールタイム中は処理しない
-        if (Time.time - lastInputTime < inputCooldown) return;
+        if (Time.time - lastInputTime < inputCooldown)
+        {
+            return;
+        }
 
         // 右入力
         if (stick.x >= leftStickInputThreshold)
@@ -194,16 +182,20 @@ public class MenuPlayerController : MonoBehaviour
     /// </summary>
     private void OnDecision(InputAction.CallbackContext ctx)
     {
-        if (isDecided) return;
+        if (isDecided)
+        {
+            return;
+        }
 
         menuManager.decisionCount++;
 
         if (characterDecidedText != null)
+        {
             characterDecidedText.SetActive(true);
+        }
 
         isDecided = true;
 
-        Debug.Log($"Player {playerNum + 1} がキャラクターを決定しました。");
     }
 
     /// <summary>
@@ -215,7 +207,9 @@ public class MenuPlayerController : MonoBehaviour
         menuManager.decisionCount--;
 
         if (characterDecidedText != null)
+        {
             characterDecidedText.SetActive(false);
+        }
 
         isDecided = false;
 
@@ -232,7 +226,10 @@ public class MenuPlayerController : MonoBehaviour
     /// </summary>
     private void OnDisplaySwitching(InputAction.CallbackContext ctx)
     {
-        if (!isStateDisplay) return;
+        if (!isStateDisplay)
+        {
+            return;
+        }
 
         currentPage = (currentPage + 1) % charactorsState.Length;
         UpdateCharactorStateDisplay();
